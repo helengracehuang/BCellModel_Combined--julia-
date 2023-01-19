@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/.julia/packages/DiffEqCallbacks/K2FFO/src/terminatesteadystate.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 19:47:28 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Default test function
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Terminate when all derivatives fall below a threshold or
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqCallbacks-K2FFO-src-terminatesteadystate-jl-allDerivPass-3"></a>
+              65 (0.47%) samples spent in allDerivPass<br />
+              13 (100.00%) (ex.),
+              65 (100.00%) (incl.)
+              when called from
+              #54
+              <a href="terminatesteadystate-jl-919e3031f14a3b72e932-line.html#Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-31">line 31</a><br />
+            </div>
+            <span class="code">#   when derivatives are smaller than a fraction of state
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-4"></a>4</td>
+          <td>8 (0.06%)</td>
+          <td>8 (0.06%)</td>
+          <td>
+            <span class="code">function allDerivPass(integrator, abstol, reltol)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if DiffEqBase.isinplace(integrator.sol.prob)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-6"></a>6</td>
+          <td></td>
+          <td>2 (0.01%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="integrator_interface-jl-1b123a90438f5c52ce0b-line.html#S-Users-xinhuang-julia-packages-OrdinaryDiffEq-2ZBfC-src-integrators-integrator_interface-jl-get_tmp_cache-83">get_tmp_cache</a><br />
+            </div>
+            <span class="code">        testval = first(get_tmp_cache(integrator))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-7"></a>7</td>
+          <td></td>
+          <td>18 (0.13%)</td>
+          <td>
+            <div class="callees">
+              1 (5.56%)
+              samples spent calling
+              <a href="integrator_interface-jl-1b123a90438f5c52ce0b-line.html#S-Users-xinhuang-julia-packages-OrdinaryDiffEq-2ZBfC-src-integrators-integrator_interface-jl-get_du-74">get_du!</a><br />
+              17 (94.44%)
+              samples spent calling
+              <a href="integrator_interface-jl-1b123a90438f5c52ce0b-line.html#S-Users-xinhuang-julia-packages-OrdinaryDiffEq-2ZBfC-src-integrators-integrator_interface-jl-get_du-75">get_du!</a><br />
+            </div>
+            <span class="code">        DiffEqBase.get_du!(testval, integrator)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if typeof(integrator.sol.prob) &lt;: DiffEqBase.DiscreteProblem
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            @. testval =  testval - integrator.u
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        testval = get_du(integrator)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if typeof(integrator.sol.prob) &lt;: DiffEqBase.DiscreteProblem
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            testval =  testval - integrator.u
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if typeof(integrator.u) &lt;: Array
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-19"></a>19</td>
+          <td>5 (0.04%)</td>
+          <td>37 (0.27%)</td>
+          <td>
+            <div class="callees">
+              2 (5.41%)
+              samples spent calling
+              <a href="Base-jl-3a80316d2d607e6a20b6-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-Base-jl-getproperty-33">getproperty</a><br />
+              30 (81.08%)
+              samples spent calling
+              <a href="reduce-jl-4d8095973cc2d18d27a2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-reduce-jl-any-705">any</a><br />
+            </div>
+            <span class="code">        any(abs(d) &gt; abstol &amp;&amp; abs(d) &gt; reltol*abs(u) for (d,abstol, reltol, u) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           zip(testval, Iterators.cycle(abstol), Iterators.cycle(reltol), integrator.u)) &amp;&amp; (return false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        any((abs.(testval) .&gt; abstol) .&amp; (abs.(testval) .&gt; reltol .* abs.(integrator.u))) &amp;&amp; (return false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Allow user-defined tolerances and test functions but use sensible defaults
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># test function must take integrator, time, followed by absolute
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#   and relative tolerance and return true/false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function TerminateSteadyState(abstol = 1e-8, reltol = 1e-6, test = allDerivPass)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-31"></a>31</td>
+          <td>2 (0.01%)</td>
+          <td>67 (0.48%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqCallbacks-K2FFO-src-terminatesteadystate-jl-54-31"></a>
+              67 (0.48%) samples spent in #54<br />
+              2 (100.00%) (ex.),
+              67 (100.00%) (incl.)
+              when called from
+              apply_discrete_callback!
+              <a href="callbacks-jl-0556c44fd1fea939bbce-line.html#Lcallbacks-jl-0556c44fd1fea939bbce-line.html-821">line 821</a><br />
+            </div>
+            <div class="callees">
+              65 (97.01%)
+              samples spent calling
+              <a href="terminatesteadystate-jl-919e3031f14a3b72e932-line.html#S-Users-xinhuang-julia-packages-DiffEqCallbacks-K2FFO-src-terminatesteadystate-jl-allDerivPass-3">allDerivPass</a><br />
+            </div>
+            <span class="code">    condition = (u, t, integrator) -&gt; test(integrator, abstol, reltol)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    affect! = (integrator) -&gt; terminate!(integrator)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    DiscreteCallback(condition, affect!; save_positions = (true, false))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lterminatesteadystate-jl-919e3031f14a3b72e932-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">export TerminateSteadyState
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

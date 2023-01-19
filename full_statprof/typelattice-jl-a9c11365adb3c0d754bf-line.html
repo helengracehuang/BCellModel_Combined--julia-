@@ -1,0 +1,3318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./compiler/typelattice.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Thu Sep  9 20:34:13 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#####################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># structs/constants #
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#####################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># The type of a value might be constant
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct Const
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    val
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    actual::Bool  # if true, we obtained `val` by actually calling a @pure function
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Const(@nospecialize(v)) = new(v, false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Const(@nospecialize(v), a::Bool) = new(v, a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># The type of this value might be Bool.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># However, to enable a limited amount of back-propagagation,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># we also keep some information about how this Bool value was created.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># In particular, if you branch on this value, then may assume that in
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># the true branch, the type of `var` will be limited by `vtype` and in
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># the false branch, it will be limited by `elsetype`. Example:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># ```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># cond = isa(x::Union{Int, Float}, Int)::Conditional(x, Int, Float)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># if cond
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#    # May assume x is `Int` now
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#    # May assume x is `Float` now
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># ```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct Conditional
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    var::Slot
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    vtype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elsetype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function Conditional(
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                var,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                @nospecialize(vtype),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                @nospecialize(nottype))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return new(var, vtype, nottype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct PartialTypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    tv::TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # N.B.: Currently unused, but would allow turning something back
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # into Const, if the bounds are pulled out of this TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    lb_certain::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ub_certain::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    PartialTypeVar(tv::TypeVar, lb_certain::Bool, ub_certain::Bool) = new(tv, lb_certain, ub_certain)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Wraps a type and represents that the value may also be undef at this point.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># (only used in optimize, not abstractinterpret)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct MaybeUndef
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    MaybeUndef(@nospecialize(typ)) = new(typ)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># The type of a variable load is either a value or an UndefVarError
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># (only used in abstractinterpret, doesn&#39;t appear in optimize)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct VarState
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    undef::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    VarState(@nospecialize(typ), undef::Bool) = new(typ, undef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const VarTable = Array{Any,1}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct StateUpdate
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    var::Union{Slot,SSAValue}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    vtype::VarState
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    state::VarTable
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct PartialStruct
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    fields::Vector{Any} # elements are other type lattice members
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct NotFound end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const NOT_FOUND = NotFound()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># lattice logic #
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function issubconditional(a::Conditional, b::Conditional)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    avar = a.var
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    bvar = b.var
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if (isa(avar, Slot) &amp;&amp; isa(bvar, Slot) &amp;&amp; slot_id(avar) === slot_id(bvar)) ||
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">       (isa(avar, SSAValue) &amp;&amp; isa(bvar, SSAValue) &amp;&amp; avar === bvar)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if a.vtype ⊑ b.vtype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if a.elsetype ⊑ b.elsetype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">maybe_extract_const_bool(c::Const) = isa(c.val, Bool) ? c.val : nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function maybe_extract_const_bool(c::Conditional)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (c.vtype === Bottom &amp;&amp; !(c.elsetype === Bottom)) &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (c.elsetype === Bottom &amp;&amp; !(c.vtype === Bottom)) &amp;&amp; return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">maybe_extract_const_bool(@nospecialize c) = nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function ⊑(@nospecialize(a), @nospecialize(b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(a, MaybeUndef) &amp;&amp; !isa(b, MaybeUndef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isa(a, MaybeUndef) &amp;&amp; (a = a.typ)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isa(b, MaybeUndef) &amp;&amp; (b = b.typ)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (a === NOT_FOUND || b === Any) &amp;&amp; return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (a === Any || b === NOT_FOUND) &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a === Union{} &amp;&amp; return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    b === Union{} &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(a, Conditional)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(b, Conditional)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return issubconditional(a, b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(b, Const) &amp;&amp; isa(b.val, Bool)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return maybe_extract_const_bool(a) === b.val
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        a = Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif isa(b, Conditional)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(a, PartialStruct)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(b, PartialStruct)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if !(length(a.fields) == length(b.fields) &amp;&amp; a.typ &lt;: b.typ)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            for i in 1:length(b.fields)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                # XXX: let&#39;s handle varargs later
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                ⊑(a.fields[i], b.fields[i]) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return isa(b, Type) &amp;&amp; a.typ &lt;: b
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif isa(b, PartialStruct)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(a, Const)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            nfields(a.val) == length(b.fields) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            widenconst(b).name === widenconst(a).name || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We can skip the subtype check if b is a Tuple, since in that
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # case, the ⊑ of the elements is sufficient.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if b.typ.name !== Tuple.name &amp;&amp; !(widenconst(a) &lt;: widenconst(b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            for i in 1:nfields(a.val)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                # XXX: let&#39;s handle varargs later
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                isdefined(a.val, i) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                ⊑(Const(getfield(a.val, i)), b.fields[i]) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(a, Const)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(b, Const)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return a.val === b.val
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # TODO: `b` could potentially be a `PartialTypeVar` here, in which case we might be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # able to return `true` in more cases; in the meantime, just returning this is the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # most conservative option.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return isa(b, Type) &amp;&amp; isa(a.val, b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif isa(b, Const)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(a, DataType) &amp;&amp; isdefined(a, :instance)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return a.instance === b.val
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif isa(a, PartialTypeVar) &amp;&amp; b === TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif !(isa(a, Type) || isa(a, TypeVar)) ||
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           !(isa(b, Type) || isa(b, TypeVar))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return a === b
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return a &lt;: b
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Check if two lattice elements are partial order equivalent. This is basically
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># `a ⊑ b &amp;&amp; b ⊑ a` but with extra performance optimizations.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function is_lattice_equal(@nospecialize(a), @nospecialize(b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a === b &amp;&amp; return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(a, PartialStruct)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        isa(b, PartialStruct) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        length(a.fields) == length(b.fields) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        widenconst(a) == widenconst(b) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for i in 1:length(a.fields)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            is_lattice_equal(a.fields[i], b.fields[i]) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isa(b, PartialStruct) &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a isa Const &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    b isa Const &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return a ⊑ b &amp;&amp; b ⊑ a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-typelattice-jl-widenconst-200"></a>
+              1 (0.69%) samples spent in widenconst<br />
+              1 (100.00%) (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              anymap
+              <a href="utilities-jl-478a3ca234cc6e027f94-line.html#Lutilities-jl-478a3ca234cc6e027f94-line.html-39">line 39</a><br />
+            </div>
+            <span class="code">widenconst(c::Conditional) = Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function widenconst(c::Const)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-202"></a>202</td>
+          <td>1 (0.69%)</td>
+          <td>1 (0.69%)</td>
+          <td>
+            <span class="code">    if isa(c.val, Type)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isvarargtype(c.val)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return Type
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Type{c.val}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return typeof(c.val)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">widenconst(m::MaybeUndef) = widenconst(m.typ)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">widenconst(c::PartialTypeVar) = TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">widenconst(t::PartialStruct) = t.typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">widenconst(@nospecialize(t)) = t
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">issubstate(a::VarState, b::VarState) = (a.typ ⊑ b.typ &amp;&amp; a.undef &lt;= b.undef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function smerge(sa::Union{NotFound,VarState}, sb::Union{NotFound,VarState})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sa === sb &amp;&amp; return sa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sa === NOT_FOUND &amp;&amp; return sb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sb === NOT_FOUND &amp;&amp; return sa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    issubstate(sa, sb) &amp;&amp; return sb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    issubstate(sb, sa) &amp;&amp; return sa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return VarState(tmerge(sa.typ, sb.typ), sa.undef | sb.undef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline tchanged(@nospecialize(n), @nospecialize(o)) = o === NOT_FOUND || (n !== NOT_FOUND &amp;&amp; !(n ⊑ o))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline schanged(@nospecialize(n), @nospecialize(o)) = (n !== o) &amp;&amp; (o === NOT_FOUND || (n !== NOT_FOUND &amp;&amp; !issubstate(n, o)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">widenconditional(@nospecialize typ) = typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function widenconditional(typ::Conditional)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if typ.vtype == Union{}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Const(false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif typ.elsetype == Union{}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Const(true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-240"></a>240</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-241"></a>241</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function stupdate!(state::Nothing, changes::StateUpdate)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-242"></a>242</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    newst = copy(changes.state)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-243"></a>243</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(changes.var, Slot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-244"></a>244</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        changeid = slot_id(changes.var::Slot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        newst[changeid] = changes.vtype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-246"></a>246</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # remove any Conditional for this Slot from the vtable
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for i = 1:length(newst)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-248"></a>248</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            newtype = newst[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isa(newtype, VarState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-250"></a>250</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                newtypetyp = newtype.typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-251"></a>251</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if isa(newtypetyp, Conditional) &amp;&amp; slot_id(newtypetyp.var) == changeid
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-252"></a>252</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    newst[i] = VarState(widenconditional(newtypetyp), newtype.undef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-254"></a>254</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-256"></a>256</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return newst
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-258"></a>258</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-260"></a>260</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function stupdate!(state::VarTable, changes::StateUpdate)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if !isa(changes.var, Slot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return stupdate!(state, changes.state)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    newstate = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    changeid = slot_id(changes.var::Slot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(state)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if i == changeid
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-268"></a>268</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            newtype = changes.vtype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            newtype = changes.state[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-271"></a>271</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        oldtype = state[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # remove any Conditional for this Slot from the vtable
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(newtype, VarState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            newtypetyp = newtype.typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isa(newtypetyp, Conditional) &amp;&amp; slot_id(newtypetyp.var) == changeid
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                newtype = VarState(widenconditional(newtypetyp), newtype.undef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-279"></a>279</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if schanged(newtype, oldtype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            newstate = state
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            state[i] = smerge(oldtype, newtype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return newstate
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-286"></a>286</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-287"></a>287</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-288"></a>288</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function stupdate!(state::VarTable, changes::VarTable)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-289"></a>289</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    newstate = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-290"></a>290</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(state)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-291"></a>291</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        newtype = changes[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-292"></a>292</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        oldtype = state[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-293"></a>293</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if schanged(newtype, oldtype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-294"></a>294</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            newstate = state
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-295"></a>295</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            state[i] = smerge(oldtype, newtype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-296"></a>296</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-297"></a>297</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-298"></a>298</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return newstate
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-299"></a>299</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-300"></a>300</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-301"></a>301</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">stupdate!(state::Nothing, changes::VarTable) = copy(changes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-302"></a>302</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-303"></a>303</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">stupdate!(state::Nothing, changes::Nothing) = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-304"></a>304</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-305"></a>305</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function stupdate1!(state::VarTable, change::StateUpdate)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-306"></a>306</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if !isa(change.var, Slot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-307"></a>307</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-308"></a>308</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-309"></a>309</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    changeid = slot_id(change.var::Slot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-310"></a>310</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # remove any Conditional for this Slot from the catch block vtable
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-311"></a>311</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(state)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-312"></a>312</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        oldtype = state[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-313"></a>313</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(oldtype, VarState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-314"></a>314</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            oldtypetyp = oldtype.typ
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-315"></a>315</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isa(oldtypetyp, Conditional) &amp;&amp; slot_id(oldtypetyp.var) == changeid
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-316"></a>316</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                state[i] = VarState(widenconditional(oldtypetyp), oldtype.undef)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-317"></a>317</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-318"></a>318</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-319"></a>319</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-320"></a>320</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # and update the type of it
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-321"></a>321</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    newtype = change.vtype
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-322"></a>322</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    oldtype = state[changeid]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-323"></a>323</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if schanged(newtype, oldtype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-324"></a>324</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        state[changeid] = smerge(oldtype, newtype)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-325"></a>325</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-326"></a>326</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-327"></a>327</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Ltypelattice-jl-a9c11365adb3c0d754bf-line.html-328"></a>328</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

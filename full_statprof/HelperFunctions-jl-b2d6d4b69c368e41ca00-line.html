@@ -1,0 +1,1880 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/Documents/1st Year PhD/Hoffmann Lab/Bcell apoptosis project/BCellModel_Combined (julia)/HelperFunctions.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 13:02:02 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">include(&quot;ReactionRates.jl&quot;);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using Interpolations;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">using Distributions, Random;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define shapes of input signals : step, exponential, Hill functions
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#-------------------------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function specifyIKKCurve(; IKK_shape = &quot;CpG2&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    time = [0, 15, 30, 45, 60, 90, 120, 240, 360, 600, 1440, 1440*2, 1440*3, 1440*4, 1440*5, 1440*6, 1440*10] /60;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if (IKK_shape == &quot;CpG250&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        values = [1, 2, 7, 13, 19, 32, 29, 27, 25, 24, 22, 20, 19, 14, 11, 5, 1] /100;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif (IKK_shape == &quot;CpG10&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        values = [1, 2, 7, 13, 19, 32, 27, 25, 24, 22, 20, 10, 7, 5, 3, 2, 1] /100;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif (IKK_shape == &quot;CpG2&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        values = [1, 2, 7, 13, 19, 32, 29, 27, 25, 24, 22, 20, 7, 3, 2, 1, 1] /100;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        print(&quot;Please input the correct IKK shape!&quot;);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return nothing;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return LinearInterpolation(time, values, extrapolation_bc=Line());
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define function to evaluate general Michaelis-Menten expression
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function michaelisMenten(; K::Float64, X::Float64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-25"></a>25</td>
+          <td></td>
+          <td>2 (0.0093%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-kw-25"></a>
+              1 (0.0046%) samples spent in michaelisMenten##kw<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-195">line 195</a><br />
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-3-25"></a>
+              1 (0.0046%) samples spent in #michaelisMenten#3<br />
+              0 (ex.),
+              0 (incl.)
+              when called from
+              michaelisMenten##kw
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-25">line 25</a><br />
+            </div>
+            <div class="callees">
+              1 (50.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-3-25">#michaelisMenten#3</a><br />
+              1 (50.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-407">/</a><br />
+            </div>
+            <span class="code">    ans::Float64 = (X / (K + X));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define function to evaluate general Hill activation expression
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function hillActivation(; Ka::Float64, na::Float64, X::Float64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-32"></a>32</td>
+          <td></td>
+          <td>10 (0.05%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-4-32"></a>
+              5 (0.02%) samples spent in #hillActivation#4<br />
+              0 (ex.),
+              0 (incl.)
+              when called from
+              hillActivation##kw
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-32">line 32</a><br />
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32"></a>
+              5 (0.02%) samples spent in hillActivation##kw<br />
+              0 (ex.),
+              1 (20.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-67">line 67</a><br />
+              0 (ex.),
+              1 (20.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-187">line 187</a><br />
+              0 (ex.),
+              1 (20.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-50">line 50</a><br />
+              0 (ex.),
+              1 (20.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-23">line 23</a><br />
+              0 (ex.),
+              1 (20.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-39">line 39</a><br />
+            </div>
+            <div class="callees">
+              2 (20.00%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-886">^</a><br />
+              2 (20.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-407">/</a><br />
+              1 (10.00%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-887">^</a><br />
+              5 (50.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-4-32">#hillActivation#4</a><br />
+            </div>
+            <span class="code">    ans::Float64 = ((X^na)/((Ka^na) + (X^na)));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define function to evaluate general Hill repression expression
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function hillRepression(; Kr::Float64, nr::Float64, X::Float64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-39"></a>39</td>
+          <td></td>
+          <td>9 (0.04%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillRepression-kw-39"></a>
+              5 (0.02%) samples spent in hillRepression##kw<br />
+              0 (ex.),
+              5 (100.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-16">line 16</a><br />
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillRepression-5-39"></a>
+              4 (0.02%) samples spent in #hillRepression#5<br />
+              0 (ex.),
+              0 (incl.)
+              when called from
+              hillRepression##kw
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-39">line 39</a><br />
+            </div>
+            <div class="callees">
+              4 (44.44%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillRepression-5-39">#hillRepression#5</a><br />
+              1 (11.11%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-hillRepression-5">#hillRepression#5</a><br />
+              4 (44.44%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-887">^</a><br />
+            </div>
+            <span class="code">    ans::Float64 = ((Kr^nr)/((Kr^nr) + (X^nr)));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define function to evaluate general Hill induction expression (2 params)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillInduction-6-44"></a>
+              26 (0.12%) samples spent in #hillInduction#6<br />
+              16 (94.12%) (ex.),
+              16 (61.54%) (incl.)
+              when called from
+              hillInduction##kw
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-46">line 46</a><br />
+            </div>
+            <span class="code">#------------------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-45"></a>45</td>
+          <td>4 (0.02%)</td>
+          <td>4 (0.02%)</td>
+          <td>
+            <span class="code">function hillInduction(w1::Int64, w2::Int64, X1::Float64, X2::Float64; Kd::Float64, hill::Float64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-46"></a>46</td>
+          <td>3 (0.01%)</td>
+          <td>37 (0.17%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillInduction-kw-46"></a>
+              28 (0.13%) samples spent in hillInduction##kw<br />
+              0 (ex.),
+              1 (3.57%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-57">line 57</a><br />
+              1 (33.33%) (ex.),
+              3 (10.71%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-97">line 97</a><br />
+              1 (33.33%) (ex.),
+              5 (17.86%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-89">line 89</a><br />
+              0 (ex.),
+              5 (17.86%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-90">line 90</a><br />
+              0 (ex.),
+              6 (21.43%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-96">line 96</a><br />
+              1 (33.33%) (ex.),
+              8 (28.57%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-46">line 46</a><br />
+            </div>
+            <div class="callees">
+              3 (8.11%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-887">^</a><br />
+              3 (8.11%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+              1 (2.70%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-886">^</a><br />
+              2 (5.41%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-abs-528">abs</a><br />
+              25 (67.57%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillInduction-6-44">#hillInduction#6</a><br />
+            </div>
+            <span class="code">    ans::Float64 = (1 + (w1 * abs(X1 / Kd) ^ hill) + (w2 * abs(X2 / Kd) ^ hill)) / (1 + (abs(X1 / Kd) ^ hill) + (abs(X2 / Kd) ^ hill));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-47"></a>47</td>
+          <td>13 (0.06%)</td>
+          <td>13 (0.06%)</td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define function to evaluate general Hill induction expression (3 params)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillInduction-7-51"></a>
+              8 (0.04%) samples spent in #hillInduction#7<br />
+              4 (100.00%) (ex.),
+              4 (50.00%) (incl.)
+              when called from
+              hillInduction##kw
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-53">line 53</a><br />
+            </div>
+            <span class="code">#------------------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-52"></a>52</td>
+          <td>1 (0.0046%)</td>
+          <td>1 (0.0046%)</td>
+          <td>
+            <span class="code">function hillInduction(w1::Int64, w2::Int64, w3::Int64, X1::Float64, X2::Float64, X3::Float64; Kd::Float64, hill::Float64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-53"></a>53</td>
+          <td></td>
+          <td>14 (0.06%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillInduction-kw-53"></a>
+              10 (0.05%) samples spent in hillInduction##kw<br />
+              0 (ex.),
+              2 (20.00%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-45">line 45</a><br />
+              0 (ex.),
+              3 (30.00%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-52">line 52</a><br />
+              0 (ex.),
+              5 (50.00%) (incl.)
+              when called from
+              #computeNFkBFluxes!#14
+              <a href="ODE_NFkB-jl-51d3f273e70cea4da28b-line.html#LODE_NFkB-jl-51d3f273e70cea4da28b-line.html-43">line 43</a><br />
+            </div>
+            <div class="callees">
+              2 (14.29%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-hillInduction-7-51">#hillInduction#7</a><br />
+              8 (57.14%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillInduction-7-51">#hillInduction#7</a><br />
+              1 (7.14%)
+              samples spent calling
+              <a href="promotion-jl-a3546679c21b8ff08fe7-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-promotion-jl-312">*</a><br />
+              2 (14.29%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-887">^</a><br />
+              1 (7.14%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-abs-528">abs</a><br />
+            </div>
+            <span class="code">    ans::Float64 = (1 + (w1 * abs(X1 / Kd) ^ hill) + (w2 * abs(X2 / Kd) ^ hill) + (w3 * abs(X3 / Kd) ^ hill)) / (1 + (abs(X1 / Kd) ^ hill) + (abs(X2 / Kd) ^ hill) + (abs(X3 / Kd) ^ hill));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-54"></a>54</td>
+          <td>3 (0.01%)</td>
+          <td>3 (0.01%)</td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Rate computation functions for variable rates
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function RateCycBDecay(concentration, Srates) # V2 in Shokhirev2015
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-60"></a>60</td>
+          <td></td>
+          <td>1 (0.0046%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCycBDecay-60"></a>
+              1 (0.0046%) samples spent in RateCycBDecay<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-189">line 189</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+            </div>
+            <span class="code">    ans::Float64 = ((Srates[CYCB, DECAY] * concentration[CDC20P]) + (Srates[CYCB, BASALDECAY] * (1.0-concentration[CDH1])) + (Srates[CYCB, PHOSPHORYLATION] * concentration[CDH1]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function RateCdh1Decay(concentration, Srates) # V4 in Shokhirev2015
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-65"></a>65</td>
+          <td></td>
+          <td>3 (0.01%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCdh1Decay-65"></a>
+              3 (0.01%) samples spent in RateCdh1Decay<br />
+              0 (ex.),
+              3 (100.00%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-211">line 211</a><br />
+            </div>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-401">+</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex">getindex</a><br />
+            </div>
+            <span class="code">    ans::Float64 = (Srates[CDH1, DEPHOSPHORYLATION] * ((0.3 * concentration[CYCA]) + (1.0 * concentration[CYCB])));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function RateP27Decay(concentration, Srates) # V6 in Shokhirev2015
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ans::Float64 = (Srates[P27, BASALDECAY] + (Srates[P27, PHOSPHORYLATION] * ((0.5*concentration[CYCA]) + (1.0*concentration[CYCB]) + (0.5*concentration[CYCE]))));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function RateCycEDecay(concentration, Srates) # V8 in Shokhirev2015
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-75"></a>75</td>
+          <td></td>
+          <td>7 (0.03%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCycEDecay-75"></a>
+              7 (0.03%) samples spent in RateCycEDecay<br />
+              0 (ex.),
+              1 (14.29%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-110">line 110</a><br />
+              0 (ex.),
+              6 (85.71%) (incl.)
+              when called from
+              computeProDiffFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-104">line 104</a><br />
+            </div>
+            <div class="callees">
+              1 (14.29%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+              1 (14.29%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex">getindex</a><br />
+              1 (14.29%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+              3 (42.86%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-407">/</a><br />
+              1 (14.29%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">    ans::Float64 = (Srates[CYCE, DECAY] + (Srates[CYCE, PHOSPHORYLATION] * (concentration[CYCA] + concentration[CYCE] + 0.05*concentration[CYCB])/(0.15 + concentration[CYCE] + concentration[CYCEP27])));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ans;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Define parameter distribution functions
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#--------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function distribute_params(rates)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 1: initialConc ~ lognormal(log(stdConc), sqrt(log(CV^2)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 2: scale (no change)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 3-16: rates ~ normal(stdRates, stdRates * CV) ~ stdRates * normal(1, CV)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    New_rates = similar(rates);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds for i in 1:TOTAL_SPECIES
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 1: initial concentrations
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if FOUNDER_CONC_CV &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            mu = log(rates[i, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            sigma = sqrt(log(FOUNDER_CONC_CV*FOUNDER_CONC_CV+1));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            New_rates[i, INITIALCONC] = rand(LogNormal(mu, sigma));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            New_rates[i, INITIALCONC] = rates[i, INITIALCONC];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 2: scale
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        New_rates[i, SCALE] = rates[i, SCALE];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 3-end: rate constants (synthesis, decay, etc.)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        New_rates[i, 3:end] .= rates[i, 3:end] .* [max(0, rand(Normal(1, FOUNDER_RATE_CV))) for i in 1:(TOTAL_PARAMS-2)];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return New_rates;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function distribute_daughter_params(finalConcentration, rates, division_factor, which_daughter)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    New_rates = similar(rates)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 1: initial concentrations (inheritted from parent w/ asymmetric division)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # all concentrations redistributed according to concentration CV
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if DAUGHTER_CONC_CV &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @inbounds for i in 1:TOTAL_SPECIES
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            mu = log(finalConcentration[i]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            sigma = sqrt(log(DAUGHTER_CONC_CV*DAUGHTER_CONC_CV+1));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            New_rates[i, INITIALCONC] = rand(LogNormal(mu, sigma));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        New_rates[:, INITIALCONC] .= finalConcentration;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # asymmetric division partition cells such that if one daughter is large the other is small
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if which_daughter == 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @. New_rates[:, INITIALCONC] = (@view New_rates[:, INITIALCONC]) * division_factor;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif which_daughter == 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @. New_rates[:, INITIALCONC] = (@view New_rates[:, INITIALCONC]) * (2-division_factor);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        print(&quot;Please input the correct daughter index! There can only be 2 daughter cells.&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # cell machinery and mass divide by 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    New_rates[GM, INITIALCONC] = New_rates[GM, INITIALCONC] / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    New_rates[MASS, INITIALCONC] = New_rates[MASS, INITIALCONC] / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # empty out the contents of the nucleus (IkBs, NFkB monomers, NFkB dimers, IkB-NFkB complexes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[IKBA:IKBD, INITIALCONC] = ((@view New_rates[IKBA:IKBD, INITIALCONC]) + (@view New_rates[NIKBA:NIKBD, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NIKBA:NIKBD, INITIALCONC] = (@view New_rates[IKBA:IKBD, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[RELA:CREL, INITIALCONC] = ((@view New_rates[RELA:CREL, INITIALCONC]) + (@view New_rates[NRELA:NCREL, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NRELA:NCREL, INITIALCONC] = (@view New_rates[RELA:CREL, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[AA:C50, INITIALCONC] = ((@view New_rates[AA:C50, INITIALCONC]) + (@view New_rates[NAA:NC50, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NAA:NC50, INITIALCONC] = (@view New_rates[AA:C50, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[IKBAAA:IKBDAA, INITIALCONC] = ((@view New_rates[IKBAAA:IKBDAA, INITIALCONC]) + (@view New_rates[NIKBAAA:NIKBDAA, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NIKBAAA:NIKBDAA, INITIALCONC] = (@view New_rates[IKBAAA:IKBDAA, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[IKBAA50:IKBDA50, INITIALCONC] = ((@view New_rates[IKBAA50:IKBDA50, INITIALCONC]) + (@view New_rates[NIKBAA50:NIKBDA50, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NIKBAA50:NIKBDA50, INITIALCONC] = (@view New_rates[IKBAA50:IKBDA50, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[IKBA5050:IKBD5050, INITIALCONC] = ((@view New_rates[IKBA5050:IKBD5050, INITIALCONC]) + (@view New_rates[NIKBA5050:NIKBD5050, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NIKBA5050:NIKBD5050, INITIALCONC] = (@view New_rates[IKBA5050:IKBD5050, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[IKBAC50:IKBDC50, INITIALCONC] = ((@view New_rates[IKBAC50:IKBDC50, INITIALCONC]) + (@view New_rates[NIKBAC50:NIKBDC50, INITIALCONC])) / 2;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @. New_rates[NIKBAC50:NIKBDC50, INITIALCONC] = (@view New_rates[IKBAC50:IKBDC50, INITIALCONC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 2-end: scale &amp; rate constants remain the same as parents
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    New_rates[:, 2:end] .= (@view rates[i, 2:end]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 3-end: rate constants (synthesis, decay, etc.) are redistributed accroding to rate CV
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if DAUGHTER_RATE_CV &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @. New_rates[:, 3:end] = (@view New_rates[:, 3:end]) * [[max(0, rand(Normal(1, DAUGHTER_RATE_CV))) for i in 1:(TOTAL_PARAMS-2)] for j in 1:TOTAL_SPECIES];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return New_rates;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LHelperFunctions-jl-b2d6d4b69c368e41ca00-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

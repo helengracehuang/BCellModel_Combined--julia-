@@ -1,0 +1,4418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./expr.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 19:33:45 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## symbols ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    gensym([tag])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Generates a symbol which will not conflict with other variable names.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gensym() = ccall(:jl_gensym, Ref{Symbol}, ())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gensym(s::String) = ccall(:jl_tagged_gensym, Ref{Symbol}, (Ptr{UInt8}, Int32), s, sizeof(s))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gensym(ss::String...) = map(gensym, ss)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gensym(s::Symbol) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ccall(:jl_tagged_gensym, Ref{Symbol}, (Ptr{UInt8}, Int32), s, ccall(:strlen, Csize_t, (Ptr{UInt8},), s))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @gensym
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Generates a gensym symbol for a variable. For example, `@gensym x y` is transformed into
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`x = gensym(&quot;x&quot;); y = gensym(&quot;y&quot;)`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro gensym(names...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    blk = Expr(:block)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for name in names
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(blk.args, :($(esc(name)) = gensym($(string(name)))))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    push!(blk.args, :nothing)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return blk
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## expressions ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy-34"></a>
+              7 (0.28%) samples spent in copy<br />
+              0 (ex.),
+              7 (100.00%) (incl.)
+              when called from
+              copy_exprs
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#Lexpr-jl-d497aee12aec0f37e6cc-line.html-43">line 43</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function copy(e::Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    n = Expr(e.head)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-37"></a>37</td>
+          <td></td>
+          <td>7 (0.28%)</td>
+          <td>
+            <div class="callees">
+              7 (100.00%)
+              samples spent calling
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprargs-59">copy_exprargs</a><br />
+            </div>
+            <span class="code">    n.args = copy_exprargs(e.args)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># copy parts of an AST that the compiler mutates
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprs-42"></a>
+              7 (0.28%) samples spent in copy_exprs<br />
+              0 (ex.),
+              7 (100.00%) (incl.)
+              when called from
+              copy_exprargs
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#Lexpr-jl-d497aee12aec0f37e6cc-line.html-60">line 60</a><br />
+            </div>
+            <span class="code">copy_exprs(@nospecialize(x)) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-43"></a>43</td>
+          <td></td>
+          <td>7 (0.28%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprs-43"></a>
+              1 (0.04%) samples spent in copy_exprs<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              copy_exprargs
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#Lexpr-jl-d497aee12aec0f37e6cc-line.html-60">line 60</a><br />
+            </div>
+            <div class="callees">
+              7 (100.00%)
+              samples spent calling
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy-34">copy</a><br />
+            </div>
+            <span class="code">copy_exprs(x::Expr) = copy(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function copy_exprs(x::PhiNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-45"></a>45</td>
+          <td></td>
+          <td>1 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="boot-jl-b33a5d3ef86e772d0069-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-boot-jl-Array-406">Array</a><br />
+            </div>
+            <span class="code">    new_values = Vector{Any}(undef, length(x.values))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(x.values)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        isassigned(x.values, i) || continue
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        new_values[i] = copy_exprs(x.values[i])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return PhiNode(copy(x.edges), new_values)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function copy_exprs(x::PhiCNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    new_values = Vector{Any}(undef, length(x.values))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(x.values)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        isassigned(x.values, i) || continue
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        new_values[i] = copy_exprs(x.values[i])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return PhiCNode(new_values)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprargs-59"></a>
+              8 (0.32%) samples spent in copy_exprargs<br />
+              0 (ex.),
+              3 (37.50%) (incl.)
+              when called from
+              run_passes
+              <a href="driver-jl-d253a9269076740703a8-line.html#Ldriver-jl-d253a9269076740703a8-line.html-133">line 133</a><br />
+              0 (ex.),
+              5 (62.50%) (incl.)
+              when called from
+              inflate_ir
+              <a href="legacy-jl-5d439f67b41bc58b5a1a-line.html#Llegacy-jl-5d439f67b41bc58b5a1a-line.html-14">line 14</a><br />
+              7 (100.00%) (ex.),
+              7 (87.50%) (incl.)
+              when called from
+              copy
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#Lexpr-jl-d497aee12aec0f37e6cc-line.html-37">line 37</a><br />
+            </div>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-60"></a>60</td>
+          <td>7 (0.28%)</td>
+          <td>15 (0.60%)</td>
+          <td>
+            <div class="callees">
+              7 (46.67%)
+              samples spent calling
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprs-42">copy_exprs</a><br />
+              1 (6.67%)
+              samples spent calling
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprs-43">copy_exprs</a><br />
+            </div>
+            <span class="code">copy_exprargs(x::Array{Any,1}) = Any[copy_exprs(x[i]) for i in 1:length(x)]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># create copies of the CodeInfo definition, and any mutable fields
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function copy(c::CodeInfo)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew = ccall(:jl_copy_code_info, Ref{CodeInfo}, (Any,), c)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.code = copy_exprargs(cnew.code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.slotnames = copy(cnew.slotnames)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.slotflags = copy(cnew.slotflags)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.codelocs  = copy(cnew.codelocs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.linetable = copy(cnew.linetable)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.ssaflags  = copy(cnew.ssaflags)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cnew.edges     = cnew.edges === nothing ? nothing : copy(cnew.edges)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ssavaluetypes  = cnew.ssavaluetypes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ssavaluetypes isa Vector{Any} &amp;&amp; (cnew.ssavaluetypes = copy(ssavaluetypes))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return cnew
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">==(x::Expr, y::Expr) = x.head === y.head &amp;&amp; isequal(x.args, y.args)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">==(x::QuoteNode, y::QuoteNode) = isequal(x.value, y.value)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    macroexpand(m::Module, x; recursive=true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Take the expression `x` and return an equivalent expression with all macros removed (expanded)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for executing in module `m`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">The `recursive` keyword controls whether deeper levels of nested macros are also expanded.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This is demonstrated in the example below:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```julia-repl
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; module M
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           macro m1()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               42
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           macro m2()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               :(@m1())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">       end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">M
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; macroexpand(M, :(@m2()), recursive=true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">42
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; macroexpand(M, :(@m2()), recursive=false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">:(#= REPL[16]:6 =# M.@m1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function macroexpand(m::Module, @nospecialize(x); recursive=true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if recursive
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ccall(:jl_macroexpand, Any, (Any, Any), x, m)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ccall(:jl_macroexpand1, Any, (Any, Any), x, m)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @macroexpand
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Return equivalent expression with all macros removed (expanded).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">There are differences between `@macroexpand` and [`macroexpand`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* While [`macroexpand`](@ref) takes a keyword argument `recursive`, `@macroexpand`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  is always recursive. For a non recursive macro version, see [`@macroexpand1`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">* While [`macroexpand`](@ref) has an explicit `module` argument, `@macroexpand` always
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  expands with respect to the module in which it is called.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This is best seen in the following example:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```julia-repl
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; module M
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           macro m()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           function f()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               (@macroexpand(@m),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                macroexpand(M, :(@m)),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                macroexpand(Main, :(@m))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               )
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">       end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">M
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; macro m()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">       end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@m (macro with 1 method)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; M.f()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">(1, 1, 2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">With `@macroexpand` the expression expands where `@macroexpand` appears in the code (module `M` in the example).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">With `macroexpand` the expression expands in the module given as the first argument.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro macroexpand(code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return :(macroexpand($__module__, $(QuoteNode(code)), recursive=true))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @macroexpand1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Non recursive version of [`@macroexpand`](@ref).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro macroexpand1(code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return :(macroexpand($__module__, $(QuoteNode(code)), recursive=false))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## misc syntax ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Core.eval(m::Module, expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Evaluate an expression in the given module and return the result.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Core.eval
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inline
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Give a hint to the compiler that this function is worth inlining.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Small functions typically do not need the `@inline` annotation,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">as the compiler does it automatically. By using `@inline` on bigger functions,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">an extra nudge can be given to the compiler to inline it.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This is shown in the following example:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```julia
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function bigfunction(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #=
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Function Definition
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    =#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro inline(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    esc(isa(ex, Expr) ? pushmeta!(ex, :inline) : ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @noinline
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Give a hint to the compiler that it should not inline a function.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Small functions are typically inlined automatically.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">By using `@noinline` on small functions, auto-inlining can be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">prevented. This is shown in the following example:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```julia
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline function smallfunction(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #=
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Function Definition
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    =#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">If the function is trivial (for example returning a constant) it might get inlined anyway.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro noinline(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    esc(isa(ex, Expr) ? pushmeta!(ex, :noinline) : ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @pure ex
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @pure(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`@pure` gives the compiler a hint for the definition of a pure function,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">helping for type inference.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">A pure function can only depend on immutable information.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This also means a `@pure` function cannot use any global mutable state, including
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">generic functions. Calls to generic functions depend on method tables which are
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mutable global state.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Use with caution, incorrect `@pure` annotation of a function may introduce
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hard to identify bugs. Double check for calls to generic functions.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This macro is intended for internal compiler use and may be subject to changes.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro pure(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    esc(isa(ex, Expr) ? pushmeta!(ex, :pure) : ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-240"></a>240</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-241"></a>241</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @propagate_inbounds
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-242"></a>242</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-243"></a>243</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Tells the compiler to inline a function while retaining the caller&#39;s inbounds context.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-244"></a>244</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro propagate_inbounds(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-246"></a>246</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(ex, Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        pushmeta!(ex, :inline)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-248"></a>248</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        pushmeta!(ex, :propagate_inbounds)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-250"></a>250</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    esc(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-251"></a>251</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-252"></a>252</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-254"></a>254</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @polly
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-256"></a>256</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Tells the compiler to apply the polyhedral optimizer Polly to a function.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-258"></a>258</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro polly(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    esc(isa(ex, Expr) ? pushmeta!(ex, :polly) : ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-260"></a>260</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## some macro utilities ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function pushmeta!(ex::Expr, sym::Symbol, args::Any...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isempty(args)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        tag = sym
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-268"></a>268</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        tag = Expr(sym, args...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-271"></a>271</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    inner = ex
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while inner.head === :macrocall
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        inner = inner.args[end]::Expr
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx, exargs = findmeta(inner)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if idx != 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(exargs[idx].args, tag)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-279"></a>279</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        body::Expr = inner.args[2]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        pushfirst!(body.args, Expr(:meta, tag))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ex
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-286"></a>286</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">popmeta!(body, sym) = _getmeta(body, sym, true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-287"></a>287</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">peekmeta(body, sym) = _getmeta(body, sym, false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-288"></a>288</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-289"></a>289</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _getmeta(body::Expr, sym::Symbol, delete::Bool)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-290"></a>290</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    body.head === :block || return false, []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-291"></a>291</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _getmeta(body.args, sym, delete)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-292"></a>292</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-293"></a>293</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_getmeta(arg, sym, delete::Bool) = (false, [])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-294"></a>294</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _getmeta(body::Array{Any,1}, sym::Symbol, delete::Bool)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-295"></a>295</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx, blockargs = findmeta_block(body, args -&gt; findmetaarg(args,sym)!=0)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-296"></a>296</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if idx == 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-297"></a>297</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false, []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-298"></a>298</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-299"></a>299</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    metaargs = blockargs[idx].args
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-300"></a>300</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    i = findmetaarg(blockargs[idx].args, sym)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-301"></a>301</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if i == 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-302"></a>302</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return false, []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-303"></a>303</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-304"></a>304</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ret = isa(metaargs[i], Expr) ? (metaargs[i]::Expr).args : []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-305"></a>305</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if delete
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-306"></a>306</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        deleteat!(metaargs, i)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-307"></a>307</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        isempty(metaargs) &amp;&amp; deleteat!(blockargs, idx)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-308"></a>308</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-309"></a>309</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    true, ret
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-310"></a>310</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-311"></a>311</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-312"></a>312</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Find index of `sym` in a meta expression argument list, or 0.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-313"></a>313</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function findmetaarg(metaargs, sym)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-314"></a>314</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(metaargs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-315"></a>315</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        arg = metaargs[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-316"></a>316</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if (isa(arg, Symbol) &amp;&amp; (arg::Symbol)    == sym) ||
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-317"></a>317</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           (isa(arg, Expr)   &amp;&amp; (arg::Expr).head == sym)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-318"></a>318</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return i
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-319"></a>319</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-320"></a>320</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-321"></a>321</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-322"></a>322</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-323"></a>323</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-324"></a>324</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function is_short_function_def(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-325"></a>325</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ex.head === :(=) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-326"></a>326</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while length(ex.args) &gt;= 1 &amp;&amp; isa(ex.args[1], Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-327"></a>327</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        (ex.args[1].head === :call) &amp;&amp; return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-328"></a>328</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        (ex.args[1].head === :where || ex.args[1].head === :(::)) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-329"></a>329</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ex = ex.args[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-330"></a>330</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-331"></a>331</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-332"></a>332</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-333"></a>333</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-334"></a>334</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function findmeta(ex::Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-335"></a>335</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if ex.head === :function || is_short_function_def(ex) || ex.head === :-&gt;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-336"></a>336</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        body::Expr = ex.args[2]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-337"></a>337</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        body.head === :block || error(body, &quot; is not a block expression&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-338"></a>338</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return findmeta_block(ex.args)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-339"></a>339</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-340"></a>340</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    error(ex, &quot; is not a function expression&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-341"></a>341</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-342"></a>342</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-343"></a>343</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">findmeta(ex::Array{Any,1}) = findmeta_block(ex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-344"></a>344</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-345"></a>345</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function findmeta_block(exargs, argsmatch=args-&gt;true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-346"></a>346</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(exargs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-347"></a>347</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        a = exargs[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-348"></a>348</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(a, Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-349"></a>349</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if (a::Expr).head === :meta &amp;&amp; argsmatch((a::Expr).args)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-350"></a>350</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                return i, exargs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-351"></a>351</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            elseif (a::Expr).head === :block
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-352"></a>352</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                idx, exa = findmeta_block(a.args, argsmatch)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-353"></a>353</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if idx != 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-354"></a>354</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    return idx, exa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-355"></a>355</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-356"></a>356</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-357"></a>357</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-358"></a>358</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-359"></a>359</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return 0, []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-360"></a>360</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-361"></a>361</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-362"></a>362</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">remove_linenums!(ex) = ex
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-363"></a>363</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function remove_linenums!(ex::Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-364"></a>364</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if ex.head === :block || ex.head === :quote
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-365"></a>365</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # remove line number expressions from metadata (not argument literal or inert) position
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-366"></a>366</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        filter!(ex.args) do x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-367"></a>367</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            isa(x, Expr) &amp;&amp; x.head === :line &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-368"></a>368</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            isa(x, LineNumberNode) &amp;&amp; return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-369"></a>369</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-370"></a>370</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-371"></a>371</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-372"></a>372</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for subex in ex.args
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-373"></a>373</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        subex isa Expr &amp;&amp; remove_linenums!(subex)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-374"></a>374</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-375"></a>375</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ex
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-376"></a>376</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-377"></a>377</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function remove_linenums!(src::CodeInfo)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-378"></a>378</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    src.codelocs .= 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-379"></a>379</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    length(src.linetable) &gt; 1 &amp;&amp; resize!(src.linetable, 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-380"></a>380</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return src
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-381"></a>381</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-382"></a>382</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-383"></a>383</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro generated()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-384"></a>384</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return Expr(:generated)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-385"></a>385</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-386"></a>386</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-387"></a>387</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-388"></a>388</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @generated f
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-389"></a>389</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @generated(f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-390"></a>390</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`@generated` is used to annotate a function which will be generated.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-391"></a>391</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">In the body of the generated function, only types of arguments can be read
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-392"></a>392</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">(not the values). The function returns a quoted expression evaluated when the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-393"></a>393</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function is called. The `@generated` macro should not be used on functions mutating
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-394"></a>394</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">the global scope or depending on mutable elements.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-395"></a>395</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-396"></a>396</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">See [Metaprogramming](@ref) for further details.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-397"></a>397</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-398"></a>398</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## Example:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-399"></a>399</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```julia
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-400"></a>400</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; @generated function bar(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-401"></a>401</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           if x &lt;: Integer
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-402"></a>402</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               return :(x ^ 2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-403"></a>403</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-404"></a>404</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">               return :(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-405"></a>405</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-406"></a>406</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">       end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-407"></a>407</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">bar (generic function with 1 method)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-408"></a>408</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-409"></a>409</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; bar(4)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-410"></a>410</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">16
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-411"></a>411</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-412"></a>412</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; bar(&quot;baz&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-413"></a>413</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;baz&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-414"></a>414</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-415"></a>415</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-416"></a>416</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro generated(f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-417"></a>417</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if isa(f, Expr) &amp;&amp; (f.head === :function || is_short_function_def(f))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-418"></a>418</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        body = f.args[2]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-419"></a>419</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        lno = body.args[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-420"></a>420</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Expr(:escape,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-421"></a>421</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    Expr(f.head, f.args[1],
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-422"></a>422</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                         Expr(:block,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-423"></a>423</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                              lno,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-424"></a>424</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                              Expr(:if, Expr(:generated),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-425"></a>425</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                                   body,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-426"></a>426</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                                   Expr(:block,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-427"></a>427</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                                        Expr(:meta, :generated_only),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-428"></a>428</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                                        Expr(:return, nothing))))))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-429"></a>429</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-430"></a>430</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        error(&quot;invalid syntax; @generated must be used with a function definition&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-431"></a>431</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lexpr-jl-d497aee12aec0f37e6cc-line.html-432"></a>432</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

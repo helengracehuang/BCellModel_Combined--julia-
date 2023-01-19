@@ -1,0 +1,1082 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./compiler/ssair/legacy.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Thu Sep  9 20:34:13 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-ssair-legacy-jl-inflate_ir-2"></a>
+              9 (6.25%) samples spent in inflate_ir<br />
+              1 (100.00%) (ex.),
+              9 (100.00%) (incl.)
+              when called from
+              analyze_method!
+              <a href="inlining-jl-a4d78f65e8218843e078-line.html#Linlining-jl-a4d78f65e8218843e078-line.html-736">line 736</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function inflate_ir(ci::CodeInfo, linfo::MethodInstance)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sptypes = sptypes_from_meth_instance(linfo)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if ci.inferred
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-6"></a>6</td>
+          <td></td>
+          <td>1 (0.69%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="inferenceresult-jl-ba5bdf4d12e6105b1f5b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-inferenceresult-jl-matching_cache_argtypes-61">matching_cache_argtypes</a><br />
+            </div>
+            <span class="code">        argtypes, _ = matching_cache_argtypes(linfo, nothing)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        argtypes = Any[ Any for i = 1:length(ci.slotflags) ]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-10"></a>10</td>
+          <td>1 (0.69%)</td>
+          <td>8 (5.56%)</td>
+          <td>
+            <div class="callees">
+              7 (87.50%)
+              samples spent calling
+              <a href="legacy-jl-5d439f67b41bc58b5a1a-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-ssair-legacy-jl-inflate_ir-12">inflate_ir</a><br />
+            </div>
+            <span class="code">    return inflate_ir(ci, sptypes, argtypes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-ssair-legacy-jl-inflate_ir-12"></a>
+              7 (4.86%) samples spent in inflate_ir<br />
+              1 (100.00%) (ex.),
+              7 (100.00%) (incl.)
+              when called from
+              inflate_ir
+              <a href="legacy-jl-5d439f67b41bc58b5a1a-line.html#Llegacy-jl-5d439f67b41bc58b5a1a-line.html-10">line 10</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function inflate_ir(ci::CodeInfo, sptypes::Vector{Any}, argtypes::Vector{Any})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-14"></a>14</td>
+          <td></td>
+          <td>2 (1.39%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="expr-jl-d497aee12aec0f37e6cc-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-expr-jl-copy_exprargs-59">copy_exprargs</a><br />
+            </div>
+            <span class="code">    code = copy_exprargs(ci.code) # TODO: this is a huge hot-spot
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(code[i], Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            code[i] = normalize_expr(code[i])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-20"></a>20</td>
+          <td></td>
+          <td>1 (0.69%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="ir-jl-c027f6165748d3babd6e-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-ssair-ir-jl-compute_basic_blocks-116">compute_basic_blocks</a><br />
+            </div>
+            <span class="code">    cfg = compute_basic_blocks(code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        stmt = code[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        urs = userefs(stmt)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-24"></a>24</td>
+          <td></td>
+          <td>1 (0.69%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="ir-jl-c027f6165748d3babd6e-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-ssair-ir-jl-iterate-385">iterate</a><br />
+            </div>
+            <span class="code">        for op in urs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            val = op[]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isa(val, SlotNumber)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-27"></a>27</td>
+          <td></td>
+          <td>1 (0.69%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="ir-jl-c027f6165748d3babd6e-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-ssair-ir-jl-iterate-385">iterate</a><br />
+            </div>
+            <span class="code">                op[] = Argument(val.id)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        stmt = urs[]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # Translate statement edges to bb_edges
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(stmt, GotoNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            code[i] = GotoNode(block_for_inst(cfg, stmt.label))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, GotoIfNot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            code[i] = GotoIfNot(stmt.cond, block_for_inst(cfg, stmt.dest))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, PhiNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            code[i] = PhiNode(Any[block_for_inst(cfg, edge) for edge in stmt.edges], stmt.values)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, Expr) &amp;&amp; stmt.head === :enter
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            stmt.args[1] = block_for_inst(cfg, stmt.args[1])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            code[i] = stmt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            code[i] = stmt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-45"></a>45</td>
+          <td></td>
+          <td>1 (0.69%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-copy-370">copy</a><br />
+            </div>
+            <span class="code">    ssavaluetypes = ci.ssavaluetypes isa Vector{Any} ? copy(ci.ssavaluetypes) : Any[ Any for i = 1:(ci.ssavaluetypes::Int) ]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-46"></a>46</td>
+          <td>1 (0.69%)</td>
+          <td>1 (0.69%)</td>
+          <td>
+            <span class="code">    ir = IRCode(code, ssavaluetypes, copy(ci.codelocs), copy(ci.ssaflags), cfg, collect(LineInfoNode, ci.linetable),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                argtypes, Any[], sptypes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return ir
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function replace_code_newstyle!(ci::CodeInfo, ir::IRCode, nargs::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @assert isempty(ir.new_nodes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # All but the first `nargs` slots will now be unused
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    resize!(ci.slotflags, nargs+1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ci.code = ir.stmts
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ci.codelocs = ir.lines
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ci.linetable = ir.linetable
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ci.ssavaluetypes = ir.types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ci.ssaflags = ir.flags
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for metanode in ir.meta
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(ci.code, metanode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(ci.codelocs, 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(ci.ssavaluetypes, Any)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(ci.ssaflags, 0x00)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Translate BB Edges to statement edges
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # (and undo normalization for now)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(ci.code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        stmt = ci.code[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        urs = userefs(stmt)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for op in urs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            val = op[]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isa(val, Argument)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                op[] = SlotNumber(val.n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        stmt = urs[]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(stmt, GotoNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ci.code[i] = GotoNode(first(ir.cfg.blocks[stmt.label].stmts))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, GotoIfNot)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ci.code[i] = Expr(:gotoifnot, stmt.cond, first(ir.cfg.blocks[stmt.dest].stmts))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, PhiNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ci.code[i] = PhiNode(Any[last(ir.cfg.blocks[edge].stmts) for edge in stmt.edges], stmt.values)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, ReturnNode)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if isdefined(stmt, :val)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                ci.code[i] = Expr(:return, stmt.val)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                ci.code[i] = Expr(:unreachable)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(stmt, Expr) &amp;&amp; stmt.head === :enter
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            stmt.args[1] = first(ir.cfg.blocks[stmt.args[1]].stmts)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ci.code[i] = stmt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ci.code[i] = stmt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># used by some tests
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llegacy-jl-5d439f67b41bc58b5a1a-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">inflate_ir(ci::CodeInfo) = inflate_ir(ci, Any[], Any[ Any for i = 1:length(ci.slotflags) ])
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

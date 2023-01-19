@@ -1,0 +1,1014 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/.julia/packages/OrdinaryDiffEq/2ZBfC/src/interp_func.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 13:02:02 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">abstract type OrdinaryDiffEqInterpolation{cacheType} &lt;: DiffEqBase.AbstractDiffEqInterpolation end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct InterpolationData{F,uType,tType,kType,cacheType} &lt;: OrdinaryDiffEqInterpolation{cacheType}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  f::F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  timeseries::uType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  ts::tType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  ks::kType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  dense::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  cache::cacheType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct CompositeInterpolationData{F,uType,tType,kType,cacheType} &lt;: OrdinaryDiffEqInterpolation{cacheType}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  f::F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  timeseries::uType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  ts::tType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  ks::kType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  alg_choice::Vector{Int}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  dense::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  cache::cacheType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where {cacheType&lt;:FunctionMapConstantCache} = &quot;left-endpoint piecewise constant&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where {cacheType&lt;:FunctionMapCache} = &quot;left-endpoint piecewise constant&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{DP5ConstantCache,DP5Cache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 4th order \&quot;free\&quot; interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Rosenbrock23ConstantCache,Rosenbrock32ConstantCache,Rosenbrock23Cache,Rosenbrock32Cache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 2nd order \&quot;free\&quot; stiffness-aware interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Rodas4ConstantCache,Rodas4Cache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 3rd order \&quot;free\&quot; stiffness-aware interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{SSPRK22,SSPRK22ConstantCache,SSPRK33,SSPRK33ConstantCache,SSPRK43,SSPRK43ConstantCache,SSPRK432,SSPRK432ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;2nd order \&quot;free\&quot; SSP interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{OwrenZen3Cache,OwrenZen3ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 3rd order \&quot;free\&quot; interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{OwrenZen4Cache,OwrenZen4ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 4th order \&quot;free\&quot; interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{OwrenZen5Cache,OwrenZen5ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 5th order \&quot;free\&quot; interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Tsit5Cache,Tsit5ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 4th order \&quot;free\&quot; interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{BS5ConstantCache,BS5Cache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 5th order lazy interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Vern6Cache,Vern6ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 6th order lazy interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Vern7Cache,Vern7ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 7th order lazy interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Vern8Cache,Vern8ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 8th order lazy interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{Vern9Cache,Vern9ConstantCache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 9th order lazy interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{DP8ConstantCache,DP8Cache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 7th order interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;3rd order Hermite&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:CompositeCache
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;automatic order switching interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function DiffEqBase.interp_summary(interp::OrdinaryDiffEqInterpolation{cacheType}) where cacheType&lt;:Union{DPRKN6ConstantCache,DPRKN6Cache}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  interp.dense ? &quot;specialized 6th order interpolation&quot; : &quot;1st order linear&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-76"></a>76</td>
+          <td>632 (2.92%)</td>
+          <td>26860 (124.30%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-OrdinaryDiffEq-2ZBfC-src-interp_func-jl-InterpolationData-76"></a>
+              13430 (62.15%) samples spent in InterpolationData<br />
+              632 (100.00%) (ex.),
+              632 (4.71%) (incl.)
+              when called from
+              InterpolationData
+              <a href="interp_func-jl-9efec06f5238aa3a18ec-line.html#Linterp_func-jl-9efec06f5238aa3a18ec-line.html-76">line 76</a><br />
+              0 (ex.),
+              13430 (100.00%) (incl.)
+              when called from
+              #_#29
+              <a href="history_function-jl-2297d047c3b1693caa6a-line.html#Lhistory_function-jl-2297d047c3b1693caa6a-line.html-40">line 40</a><br />
+            </div>
+            <div class="callees">
+              7 (0.03%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-808">getindex</a><br />
+              12791 (47.62%)
+              samples spent calling
+              <a href="generic_dense-jl-67fe77f4ad0568692743-line.html#S-Users-xinhuang-julia-packages-OrdinaryDiffEq-2ZBfC-src-dense-generic_dense-jl-ode_interpolation-306">ode_interpolation</a><br />
+              13430 (50.00%)
+              samples spent calling
+              <a href="interp_func-jl-9efec06f5238aa3a18ec-line.html#S-Users-xinhuang-julia-packages-OrdinaryDiffEq-2ZBfC-src-interp_func-jl-InterpolationData-76">InterpolationData</a><br />
+            </div>
+            <span class="code">(interp::InterpolationData)(tvals,idxs,deriv,p,continuity::Symbol=:left) = ode_interpolation(tvals,interp,idxs,deriv,p,continuity)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">(interp::CompositeInterpolationData)(tvals,idxs,deriv,p,continuity::Symbol=:left) = ode_interpolation(tvals,interp,idxs,deriv,p,continuity)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">(interp::InterpolationData)(val,tvals,idxs,deriv,p,continuity::Symbol=:left) = ode_interpolation!(val,tvals,interp,idxs,deriv,p,continuity)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">(interp::CompositeInterpolationData)(val,tvals,idxs,deriv,p,continuity::Symbol=:left) = ode_interpolation!(val,tvals,interp,idxs,deriv,p,continuity)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function InterpolationData(id::InterpolationData,f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  InterpolationData(f,id.timeseries,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                      id.ts,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                      id.ks,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                      id.dense,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                      id.cache)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function CompositeInterpolationData(id::CompositeInterpolationData,f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">  CompositeInterpolationData(f,id.timeseries,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                               id.ts,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                               id.ks,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                               id.alg_choice,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                               id.dense,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                               id.cache)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linterp_func-jl-9efec06f5238aa3a18ec-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

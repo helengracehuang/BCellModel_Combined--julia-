@@ -1,0 +1,4303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./bitset.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Thu Sep  9 18:22:56 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const Bits = Vector{UInt64}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const CHK0 = zero(UInt64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const NO_OFFSET = Int === Int64 ? -one(Int) &lt;&lt; 60 : -one(Int) &lt;&lt; 29
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># + NO_OFFSET must be small enough to stay &lt; 0 when added with any offset.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#   An offset is in the range -2^57:2^57 (64-bits architectures)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#   or -2^26:2^26 (32-bits architectures)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># + when the offset is NO_OFFSET, the bits field *must* be empty
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># + NO_OFFSET could be made to be &gt; 0, but a negative one allows
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#   a small optimization in the in(x, ::BitSet) method
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mutable struct BitSet &lt;: AbstractSet{Int}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    bits::Vector{UInt64}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # 1st stored Int equals 64*offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    offset::Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-bitset-jl-BitSet-17"></a>
+              1 (5.26%) samples spent in BitSet<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              adce_pass!
+              <a href="passes-jl-f39fc9cedfd62b6c6402-line.html#Lpasses-jl-f39fc9cedfd62b6c6402-line.html-897">line 897</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-18"></a>18</td>
+          <td></td>
+          <td>1 (5.26%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-zeros-521">zeros</a><br />
+            </div>
+            <span class="code">    BitSet() = new(sizehint!(zeros(UInt64, 0), 4), NO_OFFSET)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    BitSet([itr])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Construct a sorted set of `Int`s generated by the given iterable object, or an
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">empty set. Implemented as a bit string, and therefore designed for dense integer sets.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">If the set will be sparse (for example, holding a few
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">very large integers), use [`Set`](@ref) instead.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BitSet(itr) = union!(BitSet(), itr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Special implementation for BitSet, which lacks a fast `length` method.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function union!(s::BitSet, itr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for x in itr
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(s, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline intoffset(s::BitSet) = s.offset &lt;&lt; 6
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">eltype(::Type{BitSet}) = Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">empty(s::BitSet, ::Type{Int}=Int) = BitSet()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">emptymutable(s::BitSet, ::Type{Int}=Int) = BitSet()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">copy(s1::BitSet) = copy!(BitSet(), s1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">copymutable(s::BitSet) = copy(s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function copy!(dest::BitSet, src::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    resize!(dest.bits, length(src.bits))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    copyto!(dest.bits, src.bits)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    dest.offset = src.offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    dest
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sizehint!(s::BitSet, n::Integer) = (sizehint!(s.bits, (n+63) &gt;&gt; 6); s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _bits_getindex(b::Bits, n::Int, offset::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ci = _div64(n) - offset + 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    1 &lt;= ci &lt;= length(b) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds r = (b[ci] &amp; (one(UInt64) &lt;&lt; _mod64(n))) != 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    r
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _bits_findnext(b::Bits, start::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # start is 0-based
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # @assert start &gt;= 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _div64(start) + 1 &gt; length(b) &amp;&amp; return -1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ind = unsafe_bitfindnext(b, start+1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ind === nothing ? -1 : ind - 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _bits_findprev(b::Bits, start::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # start is 0-based
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # @assert start &lt;= 64 * length(b) - 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    start &gt;= 0 || return -1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ind = unsafe_bitfindprev(b, start+1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ind === nothing ? -1 : ind - 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># An internal function for setting the inclusion bit for a given integer
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function _setint!(s::BitSet, idx::Int, b::Bool)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cidx = _div64(idx)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    len = length(s.bits)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    diff = cidx - s.offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if diff &gt;= len
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        b || return s # setting a bit to zero outside the set&#39;s bits is a no-op
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # we put the following test within one of the two branches,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # with the NO_OFFSET trick, to avoid having to perform it at
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # each and every call to _setint!
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if s.offset == NO_OFFSET # initialize the offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # we assume isempty(s.bits)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            s.offset = cidx
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            diff = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _growend0!(s.bits, diff - len + 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif diff &lt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        b || return s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _growbeg0!(s.bits, -diff)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.offset += diff
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        diff = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _unsafe_bitsetindex!(s.bits, b, diff+1, _mod64(idx))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># An internal function to resize a Bits object and ensure the newly allocated
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># elements are zeroed (will become unnecessary if this behavior changes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function _growend0!(b::Bits, nchunks::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    len = length(b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _growend!(b, nchunks)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i in len+1:length(b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @inbounds b[i] = CHK0 # resize! gives dirty memory
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function _growbeg0!(b::Bits, nchunks::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _growbeg!(b, nchunks)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i in 1:nchunks
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @inbounds b[i] = CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function union!(s::BitSet, r::AbstractUnitRange{&lt;:Integer})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isempty(r) &amp;&amp; return s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a, b = _check_bitset_bounds(first(r)), _check_bitset_bounds(last(r))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cidxa = _div64(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cidxb = _div64(b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if s.offset == NO_OFFSET
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.offset = cidxa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    len = length(s.bits)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    diffa = cidxa - s.offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    diffb = cidxb - s.offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # grow s.bits as necessary
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if diffb &gt;= len
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _growend!(s.bits, diffb - len + 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # we set only some values to CHK0, those which will not be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # fully overwritten (i.e. only or&#39;ed with `|`)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.bits[end] = CHK0 # end == diffb + 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if diffa &gt;= len
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            s.bits[diffa + 1] = CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if diffa &lt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _growbeg!(s.bits, -diffa)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.bits[1] = CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if diffb &lt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            s.bits[diffb - diffa + 1] = CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.offset = cidxa # s.offset += diffa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        diffb -= diffa
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        diffa = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # update s.bits
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    i = _mod64(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    j = _mod64(b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds if diffa == diffb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.bits[diffa + 1] |= (((~CHK0) &gt;&gt; i) &lt;&lt; (i+63-j)) &gt;&gt; (63-j)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.bits[diffa + 1] |= ((~CHK0) &gt;&gt; i) &lt;&lt; i
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s.bits[diffb + 1] |= (~CHK0  &lt;&lt; (63-j)) &gt;&gt; (63-j)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for n = diffa+1:diffb-1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            s.bits[n+1] = ~CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _matched_map!(f, s1::BitSet, s2::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    left_false_is_false = f(false, false) == f(false, true) == false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    right_false_is_false = f(false, false) == f(true, false) == false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # we must first handle the NO_OFFSET case; we could test for
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # isempty(s1) but it can be costly, so the user has to call
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # empty!(s1) herself before-hand to re-initialize to NO_OFFSET
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if s1.offset == NO_OFFSET
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return left_false_is_false ? s1 : copy!(s1, s2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif s2.offset == NO_OFFSET
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return right_false_is_false ? empty!(s1) : s1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s1.offset = _matched_map!(f, s1.bits, s1.offset, s2.bits, s2.offset,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                              left_false_is_false, right_false_is_false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># An internal function that takes a pure function `f` and maps across two BitArrays
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># allowing the lengths and offsets to be different and altering b1 with the result
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># WARNING: the assumptions written in the else clauses must hold
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _matched_map!(f, a1::Bits, b1::Int, a2::Bits, b2::Int,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                       left_false_is_false::Bool, right_false_is_false::Bool)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    l1, l2 = length(a1), length(a2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    bdiff = b2 - b1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    e1, e2 = l1+b1, l2+b2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ediff = e2 - e1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # map! over the common indices
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds for i = max(1, 1+bdiff):min(l1, l2+bdiff)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        a1[i] = f(a1[i], a2[i-bdiff])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if ediff &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if left_false_is_false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We don&#39;t need to worry about the trailing bits — they&#39;re all false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else # @assert f(false, x) == x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            _growend!(a1, ediff)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # if a1 and a2 are not overlapping, we infer implied &quot;false&quot; values from a2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            for outer l1 = l1+1:bdiff
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                @inbounds a1[l1] = CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # update ediff in case l1 was updated
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ediff = e2 - l1 - b1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # copy actual chunks from a2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            unsafe_copyto!(a1, l1+1, a2, l2+1-ediff, ediff)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            l1 = length(a1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif ediff &lt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if right_false_is_false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We don&#39;t need to worry about the trailing bits — they&#39;re all false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            _deleteend!(a1, min(l1, -ediff))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # no need to update l1, as if bdiff &gt; 0 (case below), then bdiff will
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # be smaller anyway than an updated l1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else # @assert f(x, false) == x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We don&#39;t need to worry about the trailing bits — they already have the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # correct value
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if bdiff &lt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if left_false_is_false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We don&#39;t need to worry about the leading bits — they&#39;re all false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else # @assert f(false, x) == x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            _growbeg!(a1, -bdiff)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # if a1 and a2 are not overlapping, we infer implied &quot;false&quot; values from a2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            for i = l2+1:-bdiff
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-240"></a>240</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                @inbounds a1[i] = CHK0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-241"></a>241</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-242"></a>242</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            b1 += bdiff # updated return value
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-243"></a>243</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-244"></a>244</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # copy actual chunks from a2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            unsafe_copyto!(a1, 1, a2, 1, min(-bdiff, l2))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-246"></a>246</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif bdiff &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-248"></a>248</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if right_false_is_false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We don&#39;t need to worry about the trailing bits — they&#39;re all false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-250"></a>250</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            _deletebeg!(a1, min(l1, bdiff))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-251"></a>251</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            b1 += bdiff
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-252"></a>252</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else # @assert f(x, false) == x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We don&#39;t need to worry about the trailing bits — they already have the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-254"></a>254</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # correct value
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-256"></a>256</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    b1 # the new offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-258"></a>258</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-260"></a>260</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline _throw_bitset_bounds_err() =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    throw(ArgumentError(&quot;elements of BitSet must be between typemin(Int) and typemax(Int)&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _is_convertible_Int(n) = typemin(Int) &lt;= n &lt;= typemax(Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _check_bitset_bounds(n) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _is_convertible_Int(n) ? Int(n) : _throw_bitset_bounds_err()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-268"></a>268</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline _check_bitset_bounds(n::Int) = n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-271"></a>271</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline _throw_keyerror(n) = throw(KeyError(n))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline push!(s::BitSet, n::Integer) = _setint!(s, _check_bitset_bounds(n), true)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">push!(s::BitSet, ns::Integer...) = (for n in ns; push!(s, n); end; s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline pop!(s::BitSet) = pop!(s, last(s))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-279"></a>279</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function pop!(s::BitSet, n::Integer)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if n in s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        delete!(s, n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _throw_keyerror(n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-286"></a>286</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-287"></a>287</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-288"></a>288</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function pop!(s::BitSet, n::Integer, default)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-289"></a>289</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if n in s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-290"></a>290</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        delete!(s, n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-291"></a>291</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-292"></a>292</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-293"></a>293</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        default
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-294"></a>294</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-295"></a>295</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-296"></a>296</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-297"></a>297</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline delete!(s::BitSet, n::Int) = _setint!(s, n, false)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-298"></a>298</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline delete!(s::BitSet, n::Integer) = _is_convertible_Int(n) ? delete!(s, Int(n)) : s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-299"></a>299</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-300"></a>300</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">popfirst!(s::BitSet) = pop!(s, first(s))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-301"></a>301</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-302"></a>302</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function empty!(s::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-303"></a>303</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    empty!(s.bits)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-304"></a>304</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s.offset = NO_OFFSET
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-305"></a>305</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-306"></a>306</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-307"></a>307</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-308"></a>308</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isempty(s::BitSet) = _check0(s.bits, 1, length(s.bits))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-309"></a>309</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-310"></a>310</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Mathematical set functions: union!, intersect!, setdiff!, symdiff!
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-311"></a>311</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-312"></a>312</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">union(s::BitSet, sets...) = union!(copy(s), sets...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-313"></a>313</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">union!(s1::BitSet, s2::BitSet) = _matched_map!(|, s1, s2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-314"></a>314</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-315"></a>315</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">intersect(s1::BitSet, s2::BitSet) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-316"></a>316</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    length(s1.bits) &lt; length(s2.bits) ? intersect!(copy(s1), s2) : intersect!(copy(s2), s1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-317"></a>317</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-318"></a>318</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">intersect!(s1::BitSet, s2::BitSet) = _matched_map!(&amp;, s1, s2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-319"></a>319</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-320"></a>320</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">setdiff!(s1::BitSet, s2::BitSet) = _matched_map!((p, q) -&gt; p &amp; ~q, s1, s2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-321"></a>321</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-322"></a>322</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function symdiff!(s::BitSet, ns)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-323"></a>323</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for x in ns
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-324"></a>324</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        int_symdiff!(s, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-325"></a>325</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-326"></a>326</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-327"></a>327</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-328"></a>328</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-329"></a>329</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function int_symdiff!(s::BitSet, n::Integer)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-330"></a>330</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    n0 = _check_bitset_bounds(n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-331"></a>331</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    val = !(n0 in s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-332"></a>332</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _setint!(s, n0, val)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-333"></a>333</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-334"></a>334</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-335"></a>335</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-336"></a>336</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">symdiff!(s1::BitSet, s2::BitSet) = _matched_map!(xor, s1, s2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-337"></a>337</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-338"></a>338</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">filter!(f, s::BitSet) = unsafe_filter!(f, s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-339"></a>339</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-340"></a>340</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline in(n::Int, s::BitSet) = _bits_getindex(s.bits, n, s.offset)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-341"></a>341</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline in(n::Integer, s::BitSet) = _is_convertible_Int(n) ? in(Int(n), s) : false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-342"></a>342</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-343"></a>343</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function iterate(s::BitSet, (word, idx) = (CHK0, 0))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-344"></a>344</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while word == 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-345"></a>345</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        idx == length(s.bits) &amp;&amp; return nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-346"></a>346</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        idx += 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-347"></a>347</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        word = @inbounds s.bits[idx]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-348"></a>348</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-349"></a>349</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    trailing_zeros(word) + (idx - 1 + s.offset) &lt;&lt; 6, (_blsr(word), idx)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-350"></a>350</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-351"></a>351</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-352"></a>352</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@noinline _throw_bitset_notempty_error() =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-353"></a>353</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    throw(ArgumentError(&quot;collection must be non-empty&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-354"></a>354</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-355"></a>355</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function first(s::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-356"></a>356</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx = _bits_findnext(s.bits, 0)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-357"></a>357</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx == -1 ? _throw_bitset_notempty_error() : idx + intoffset(s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-358"></a>358</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-359"></a>359</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-360"></a>360</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function last(s::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-361"></a>361</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx = _bits_findprev(s.bits, (length(s.bits) &lt;&lt; 6) - 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-362"></a>362</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    idx == -1 ? _throw_bitset_notempty_error() : idx + intoffset(s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-363"></a>363</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-364"></a>364</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-365"></a>365</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">length(s::BitSet) = bitcount(s.bits) # = mapreduce(count_ones, +, s.bits; init=0)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-366"></a>366</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-367"></a>367</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function show(io::IO, s::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-368"></a>368</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    print(io, &quot;BitSet([&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-369"></a>369</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    first = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-370"></a>370</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for n in s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-371"></a>371</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        !first &amp;&amp; print(io, &quot;, &quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-372"></a>372</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        print(io, n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-373"></a>373</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        first = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-374"></a>374</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-375"></a>375</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    print(io, &quot;])&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-376"></a>376</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-377"></a>377</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-378"></a>378</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function _check0(a::Vector{UInt64}, b::Int, e::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-379"></a>379</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds for i in b:e
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-380"></a>380</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        a[i] == CHK0 || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-381"></a>381</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-382"></a>382</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-383"></a>383</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-384"></a>384</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-385"></a>385</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function ==(s1::BitSet, s2::BitSet)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-386"></a>386</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Swap so s1 has always the smallest offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-387"></a>387</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if s1.offset &gt; s2.offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-388"></a>388</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s1, s2 = s2, s1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-389"></a>389</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-390"></a>390</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a1 = s1.bits
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-391"></a>391</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a2 = s2.bits
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-392"></a>392</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    b1, b2 = s1.offset, s2.offset
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-393"></a>393</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    l1, l2 = length(a1), length(a2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-394"></a>394</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    e1 = l1+b1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-395"></a>395</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    overlap0 = max(0, e1 - b2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-396"></a>396</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    included = overlap0 &gt;= l2  # whether a2&#39;s indices are included in a1&#39;s
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-397"></a>397</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    overlap  = included ? l2 : overlap0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-398"></a>398</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-399"></a>399</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Ensure non-overlap chunks are zero (unlikely)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-400"></a>400</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    _check0(a1, 1, l1-overlap0) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-401"></a>401</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if included
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-402"></a>402</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _check0(a1, b2-b1+l2+1, l1) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-403"></a>403</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-404"></a>404</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _check0(a2, 1+overlap, l2) || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-405"></a>405</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-406"></a>406</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-407"></a>407</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # compare overlap values
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-408"></a>408</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if overlap &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-409"></a>409</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        t1 = @_gc_preserve_begin a1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-410"></a>410</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        t2 = @_gc_preserve_begin a2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-411"></a>411</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        _memcmp(pointer(a1, b2-b1+1), pointer(a2), overlap&lt;&lt;3) == 0 || return false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-412"></a>412</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @_gc_preserve_end t2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-413"></a>413</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @_gc_preserve_end t1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-414"></a>414</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-415"></a>415</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-416"></a>416</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-417"></a>417</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-418"></a>418</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-419"></a>419</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">issubset(a::BitSet, b::BitSet) = a == intersect(a,b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-420"></a>420</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">⊊(a::BitSet, b::BitSet) = a &lt;= b &amp;&amp; a != b
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-421"></a>421</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-422"></a>422</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-423"></a>423</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">minimum(s::BitSet) = first(s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-424"></a>424</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">maximum(s::BitSet) = last(s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-425"></a>425</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">extrema(s::BitSet) = (first(s), last(s))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbitset-jl-e67452124af49e5e836c-line.html-426"></a>426</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">issorted(s::BitSet) = true
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

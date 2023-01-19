@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/.julia/packages/Interpolations/3gTQB/src/b-splines/linear.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 13:02:02 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct Linear{BC&lt;:Union{Throw{OnGrid},Periodic{OnCell}}} &lt;: DegreeBC{1}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    bc::BC
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function Linear{BC}(bc::BC=BC()) where BC&lt;:Union{Throw{OnGrid},Periodic{OnCell}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        new{BC}(bc)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Linear() = Linear(Throw(OnGrid()))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Linear(::Periodic{Nothing}) = Linear(Periodic(OnCell()))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Linear(bc::BC) where BC&lt;:Union{Throw{OnGrid},Periodic{OnCell}} = Linear{BC}(bc)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function Base.show(io::IO, deg::Linear{Throw{OnGrid}})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    print(io, nameof(typeof(deg)), &#39;(&#39;, &#39;)&#39;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Linear()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Indicate that the corresponding axis should use linear interpolation.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Extended help
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Assuming uniform knots with spacing 1, the `i`th piece of linear b-spline
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">implemented here is defined as follows.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    y_i(x) = c p(x) + cp p(1-x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">where
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    p(δx) = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">and the values `cX` for `X ∈ {_, p}` are the coefficients.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Linear b-splines are naturally interpolating, and require no prefiltering;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">there is therefore no need for boundary conditions to be provided.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Also, although the implementation is slightly different in order to re-use
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">the framework built for general b-splines, the resulting interpolant is just
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">a piecewise linear function connecting each pair of neighboring data points.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Linear
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function positions(deg::Linear, ax::AbstractUnitRange{&lt;:Integer}, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    f = floor(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # When x == last(ax) we want to use the x-1, x pair
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    f = ifelse(x == last(ax), f - oneunit(f), f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    fi = fast_trunc(Int, f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    expand_index(deg, fi, ax), x-f
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">expand_index(::Linear{Throw{OnGrid}}, fi::Number, ax::AbstractUnitRange) = fi
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">expand_index(::Linear{Periodic{OnCell}}, fi::Number, ax::AbstractUnitRange) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (modrange(fi, ax), modrange(fi+1, ax))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-54"></a>54</td>
+          <td></td>
+          <td>3 (0.01%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-Interpolations-3gTQB-src-b-splines-linear-jl-value_weights-54"></a>
+              3 (0.01%) samples spent in value_weights<br />
+              0 (ex.),
+              3 (100.00%) (incl.)
+              when called from
+              _fmap
+              <a href="utils-jl-3eb5894e712fa4d872aa-line.html#Lutils-jl-3eb5894e712fa4d872aa-line.html-11">line 11</a><br />
+            </div>
+            <div class="callees">
+              3 (100.00%)
+              samples spent calling
+              <a href="promotion-jl-a3546679c21b8ff08fe7-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-promotion-jl-313">-</a><br />
+            </div>
+            <span class="code">value_weights(::Linear, δx) = (1-δx, δx)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">gradient_weights(::Linear, δx) = (-oneunit(δx), oneunit(δx))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hessian_weights(::Linear, δx) = (zero(δx), zero(δx))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Llinear-jl-ff17075716eaa4f6c5d7-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">padded_axis(ax::AbstractUnitRange, ::BSpline{&lt;:Linear}) = ax
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

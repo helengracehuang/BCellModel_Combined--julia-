@@ -1,0 +1,3007 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./compiler/inferencestate.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 19:33:45 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const LineNum = Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mutable struct InferenceState
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    params::Params # describes how to compute the result
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    result::InferenceResult # remember where to put the result
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    linfo::MethodInstance
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sptypes::Vector{Any}    # types of static parameter
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    slottypes::Vector{Any}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    mod::Module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    currpc::LineNum
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # info on the state of inference and the linfo
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    src::CodeInfo
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    min_valid::UInt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    max_valid::UInt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nargs::Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    stmt_types::Vector{Any}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    stmt_edges::Vector{Any}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # return type
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    bestguess #::Type
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # current active instruction pointers
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ip::BitSet
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    pc´´::LineNum
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nstmts::Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # current exception handler info
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cur_hand #::Union{Nothing, Pair{LineNum, prev_handler}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    handler_at::Vector{Any}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    n_handlers::Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # ssavalue sparsity and restart info
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ssavalue_uses::Vector{BitSet}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cycle_backedges::Vector{Tuple{InferenceState, LineNum}} # call-graph backedges connecting from callee to caller
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    callers_in_cycle::Vector{InferenceState}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    parent::Union{Nothing, InferenceState}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # TODO: move these to InferenceResult / Params?
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cached::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    limited::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    inferred::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    dont_work_on_me::Bool
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # cached results of calling `_methods_by_ftype`, including `min_valid` and
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # `max_valid`, to be used in inlining
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    matching_methods_cache::IdDict{Any, Tuple{Any, UInt, UInt}}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # src is assumed to be a newly-allocated CodeInfo, that can be modified in-place to contain intermediate results
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function InferenceState(result::InferenceResult, src::CodeInfo,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                            cached::Bool, params::Params)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        linfo = result.linfo
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        code = src.code::Array{Any,1}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        toplevel = !isa(linfo.def, Method)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sp = sptypes_from_meth_instance(linfo::MethodInstance)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nssavalues = src.ssavaluetypes::Int
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        src.ssavaluetypes = Any[ NOT_FOUND for i = 1:nssavalues ]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        n = length(code)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s_edges = Any[ nothing for i = 1:n ]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s_types = Any[ nothing for i = 1:n ]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # initial types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nslots = length(src.slotflags)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        argtypes = result.argtypes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nargs = length(argtypes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s_argtypes = VarTable(undef, nslots)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        slottypes = Vector{Any}(undef, nslots)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for i in 1:nslots
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            at = (i &gt; nargs) ? Bottom : argtypes[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            s_argtypes[i] = VarState(at, i &gt; nargs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            slottypes[i] = at
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s_types[1] = s_argtypes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ssavalue_uses = find_ssavalue_uses(code, nssavalues)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # exception handlers
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        cur_hand = nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        handler_at = Any[ nothing for i=1:n ]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        n_handlers = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        W = BitSet()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        push!(W, 1) #initial pc to visit
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if !toplevel
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            meth = linfo.def
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            inmodule = meth.module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            inmodule = linfo.def::Module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        min_valid = src.min_world
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        max_valid = src.max_world == typemax(UInt) ?
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            get_world_counter() : src.max_world
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        frame = new(
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            params, result, linfo,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            sp, slottypes, inmodule, 0,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            src, min_valid, max_valid,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            nargs, s_types, s_edges,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            Union{}, W, 1, n,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            cur_hand, handler_at, n_handlers,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ssavalue_uses,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            Vector{Tuple{InferenceState,LineNum}}(), # cycle_backedges
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            Vector{InferenceState}(), # callers_in_cycle
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            #=parent=#nothing,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            cached, false, false, false,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            IdDict{Any, Tuple{Any, UInt, UInt}}())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        result.result = frame
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        cached &amp;&amp; push!(params.cache, result)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return frame
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-inferencestate-jl-InferenceState-115"></a>
+              9 (0.36%) samples spent in InferenceState<br />
+              0 (ex.),
+              9 (100.00%) (incl.)
+              when called from
+              abstract_call_method_with_const_args
+              <a href="abstractinterpretation-jl-81d662f06740e3a15845-line.html#Labstractinterpretation-jl-81d662f06740e3a15845-line.html-261">line 261</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function InferenceState(result::InferenceResult, cached::Bool, params::Params)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # prepare an InferenceState object for inferring lambda
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-118"></a>118</td>
+          <td></td>
+          <td>9 (0.36%)</td>
+          <td>
+            <div class="callees">
+              1 (11.11%)
+              samples spent calling
+              <a href="utilities-jl-478a3ca234cc6e027f94-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-utilities-jl-retrieve_code_info-115">retrieve_code_info</a><br />
+              4 (44.44%)
+              samples spent calling
+              <a href="utilities-jl-478a3ca234cc6e027f94-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-utilities-jl-retrieve_code_info-110">retrieve_code_info</a><br />
+              4 (44.44%)
+              samples spent calling
+              <a href="utilities-jl-478a3ca234cc6e027f94-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-utilities-jl-retrieve_code_info-105">retrieve_code_info</a><br />
+            </div>
+            <span class="code">    src = retrieve_code_info(result.linfo)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    src === nothing &amp;&amp; return nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    validate_code_in_debug_mode(result.linfo, src, &quot;lowered&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return InferenceState(result, src, cached, params)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-inferencestate-jl-sptypes_from_meth_instance-123"></a>
+              1 (0.04%) samples spent in sptypes_from_meth_instance<br />
+              1 (100.00%) (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              inflate_ir
+              <a href="legacy-jl-5d439f67b41bc58b5a1a-line.html#Llegacy-jl-5d439f67b41bc58b5a1a-line.html-4">line 4</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function sptypes_from_meth_instance(linfo::MethodInstance)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    toplevel = !isa(linfo.def, Method)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-126"></a>126</td>
+          <td>1 (0.04%)</td>
+          <td>1 (0.04%)</td>
+          <td>
+            <span class="code">    if !toplevel &amp;&amp; isempty(linfo.sparam_vals) &amp;&amp; isa(linfo.def.sig, UnionAll)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # linfo is unspecialized
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sp = Any[]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sig = linfo.def.sig
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        while isa(sig, UnionAll)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            push!(sp, sig.var)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            sig = sig.body
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sp = collect(Any, linfo.sparam_vals)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(sp)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        v = sp[i]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if v isa TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            fromArg = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # if this parameter came from arg::Type{T}, then `arg` is more precise than
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # Type{T} where lb&lt;:T&lt;:ub
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            sig = linfo.def.sig
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            temp = sig
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            for j = 1:i-1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                temp = temp.body
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            Pi = temp.var
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            while temp isa UnionAll
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                temp = temp.body
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            sigtypes = temp.parameters
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            for j = 1:length(sigtypes)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                tj = sigtypes[j]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if isType(tj) &amp;&amp; tj.parameters[1] === Pi
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    fromArg = j
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    break
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if fromArg &gt; 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                ty = fieldtype(linfo.specTypes, fromArg)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                ub = v.ub
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                while ub isa TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    ub = ub.ub
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if has_free_typevars(ub)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    ub = Any
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                lb = v.lb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                while lb isa TypeVar
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    lb = lb.lb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if has_free_typevars(lb)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    lb = Bottom
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if Any &lt;: ub &amp;&amp; lb &lt;: Bottom
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    ty = Any
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    tv = TypeVar(v.name, lb, ub)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    ty = UnionAll(tv, Type{tv})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ty = Const(v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sp[i] = ty
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return sp
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">_topmod(sv::InferenceState) = _topmod(sv.mod)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># work towards converging the valid age range for sv
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function update_valid_age!(min_valid::UInt, max_valid::UInt, sv::InferenceState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sv.min_valid = max(sv.min_valid, min_valid)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sv.max_valid = min(sv.max_valid, max_valid)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @assert(sv.min_valid &lt;= sv.params.world &lt;= sv.max_valid,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            &quot;invalid age range update&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">update_valid_age!(edge::InferenceState, sv::InferenceState) = update_valid_age!(edge.min_valid, edge.max_valid, sv)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function record_ssa_assign(ssa_id::Int, @nospecialize(new), frame::InferenceState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    old = frame.src.ssavaluetypes[ssa_id]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if old === NOT_FOUND || !(new ⊑ old)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # typically, we expect that old ⊑ new (that output information only
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # gets less precise with worse input information), but to actually
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # guarantee convergence we need to use tmerge here to ensure that is true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        frame.src.ssavaluetypes[ssa_id] = old === NOT_FOUND ? new : tmerge(old, new)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        W = frame.ip
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s = frame.stmt_types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for r in frame.ssavalue_uses[ssa_id]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            if s[r] !== nothing # s[r] === nothing =&gt; unreached statement
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                if r &lt; frame.pc´´
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                    frame.pc´´ = r
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                push!(W, r)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function add_cycle_backedge!(frame::InferenceState, caller::InferenceState, currpc::Int)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    update_valid_age!(frame, caller)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    backedge = (caller, currpc)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    contains_is(frame.cycle_backedges, backedge) || push!(frame.cycle_backedges, backedge)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    add_backedge!(frame.linfo, caller)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return frame
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-compiler-inferencestate-jl-add_backedge-234"></a>
+              1 (0.04%) samples spent in add_backedge!<br />
+              1 (100.00%) (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              abstract_call_method_with_const_args
+              <a href="abstractinterpretation-jl-81d662f06740e3a15845-line.html#Labstractinterpretation-jl-81d662f06740e3a15845-line.html-270">line 270</a><br />
+            </div>
+            <span class="code"># temporarily accumulate our edges to later add as backedges in the callee
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function add_backedge!(li::MethodInstance, caller::InferenceState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isa(caller.linfo.def, Method) || return # don&#39;t add backedges to toplevel exprs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if caller.stmt_edges[caller.currpc] === nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        caller.stmt_edges[caller.currpc] = []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-240"></a>240</td>
+          <td>1 (0.04%)</td>
+          <td>1 (0.04%)</td>
+          <td>
+            <span class="code">    push!(caller.stmt_edges[caller.currpc], li)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-241"></a>241</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-242"></a>242</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-243"></a>243</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-244"></a>244</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># used to temporarily accumulate our no method errors to later add as backedges in the callee method table
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function add_mt_backedge!(mt::Core.MethodTable, @nospecialize(typ), caller::InferenceState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-246"></a>246</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isa(caller.linfo.def, Method) || return # don&#39;t add backedges to toplevel exprs
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if caller.stmt_edges[caller.currpc] === nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-248"></a>248</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        caller.stmt_edges[caller.currpc] = []
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-250"></a>250</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    push!(caller.stmt_edges[caller.currpc], mt)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-251"></a>251</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    push!(caller.stmt_edges[caller.currpc], typ)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-252"></a>252</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-254"></a>254</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function poison_callstack(infstate::InferenceState, topmost::InferenceState, poison_topmost::Bool)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-256"></a>256</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    poison_topmost &amp;&amp; (topmost = topmost.parent)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while !(infstate === topmost)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-258"></a>258</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if call_result_unused(infstate)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # If we won&#39;t propagate the result any further (since it&#39;s typically unused),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-260"></a>260</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # it&#39;s OK that we keep and cache the &quot;limited&quot; result in the parents
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # (non-typically, this means that we lose the ability to detect a guaranteed StackOverflow in some cases)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # TODO: we might be able to halt progress much more strongly here,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # since now we know we won&#39;t be able to keep anything much that we learned.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # We were mainly only here to compute the calling convention return type,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # but in most situations now, we are unlikely to be able to use that information.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            break
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-268"></a>268</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        infstate.limited = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for infstate_cycle in infstate.callers_in_cycle
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            infstate_cycle.limited = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-271"></a>271</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        infstate = infstate.parent
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        infstate === nothing &amp;&amp; return
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function is_specializable_vararg_slot(@nospecialize(arg), nargs::Int, vargs::Vector{Any})
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return (isa(arg, Slot) &amp;&amp; slot_id(arg) == nargs &amp;&amp; !isempty(vargs))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-279"></a>279</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function print_callstack(sv::InferenceState)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    while sv !== nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        print(sv.linfo)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sv.limited &amp;&amp; print(&quot;  [limited]&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        !sv.cached &amp;&amp; print(&quot;  [uncached]&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-286"></a>286</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        println()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-287"></a>287</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        for cycle in sv.callers_in_cycle
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-288"></a>288</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            print(&#39; &#39;, cycle.linfo)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-289"></a>289</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            cycle.limited &amp;&amp; print(&quot;  [limited]&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-290"></a>290</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            println()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-291"></a>291</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-292"></a>292</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        sv = sv.parent
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-293"></a>293</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Linferencestate-jl-9a15750fdc4069748e4c-line.html-294"></a>294</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

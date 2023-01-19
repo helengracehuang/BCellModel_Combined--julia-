@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./pair.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 19:33:45 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct Pair{A, B}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    first::A
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    second::B
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function Pair{A, B}(@nospecialize(a), @nospecialize(b)) where {A, B}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @_inline_meta
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # if we didn&#39;t inline this, it&#39;s probably because the callsite was actually dynamic
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # to avoid potentially compiling many copies of this, we mark the arguments with `@nospecialize`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # but also mark the whole function with `@inline` to ensure we will inline it whenever possible
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # (even if `convert(::Type{A}, a::A)` for some reason was expensive)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-12"></a>12</td>
+          <td>1 (0.04%)</td>
+          <td>1 (0.04%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-pair-jl-Pair-12"></a>
+              1 (0.04%) samples spent in Pair<br />
+              1 (100.00%) (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              perform_lifting!
+              <a href="passes-jl-f39fc9cedfd62b6c6402-line.html#Lpasses-jl-f39fc9cedfd62b6c6402-line.html-467">line 467</a><br />
+            </div>
+            <span class="code">        return new(a, b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Pair(a, b) = Pair{typeof(a), typeof(b)}(a, b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const =&gt; = Pair
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Pair(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    x =&gt; y
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Construct a `Pair` object with type `Pair{typeof(x), typeof(y)}`. The elements
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">are stored in the fields `first` and `second`. They can also be accessed via
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">iteration (but a `Pair` is treated as a single &quot;scalar&quot; for broadcasting operations).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">See also: [`Dict`](@ref)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Examples
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```jldoctest
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; p = &quot;foo&quot; =&gt; 7
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;foo&quot; =&gt; 7
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; typeof(p)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Pair{String,Int64}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; p.first
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;foo&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; for x in p
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">           println(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">       end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">foo
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">7
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Pair, =&gt;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">eltype(p::Type{Pair{A, B}}) where {A, B} = Union{A, B}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">iterate(p::Pair, i=1) = i &gt; 2 ? nothing : (getfield(p, i), i + 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">indexed_iterate(p::Pair, i::Int, state=1) = (getfield(p, i), i + 1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hash(p::Pair, h::UInt) = hash(p.second, hash(p.first, h))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">==(p::Pair, q::Pair) = (p.first==q.first) &amp; (p.second==q.second)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isequal(p::Pair, q::Pair) = isequal(p.first,q.first) &amp; isequal(p.second,q.second)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isless(p::Pair, q::Pair) = ifelse(!isequal(p.first,q.first), isless(p.first,q.first),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                                                             isless(p.second,q.second))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getindex(p::Pair,i::Int) = getfield(p,i)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getindex(p::Pair,i::Real) = getfield(p, convert(Int, i))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">reverse(p::Pair{A,B}) where {A,B} = Pair{B,A}(p.second, p.first)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">firstindex(p::Pair) = 1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lastindex(p::Pair) = 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">length(p::Pair) = 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">first(p::Pair) = p.first
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">last(p::Pair) = p.second
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">convert(::Type{Pair{A,B}}, x::Pair{A,B}) where {A,B} = x
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function convert(::Type{Pair{A,B}}, x::Pair) where {A,B}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Pair{A,B}(convert(A, x[1]), convert(B, x[2]))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">promote_rule(::Type{Pair{A1,B1}}, ::Type{Pair{A2,B2}}) where {A1,B1,A2,B2} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lpair-jl-beb4a539b67404f47fcd-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Pair{promote_type(A1, A2), promote_type(B1, B2)}
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

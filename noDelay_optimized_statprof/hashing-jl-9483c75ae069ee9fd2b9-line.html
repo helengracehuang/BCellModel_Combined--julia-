@@ -1,0 +1,827 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./hashing.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 18:42:43 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## hashing a single value ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash(x[, h::UInt])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Compute an integer hash code such that `isequal(x,y)` implies `hash(x)==hash(y)`. The
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">optional second argument `h` is a hash code to be mixed with the result.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">New types should implement the 2-argument form, typically by calling the 2-argument `hash`
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">method recursively in order to mix hashes of the contents with each other (and with `h`).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Typically, any type that implements `hash` should also implement its own `==` (hence
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">`isequal`) to guarantee the property mentioned above. Types supporting subtraction
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">(operator `-`) should also implement [`widen`](@ref), which is required to hash
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">values inside heterogeneous arrays.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-18"></a>18</td>
+          <td></td>
+          <td>7 (0.25%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-hashing-jl-hash-18"></a>
+              7 (0.25%) samples spent in hash<br />
+              0 (ex.),
+              7 (100.00%) (incl.)
+              when called from
+              hashindex
+              <a href="dict-jl-28d47e25ac84627a22f0-line.html#Ldict-jl-28d47e25ac84627a22f0-line.html-168">line 168</a><br />
+            </div>
+            <div class="callees">
+              7 (100.00%)
+              samples spent calling
+              <a href="hashing-jl-9483c75ae069ee9fd2b9-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-hashing-jl-hash-71">hash</a><br />
+            </div>
+            <span class="code">hash(x::Any) = hash(x, zero(UInt))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hash(w::WeakRef, h::UInt) = hash(w.value, h)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## hashing general objects ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">hash(@nospecialize(x), h::UInt) = hash_uint(3h - objectid(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## core data hashing functions ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function hash_64_64(n::UInt64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a::UInt64 = n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = ~a + a &lt;&lt; 21
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a ⊻ a &gt;&gt; 24
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a + a &lt;&lt; 3 + a &lt;&lt; 8
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a ⊻ a &gt;&gt; 14
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a + a &lt;&lt; 2 + a &lt;&lt; 4
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a ⊻ a &gt;&gt; 28
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a + a &lt;&lt; 31
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function hash_64_32(n::UInt64)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a::UInt64 = n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = ~a + a &lt;&lt; 18
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a ⊻ a &gt;&gt; 31
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a * 21
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a ⊻ a &gt;&gt; 11
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a + a &lt;&lt; 6
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =  a ⊻ a &gt;&gt; 22
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return a % UInt32
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function hash_32_32(n::UInt32)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a::UInt32 = n
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = a + 0x7ed55d16 + a &lt;&lt; 12
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = a ⊻ 0xc761c23c ⊻ a &gt;&gt; 19
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = a + 0x165667b1 + a &lt;&lt; 5
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = a + 0xd3a2646c ⊻ a &lt;&lt; 9
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = a + 0xfd7046c5 + a &lt;&lt; 3
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a = a ⊻ 0xb55a4f09 ⊻ a &gt;&gt; 16
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">if UInt === UInt64
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash_uint64(x::UInt64) = hash_64_64(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash_uint(x::UInt)     = hash_64_64(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash_uint64(x::UInt64) = hash_64_32(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash_uint(x::UInt)     = hash_32_32(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">## symbol &amp; expression hashing ##
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-hashing-jl-hash-71"></a>
+              7 (0.25%) samples spent in hash<br />
+              0 (ex.),
+              7 (100.00%) (incl.)
+              when called from
+              hash
+              <a href="hashing-jl-9483c75ae069ee9fd2b9-line.html#Lhashing-jl-9483c75ae069ee9fd2b9-line.html-18">line 18</a><br />
+            </div>
+            <span class="code">if UInt === UInt64
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-72"></a>72</td>
+          <td></td>
+          <td>7 (0.25%)</td>
+          <td>
+            <div class="callees">
+              7 (100.00%)
+              samples spent calling
+              <a href="abstractarray-jl-1b421350ce35d5bbb2bf-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-abstractarray-jl-hash-2258">hash</a><br />
+            </div>
+            <span class="code">    hash(x::Expr, h::UInt) = hash(x.args, hash(x.head, h + 0x83c7900696d26dc6))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash(x::QuoteNode, h::UInt) = hash(x.value, h + 0x2c97bf8b3de87020)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash(x::Expr, h::UInt) = hash(x.args, hash(x.head, h + 0x96d26dc6))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hash(x::QuoteNode, h::UInt) = hash(x.value, h + 0x469d72af)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lhashing-jl-9483c75ae069ee9fd2b9-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

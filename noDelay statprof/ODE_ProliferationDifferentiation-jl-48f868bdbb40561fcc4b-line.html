@@ -1,0 +1,3386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/Documents/1st Year PhD/Hoffmann Lab/Bcell apoptosis project/BCellModel_Combined (julia)/ODE_ProliferationDifferentiation.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 13:34:57 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># include(&quot;HelperFunctions.jl&quot;);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Compute reaction fluxes for proliferation &amp; differentiation module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#--------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-ODE_ProliferationDifferentiation-jl-computeProDiffFluxes-4"></a>
+              210 (2.91%) samples spent in computeProDiffFluxes!<br />
+              4 (100.00%) (ex.),
+              210 (100.00%) (incl.)
+              when called from
+              computeProDiffNettFluxes!
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-220">line 220</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function computeProDiffFluxes!(concentration, reactionFlux, Srates, phase)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #--------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 1: GC phenotype (Pax5-Bcl6) module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #--------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B01. 0 ----&gt; Pax5 : Basal synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-12"></a>12</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[PAX5, BASALSYNTHESIS] = Srates[PAX5, BASALSYNTHESIS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B02. Pax5 ----&gt; 0 : Degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-14"></a>14</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[PAX5, DECAY] = Srates[PAX5, DECAY] * concentration[PAX5];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B03. Blimp1 ----| Pax5 : Repression
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-16"></a>16</td>
+          <td></td>
+          <td>13 (0.18%)</td>
+          <td>
+            <div class="callees">
+              10 (76.92%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              3 (23.08%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillRepression-kw-39">hillRepression##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[PAX5, REPRESSION] = hillRepression(Kr = 1.0, nr = 2.0, X = concentration[BLIMP1]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #--------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # initialize Bcl6 : Synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[BCL6, SYNTHESIS] = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B04. 0 --Pax5--&gt; Bcl6 : Synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-21"></a>21</td>
+          <td></td>
+          <td>6 (0.08%)</td>
+          <td>
+            <div class="callees">
+              2 (33.33%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+              1 (16.67%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+              3 (50.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[BCL6, SYNTHESIS] += Srates[BCL6, SYNTHESIS] * hillActivation(Ka = 1.0, na = 1.0, X = concentration[PAX5])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B05. cRel ----&gt; Bcl6 : Induced synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-23"></a>23</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[BCL6, SYNTHESIS] += Srates[BCL6, SYNTHESIS] * hillActivation(Ka = 3.0, na = 1.0, X = concentration[CREL])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B06. Bcl6 ----&gt; 0 : Degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[BCL6, DECAY] = Srates[BCL6, DECAY] * concentration[BCL6]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B07. IRF4 &amp;&amp; Blimp1 ----| Bcl6 : Repression : repressors taken together, cannot use normal Hill repression form for this, so hard-coding it here
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-27"></a>27</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              2 (66.67%)
+              samples spent calling
+              <a href="math-jl-ba8b72bce1cbd1ccf1f2-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-math-jl-887">^</a><br />
+            </div>
+            <span class="code">        reactionFlux[BCL6, REPRESSION] = (1.0^2.0) / ((1.0^2.0) + (concentration[IRF4]^2.0) + (concentration[BLIMP1]^2.0))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # B08. Bcl6 ----| Bcl6 : Autorepression
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # reactionFlux[BCL6].repression *= hillRepression(Kr = Srates[BCL6].Kr[BCL6], nr = Srates[BCL6].nr[BCL6], X = concentration[BCL6]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #-----------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 2: Plasmablast phenotype (Blimp1-IRF4) module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #-----------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # initialize Blimp1 : Synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[BLIMP1, SYNTHESIS] = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C01. IRF4 ----&gt; Blimp1 : Induction by IRF4
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-37"></a>37</td>
+          <td></td>
+          <td>4 (0.06%)</td>
+          <td>
+            <div class="callees">
+              2 (50.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+              2 (50.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[BLIMP1, SYNTHESIS] += Srates[BLIMP1, SYNTHESIS] * hillActivation(Ka = 3.0, na = 2.0, X = concentration[IRF4]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C02. RelA ----&gt; Blimp1 : Induction by RelA
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-39"></a>39</td>
+          <td></td>
+          <td>6 (0.08%)</td>
+          <td>
+            <div class="callees">
+              3 (50.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              3 (50.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[BLIMP1, SYNTHESIS] += Srates[BLIMP1, SYNTHESIS] * hillActivation(Ka = 50.0, na = 2.0, X = concentration[RELA]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C03. Blimp1 ----&gt; 0 : Degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[BLIMP1, DECAY] = Srates[BLIMP1, DECAY] * concentration[BLIMP1];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C04. Bcl6 ----| Blimp1 : Repression by Bcl6
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-43"></a>43</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              2 (66.67%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillRepression-kw-39">hillRepression##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[BLIMP1, REPRESSION] = hillRepression(Kr = 1.0, nr = 2.0, X = concentration[BCL6]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #--------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C05. 0 ----&gt; IRF4 : Basal expression
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[IRF4, BASALSYNTHESIS] = Srates[IRF4, BASALSYNTHESIS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # initialize IRF4 : Synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[IRF4, SYNTHESIS] = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C06. Blimp1 ----&gt; IRF4 : Induction by Blimp1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-50"></a>50</td>
+          <td></td>
+          <td>6 (0.08%)</td>
+          <td>
+            <div class="callees">
+              1 (16.67%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+              1 (16.67%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              4 (66.67%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[IRF4, SYNTHESIS] += (1/3) * Srates[IRF4, SYNTHESIS] * hillActivation(Ka = 1.0, na = 2.0, X = concentration[BLIMP1]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C07. cRel ----&gt; IRF4 : Induction by cRel
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-52"></a>52</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[IRF4, SYNTHESIS] += (1/40) * Srates[IRF4, SYNTHESIS] * hillActivation(Ka = 3.0, na = 2.0, X = concentration[CREL]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C08. RelA ----&gt; IRF4 : Induction by RelA
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-54"></a>54</td>
+          <td></td>
+          <td>4 (0.06%)</td>
+          <td>
+            <div class="callees">
+              1 (25.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+              1 (25.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              2 (50.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-401">+</a><br />
+            </div>
+            <span class="code">        reactionFlux[IRF4, SYNTHESIS] += (1/40) * Srates[IRF4, SYNTHESIS] * hillActivation(Ka = 50.0, na = 2.0, X = concentration[RELA]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C09. Myc ----&gt; IRF4 : Induction by Myc
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-56"></a>56</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[IRF4, SYNTHESIS] += 0;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # reactionFlux[IRF4, SYNTHESIS] += Srates[IRF4, SYNTHESIS] * hillActivation(Ka = Srates[IRF4].Ka[MYC], na = Srates[IRF4].na[MYC], X = concentration[MYC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C10. IRF4 ----&gt; 0 : Degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[IRF4, DECAY] = Srates[IRF4, DECAY] * concentration[IRF4];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # C11. IRF-4 ----&gt; IRF4 : Autoinduction
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #reactionFlux[IRF4, SYNTHESIS] += (0.7) * Srates[IRF4, SYNTHESIS] * hillActivation(Ka = Srates[IRF4].Ka[IRF4], na = Srates[IRF4].na[IRF4], X = concentration[IRF4]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #-------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 3: Growth and division (tMyc-Myc) module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #-------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D01. 0 --NFkB--&gt; tMyc : Myc transcript induction by NFkB *** APPROXIMATION : IKK TERMS ELIMINATED! ***
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-67"></a>67</td>
+          <td></td>
+          <td>9 (0.12%)</td>
+          <td>
+            <div class="callees">
+              3 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              1 (11.11%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              1 (11.11%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+              4 (44.44%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[TMYC, SYNTHESIS] = Srates[TMYC, SYNTHESIS] * hillActivation(Ka = 1.0, na = 2.0, X = ((concentration[A50] + concentration[C50])/MYCTHR));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D02. tMyc ----&gt; 0 : mRNA degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-69"></a>69</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[TMYC, DECAY] = Srates[TMYC, DECAY] * concentration[TMYC];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D03. tMyc ----&gt; Myc : Synthesis by translation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[MYC, TRANSLATION] = EPS * Srates[MYC, TRANSLATION] * concentration[TMYC];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # initialize Myc : Synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[MYC, SYNTHESIS] = 0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D04. 0 --IRF4--&gt; Myc : Induction by IRF4
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-75"></a>75</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[MYC, SYNTHESIS] += 0;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # reactionFlux[MYC, SYNTHESIS] += Srates[MYC, SYNTHESIS] * hillActivation(Ka = Srates[MYC].Ka[IRF4], na = Srates[MYC].na[IRF4], X = concentration[IRF4]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D05. Myc ----&gt; 0 : Protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[MYC, DECAY] = Srates[MYC, DECAY] * concentration[MYC];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #-----------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # IV. Execution layer : cell cycle module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #-----------------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 4: Cyclin D module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D01. 0 --Myc--&gt; CycD : protein induction by Myc
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-88"></a>88</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              2 (66.67%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCD, SYNTHESIS] = EPS * Srates[CYCD, SYNTHESIS] * michaelisMenten(K = 0.15, X = concentration[MYC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D02. CycD ----&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-90"></a>90</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCD, DECAY] = Srates[CYCD, DECAY] * concentration[CYCD];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D03. CycD + p27 ----&gt; CycD:p27 : complex formation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-92"></a>92</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCDP27, ASSOCIATION] = Srates[CYCDP27, ASSOCIATION] * concentration[CYCD] * concentration[P27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D04. CycD:p27 ----&gt; CycD + p27 : complex dissociation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-94"></a>94</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCDP27, DISSOCIATION] = Srates[CYCDP27, DISSOCIATION] * concentration[CYCDP27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # D05. CycD:p27 ----&gt; p27 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[CYCDP27, DECAY] = Srates[CYCD, DECAY] * concentration[CYCDP27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 5: Cyclin E module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # E01. 0 --E2F--&gt; CycE : protein synthesis induced by E2F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-102"></a>102</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCE, SYNTHESIS] = EPS * (Srates[CYCE, BASALSYNTHESIS] + Srates[CYCE, SYNTHESIS] * michaelisMenten(K = 0.1, X = concentration[E2F]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # E02. CycE ----&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-104"></a>104</td>
+          <td></td>
+          <td>17 (0.24%)</td>
+          <td>
+            <div class="callees">
+              12 (70.59%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCycEDecay-75">RateCycEDecay</a><br />
+              2 (11.76%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              1 (5.88%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+              1 (5.88%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCycEDecay">RateCycEDecay</a><br />
+              1 (5.88%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-RateCycEDecay">RateCycEDecay</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCE, DECAY] = RateCycEDecay(concentration, Srates) * concentration[CYCE];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # E03. CycE + p27 ----&gt; CycE:p27 : complex formation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-106"></a>106</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCEP27, ASSOCIATION] = Srates[CYCEP27, ASSOCIATION] * concentration[CYCE] * concentration[P27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # E04. CycE:p27 ----&gt; CycE + p27 : complex dissociation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-108"></a>108</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCEP27, DISSOCIATION] = Srates[CYCEP27, DISSOCIATION] * concentration[CYCEP27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # E05. CycE:p27 --CycE/A/B--&gt; p27 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-110"></a>110</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              2 (66.67%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCycEDecay-75">RateCycEDecay</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCEP27, DECAY] = RateCycEDecay(concentration, Srates) * concentration[CYCEP27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 6: E2F-Rb module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F01. 0 --Myc--&gt; tE2F : E2F transcript induction by Myc
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-116"></a>116</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (50.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+              1 (50.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[TE2F, BASALSYNTHESIS] = Srates[TE2F, BASALSYNTHESIS] * michaelisMenten(K = 2.5, X = concentration[MYC]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F02. 0 --Myc&amp;&amp;E2F--&gt; tE2F : E2F transcript induction by synergistic Myc and E2F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-118"></a>118</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-kw-25">michaelisMenten##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[TE2F, SYNTHESIS] = Srates[TE2F, SYNTHESIS] * michaelisMenten(K = 0.15, X = concentration[MYC]) * michaelisMenten(K = 0.15, X = concentration[E2F]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F03. tE2F ----&gt; 0 : E2F transcript degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[TE2F, DECAY] = Srates[TE2F, DECAY] * concentration[TE2F];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F04. tE2F ----&gt; E2F : translation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-122"></a>122</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[E2F, TRANSLATION] = EPS * Srates[E2F, TRANSLATION] * concentration[TE2F];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F05. E2F --CycA,CycB--&gt; 0 : free E2F degradation mediated by Cyclin A,B
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-124"></a>124</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[E2F, DECAY] = (Srates[E2F, BASALDECAY] + Srates[E2F, DECAY] * (concentration[CYCA] + concentration[CYCB])) * (concentration[E2F]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F06. 0 ----&gt; Rb : protein synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[RB, SYNTHESIS] = EPS * Srates[RB, SYNTHESIS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F07. Rb ----&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[RB, DECAY] = Srates[RB, DECAY] * concentration[RB];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F08. Rb --CycD,CycE,CycA,CycB--&gt; ppRb : phosphorylation mediated by all cyclins
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-131"></a>131</td>
+          <td></td>
+          <td>4 (0.06%)</td>
+          <td>
+            <div class="callees">
+              1 (25.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+              1 (25.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+              2 (50.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-401">+</a><br />
+            </div>
+            <span class="code">        reactionFlux[RB, PHOSPHORYLATION] = Srates[RB, PHOSPHORYLATION] * michaelisMenten(K = 0.92, X = concentration[RB]) * ((3.3 * (concentration[CYCD] + concentration[CYCDP27])) + (5.0 * concentration[CYCE]) + (3.0 * concentration[CYCA]) + (5.0 * concentration[CYCB]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F09. ppRb ----&gt; Rb : dephosphorylation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-133"></a>133</td>
+          <td></td>
+          <td>6 (0.08%)</td>
+          <td>
+            <div class="callees">
+              6 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[PPRB, DEPHOSPHORYLATION] = (20.0 * concentration[PPRB]) / (1.0 + (25.0*(concentration[CYCE] + concentration[CYCA]) + 2.0*concentration[CYCB]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F10. ppRb ----&gt; 0 : phosphorylated protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[PPRB, DECAY] = Srates[PPRB, DECAY] * concentration[PPRB];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F11. E2F + Rb ----&gt; E2F:Rb : complex formation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-138"></a>138</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (50.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+              1 (50.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[E2FRB, ASSOCIATION] = Srates[E2FRB, ASSOCIATION] * concentration[E2F] * concentration[RB];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F12. E2F:Rb --CycD,CycE,CycA,CycB--&gt; E2F + ppRb : complex dissociation due to Rb phosphorylation mediated by all cyclins
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-140"></a>140</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-kw-25">michaelisMenten##kw</a><br />
+              2 (66.67%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[E2FRB, PHOSPHORYLATION] = Srates[RB, PHOSPHORYLATION] * michaelisMenten(K = 0.92, X = concentration[E2FRB]) * ((3.3 * (concentration[CYCD] + concentration[CYCDP27])) + (5.0 * concentration[CYCE]) + (3.0 * concentration[CYCA]) + (5.0 * concentration[CYCB]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # F13. E2F:Rb ----&gt; 0 : complex degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[E2FRB, DECAY] = Srates[E2FRB, DECAY] * concentration[E2FRB];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # G. Growth module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # G01. 0 ----&gt; GM : general machinery synthesis : Basal growth to maintain size =&gt; isolated
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-148"></a>148</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[GM, BASALSYNTHESIS] = 0.01 * Srates[GM, SYNTHESIS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # G02. 0 --Myc&amp;&amp;Rb--&gt; GM : general machinery synthesis : Active/Total Rb &lt; 0.8 ? Additional non-linear growth : No additional growth
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-150"></a>150</td>
+          <td>2 (0.03%)</td>
+          <td>49 (0.68%)</td>
+          <td>
+            <div class="callees">
+              36 (73.47%)
+              samples spent calling
+              <a href="exp-jl-a311284ff33231e59cd8-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-special-exp-jl-exp-73">exp</a><br />
+              1 (2.04%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+              1 (2.04%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              3 (6.12%)
+              samples spent calling
+              <a href="promotion-jl-a3546679c21b8ff08fe7-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-promotion-jl-314">/</a><br />
+              1 (2.04%)
+              samples spent calling
+              <a href="intfuncs-jl-df2a8d60545e8c288b96-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-intfuncs-jl-literal_pow-296">literal_pow</a><br />
+              2 (4.08%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              3 (6.12%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[GM, SYNTHESIS] = (((concentration[RB] + concentration[E2FRB]) &lt; (4.0*concentration[PPRB])) ? 0.0 : 0.99 * Srates[GM, SYNTHESIS] * (2.8*concentration[MASS]^2)*exp(-0.14*concentration[MASS]^2)) * hillActivation(Ka = 1.0, na = 2.0, X = (concentration[MYC]/GROWTHR));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # G03. GM ----&gt; 0 : general machinery degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[GM, DECAY] = Srates[GM, DECAY] * concentration[GM];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # G04. 0 --GM--&gt; Mass : anabolism
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[MASS, SYNTHESIS] = EPS * Srates[MASS, SYNTHESIS] * concentration[GM];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # G05. Mass ----&gt; 0 : catabolism
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-156"></a>156</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[MASS, DECAY] = Srates[MASS, DECAY] * concentration[MASS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 7: Cyclin A module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # H01. 0 --E2F&amp;&amp;Myc--&gt; CycA : protein synthesis induced by E2F : GrowthMultiplier = hillActivation(Ka = 1, na = 2, X = (concentration[MYC]/GROWTHR))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-162"></a>162</td>
+          <td>1 (0.01%)</td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              2 (66.67%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCA, SYNTHESIS] = concentration[MASS] &lt;= 0.5 ? 0.0 : (EPS * Srates[CYCA, SYNTHESIS] * concentration[E2F] * concentration[MASS]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # H02. CycA --Cdc20--&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-164"></a>164</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCA, DECAY] = Srates[CYCA, DECAY] * concentration[CDC20] * concentration[CYCA];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # H03. CycA + p27 ----&gt; CycA:p27 : complex formation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-166"></a>166</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCAP27, ASSOCIATION] = Srates[CYCAP27, ASSOCIATION] * concentration[CYCA] * concentration[P27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # H04. CycA:p27 ----&gt; CycA + p27 : complex dissociation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[CYCAP27, DISSOCIATION] = Srates[CYCAP27, DISSOCIATION] * concentration[CYCAP27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # H05. CycA:p27 --CycE/A/B--&gt; p27 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[CYCAP27, DECAY] = Srates[CYCA, DECAY] * concentration[CDC20] * concentration[CYCAP27];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # MODULE 8: p27 module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # I01. 0 ----&gt; p27 : protein synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[P27, SYNTHESIS] = EPS * Srates[P27, SYNTHESIS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # I02. p27 --CycE/A/B--&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # I03. CycD:p27 --CycE/A/B--&gt; CycD : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # I04. CycE:p27 --CycE/A/B--&gt; CycE : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # I05. CycA:p27 --CycE/A/B--&gt; CycA : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-181"></a>181</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+            </div>
+            <span class="code">        reactionFlux[P27, DECAY] = RateP27Decay(concentration, Srates); # *** Write as an overall rate and multiply with appropriate concentrations as required ***
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J. Cyclin B module
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #----------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J01. 0 --CycB--&gt; CycB : protein synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-187"></a>187</td>
+          <td></td>
+          <td>5 (0.07%)</td>
+          <td>
+            <div class="callees">
+              3 (60.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              2 (40.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-hillActivation-kw-32">hillActivation##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCB, SYNTHESIS] = EPS * (Srates[CYCB, BASALSYNTHESIS] + Srates[CYCB, SYNTHESIS] * hillActivation(Ka = 0.1, na = 2.0, X = concentration[CYCB]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J02. CycB --Cdc20,Cdh1--&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-189"></a>189</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCycBDecay-60">RateCycBDecay</a><br />
+            </div>
+            <span class="code">        reactionFlux[CYCB, DECAY] = RateCycBDecay(concentration, Srates) * concentration[CYCB];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J03. 0 ----&gt; PPX : phosphatase synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[PPX, SYNTHESIS] = EPS * Srates[PPX, SYNTHESIS];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J04. PPX ----&gt; 0 : phosphatase degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-193"></a>193</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[PPX, DECAY] = Srates[PPX, DECAY] * concentration[PPX];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J05. 0 --CycB--&gt; IEP : intermediate enzyme synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-195"></a>195</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+              2 (66.67%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-kw-25">michaelisMenten##kw</a><br />
+            </div>
+            <span class="code">        reactionFlux[IEP, PHOSPHORYLATION] = Srates[IEP, PHOSPHORYLATION] * concentration[CYCB] * michaelisMenten(K = 0.01, X = (1.0 - concentration[IEP]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J06. IEP --PPX--&gt; 0 : intermediate enzyme degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-197"></a>197</td>
+          <td></td>
+          <td>5 (0.07%)</td>
+          <td>
+            <div class="callees">
+              3 (60.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              1 (20.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+              1 (20.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[IEP, DEPHOSPHORYLATION] = Srates[IEP, DEPHOSPHORYLATION] * concentration[PPX] * michaelisMenten(K = 0.01, X = concentration[IEP]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J07. 0 --CycB--&gt; Cdc20T : protein synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-199"></a>199</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[CDC20, SYNTHESIS] = EPS * (Srates[CDC20, BASALSYNTHESIS] + Srates[CDC20, SYNTHESIS] * concentration[CYCB]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J08. Cdc20T ----&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[CDC20, DECAY] = Srates[CDC20, DECAY] * concentration[CDC20];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J09. 0 --IEP--&gt; Cdc20 : protein synthesis
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-203"></a>203</td>
+          <td></td>
+          <td>6 (0.08%)</td>
+          <td>
+            <div class="callees">
+              2 (33.33%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+              2 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              2 (33.33%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CDC20, PHOSPHORYLATION] = Srates[CDC20, PHOSPHORYLATION] * concentration[IEP] * michaelisMenten(K = 0.005, X = (concentration[CDC20] - concentration[CDC20P]));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J10. Cdc20 --Cdc20--&gt; 0 : protein autocatalytic degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        reactionFlux[CDC20P, DEPHOSPHORYLATION] = Srates[CDC20P, DEPHOSPHORYLATION] * michaelisMenten(K = 0.005, X = concentration[CDC20P]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J11. Cdc20 ----&gt; 0 : protein degradation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-207"></a>207</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-809">getindex</a><br />
+            </div>
+            <span class="code">        reactionFlux[CDC20P, DECAY] = Srates[CDC20, DECAY] * concentration[CDC20P];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J12. 0 --Cdc20--&gt; Cdh1 : protein activation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-209"></a>209</td>
+          <td></td>
+          <td>8 (0.11%)</td>
+          <td>
+            <div class="callees">
+              1 (12.50%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-849">setindex!</a><br />
+              2 (25.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-michaelisMenten-kw-25">michaelisMenten##kw</a><br />
+              5 (62.50%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        reactionFlux[CDH1, PHOSPHORYLATION] = concentration[CDH1] &gt; 1.0 ? 0.0 : ((Srates[CDH1, BASALSYNTHESIS] + Srates[CDH1, PHOSPHORYLATION] * concentration[CDC20P]) * michaelisMenten(K = 0.01, X = (1.0 - concentration[CDH1])));
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # J13. Cdh1 --CycE/A/B--&gt; 0 : protein deactivation
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-211"></a>211</td>
+          <td></td>
+          <td>4 (0.06%)</td>
+          <td>
+            <div class="callees">
+              4 (100.00%)
+              samples spent calling
+              <a href="HelperFunctions-jl-b2d6d4b69c368e41ca00-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-HelperFunctions-jl-RateCdh1Decay-65">RateCdh1Decay</a><br />
+            </div>
+            <span class="code">        reactionFlux[CDH1, DEPHOSPHORYLATION] = RateCdh1Decay(concentration, Srates) * michaelisMenten(K = 0.01, X = concentration[CDH1]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-214"></a>214</td>
+          <td>1 (0.01%)</td>
+          <td>1 (0.01%)</td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-ODE_ProliferationDifferentiation-jl-computeProDiffNettFluxes-216"></a>
+              268 (3.72%) samples spent in computeProDiffNettFluxes!<br />
+              4 (100.00%) (ex.),
+              268 (100.00%) (incl.)
+              when called from
+              computeNetworkNettFluxes!
+              <a href="nothing-0feca720e2c29dafb2c9-line.html#Lnothing-0feca720e2c29dafb2c9-line.html-7">line 7</a><br />
+            </div>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-217"></a>217</td>
+          <td>3 (0.04%)</td>
+          <td>3 (0.04%)</td>
+          <td>
+            <span class="code">function computeProDiffNettFluxes!(nettFlux, concentration, reactionFlux, Srates, phase)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Compute proliferation &amp; differentiation reaction fluxes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-220"></a>220</td>
+          <td>1 (0.01%)</td>
+          <td>211 (2.93%)</td>
+          <td>
+            <div class="callees">
+              210 (99.53%)
+              samples spent calling
+              <a href="ODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html#S-Users-xinhuang-Documents-1st-Year-PhD-Hoffmann-Lab-Bcell-apoptosis-project-BCellModel_Combined-julia-ODE_ProliferationDifferentiation-jl-computeProDiffFluxes-4">computeProDiffFluxes!</a><br />
+            </div>
+            <span class="code">    computeProDiffFluxes!(concentration, reactionFlux, Srates, phase);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Compute proliferation &amp; differentiation net fluxes
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inbounds begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 1 : Pax5
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-225"></a>225</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              3 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        nettFlux[PAX5] = (reactionFlux[PAX5, BASALSYNTHESIS] * reactionFlux[PAX5, REPRESSION]) - reactionFlux[PAX5, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 2 : Bcl6
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-227"></a>227</td>
+          <td></td>
+          <td>2 (0.03%)</td>
+          <td>
+            <div class="callees">
+              1 (50.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+              1 (50.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-405">*</a><br />
+            </div>
+            <span class="code">        nettFlux[BCL6] = (reactionFlux[BCL6, SYNTHESIS] * reactionFlux[BCL6, REPRESSION]) - reactionFlux[BCL6, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 3 : Blimp1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[BLIMP1] = (reactionFlux[BLIMP1, SYNTHESIS] * reactionFlux[BLIMP1, REPRESSION]) - reactionFlux[BLIMP1, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 4 : IRF4
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[IRF4] = reactionFlux[IRF4, BASALSYNTHESIS] + reactionFlux[IRF4, SYNTHESIS] - reactionFlux[IRF4, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 5 : tMyc
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[TMYC] = reactionFlux[TMYC, SYNTHESIS] - reactionFlux[TMYC, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 6 : Myc
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[MYC] = reactionFlux[MYC, TRANSLATION] + reactionFlux[MYC, SYNTHESIS] - reactionFlux[MYC, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 7 : tE2F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[TE2F] = reactionFlux[TE2F, BASALSYNTHESIS] + reactionFlux[TE2F, SYNTHESIS] - reactionFlux[TE2F, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 8 : E2F
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-240"></a>240</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        nettFlux[E2F] = reactionFlux[E2F, TRANSLATION] - reactionFlux[E2F, DECAY] - reactionFlux[E2FRB, ASSOCIATION] + reactionFlux[E2FRB, PHOSPHORYLATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-241"></a>241</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 9 : Rb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-242"></a>242</td>
+          <td></td>
+          <td>4 (0.06%)</td>
+          <td>
+            <div class="callees">
+              1 (25.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+              1 (25.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-401">+</a><br />
+              2 (50.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+            </div>
+            <span class="code">        nettFlux[RB] = reactionFlux[RB, SYNTHESIS] - reactionFlux[RB, DECAY] - reactionFlux[RB, PHOSPHORYLATION] + reactionFlux[PPRB, DEPHOSPHORYLATION] - reactionFlux[E2FRB, ASSOCIATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-243"></a>243</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 10 : ppRB
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-244"></a>244</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+            </div>
+            <span class="code">        nettFlux[PPRB] = reactionFlux[RB, PHOSPHORYLATION] - reactionFlux[PPRB, DEPHOSPHORYLATION] - reactionFlux[PPRB, DECAY] + reactionFlux[E2FRB, PHOSPHORYLATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 11 : E2F:Rb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-246"></a>246</td>
+          <td></td>
+          <td>5 (0.07%)</td>
+          <td>
+            <div class="callees">
+              3 (60.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+              1 (20.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+              1 (20.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+            </div>
+            <span class="code">        nettFlux[E2FRB] = reactionFlux[E2FRB, ASSOCIATION] - reactionFlux[E2FRB, PHOSPHORYLATION] - reactionFlux[E2FRB, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 12 : CycD
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-248"></a>248</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+            </div>
+            <span class="code">        nettFlux[CYCD] = reactionFlux[CYCD, TRANSLATION] + reactionFlux[CYCD, SYNTHESIS] - reactionFlux[CYCD, DECAY] - reactionFlux[CYCDP27, ASSOCIATION] + reactionFlux[CYCDP27, DISSOCIATION] + (reactionFlux[P27, DECAY] * concentration[CYCDP27]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 13 : CycE
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-250"></a>250</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+            </div>
+            <span class="code">        nettFlux[CYCE] = reactionFlux[CYCE, SYNTHESIS] - reactionFlux[CYCE, DECAY] - reactionFlux[CYCEP27, ASSOCIATION] + reactionFlux[CYCEP27, DISSOCIATION] + (reactionFlux[P27, DECAY] * concentration[CYCEP27]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-251"></a>251</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 14 : CycA
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-252"></a>252</td>
+          <td></td>
+          <td>3 (0.04%)</td>
+          <td>
+            <div class="callees">
+              2 (66.67%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+              1 (33.33%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+            </div>
+            <span class="code">        nettFlux[CYCA] = reactionFlux[CYCA, SYNTHESIS] - reactionFlux[CYCA, DECAY] - reactionFlux[CYCAP27, ASSOCIATION] + reactionFlux[CYCAP27, DISSOCIATION] + (reactionFlux[P27, DECAY] * concentration[CYCAP27]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 15 : CycB
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-254"></a>254</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+            </div>
+            <span class="code">        nettFlux[CYCB] = reactionFlux[CYCB, SYNTHESIS] - reactionFlux[CYCB, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 16 : p27
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-256"></a>256</td>
+          <td></td>
+          <td>19 (0.26%)</td>
+          <td>
+            <div class="callees">
+              11 (57.89%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+              6 (31.58%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+              1 (5.26%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+              1 (5.26%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+            </div>
+            <span class="code">        nettFlux[P27] = reactionFlux[P27, SYNTHESIS] - (reactionFlux[P27, DECAY] * concentration[P27]) + reactionFlux[CYCDP27, DECAY] + reactionFlux[CYCEP27, DECAY] + reactionFlux[CYCAP27, DECAY] + reactionFlux[CYCDP27, DISSOCIATION] + reactionFlux[CYCEP27, DISSOCIATION] + reactionFlux[CYCAP27, DISSOCIATION] - reactionFlux[CYCDP27, ASSOCIATION] - reactionFlux[CYCEP27, ASSOCIATION] - reactionFlux[CYCAP27, ASSOCIATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 17 : CycD:p27
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-258"></a>258</td>
+          <td></td>
+          <td>4 (0.06%)</td>
+          <td>
+            <div class="callees">
+              1 (25.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+              3 (75.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        nettFlux[CYCDP27] = reactionFlux[CYCDP27, ASSOCIATION] - reactionFlux[CYCDP27, DISSOCIATION] - reactionFlux[CYCDP27, DECAY] - (reactionFlux[P27, DECAY] * concentration[CYCDP27]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 18 : CycE:p27
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-260"></a>260</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-403">-</a><br />
+            </div>
+            <span class="code">        nettFlux[CYCEP27] = reactionFlux[CYCEP27, ASSOCIATION] - reactionFlux[CYCEP27, DISSOCIATION] - reactionFlux[CYCEP27, DECAY] - (reactionFlux[P27, DECAY] * concentration[CYCEP27]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 19 : CycA:p27
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[CYCAP27] = reactionFlux[CYCAP27, ASSOCIATION] - reactionFlux[CYCAP27, DISSOCIATION] - reactionFlux[CYCAP27, DECAY] - (reactionFlux[P27, DECAY] * concentration[CYCAP27]);
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 20 : IEP (active)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[IEP] = reactionFlux[IEP, PHOSPHORYLATION] - reactionFlux[IEP, DEPHOSPHORYLATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 21 : PPX
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[PPX] = reactionFlux[PPX, SYNTHESIS] - reactionFlux[PPX, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 22 : Cdc20 (total)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-268"></a>268</td>
+          <td></td>
+          <td>1 (0.01%)</td>
+          <td>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-getindex-810">getindex</a><br />
+            </div>
+            <span class="code">        nettFlux[CDC20] = reactionFlux[CDC20, SYNTHESIS] - reactionFlux[CDC20, DECAY]; # - reactionFlux[CDC20, PHOSPHORYLATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 23 : Cdc20P (active)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[CDC20P] = reactionFlux[CDC20, PHOSPHORYLATION] - reactionFlux[CDC20P, DEPHOSPHORYLATION] - reactionFlux[CDC20P, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-271"></a>271</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 24 : Cdh1 (active)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[CDH1] = reactionFlux[CDH1, PHOSPHORYLATION] - reactionFlux[CDH1, DEPHOSPHORYLATION];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 25 : GM
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[GM] = reactionFlux[GM, BASALSYNTHESIS] + reactionFlux[GM, SYNTHESIS] - reactionFlux[GM, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 26 : Mass
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        nettFlux[MASS] = reactionFlux[MASS, SYNTHESIS] - reactionFlux[MASS, DECAY];
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 27 : Rb Growth Switch
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-279"></a>279</td>
+          <td></td>
+          <td>5 (0.07%)</td>
+          <td>
+            <div class="callees">
+              5 (100.00%)
+              samples spent calling
+              <a href="array-jl-6d11cb230b531404c79b-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-array-jl-setindex-847">setindex!</a><br />
+            </div>
+            <span class="code">        concentration[RBGS] = (concentration[RB] + concentration[E2FRB]) &lt; (4*concentration[PPRB]) ? 0 : 1;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # 28 : Generations : To be set by interrupt
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        #------------------------------------------------
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="LODE_ProliferationDifferentiation-jl-48f868bdbb40561fcc4b-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

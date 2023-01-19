@@ -1,0 +1,3873 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Applications/Julia-1.5.app/Contents/Resources/julia/bin/../share/julia/base/./fastmath.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 23:51:39 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This file is a part of Julia. License is MIT: https://julialang.org/license
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Support for @fastmath
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This module provides versions of math functions that may violate
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># strict IEEE semantics.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This allows the following transformations. For more information see
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># http://llvm.org/docs/LangRef.html#fast-math-flags:
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># nnan: No NaNs - Allow optimizations to assume the arguments and
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       result are not NaN. Such optimizations are required to retain
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       defined behavior over NaNs, but the value of the result is
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       undefined.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># ninf: No Infs - Allow optimizations to assume the arguments and
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       result are not +/-Inf. Such optimizations are required to
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       retain defined behavior over +/-Inf, but the value of the
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       result is undefined.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># nsz:  No Signed Zeros - Allow optimizations to treat the sign of a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       zero argument or result as insignificant.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># arcp: Allow Reciprocal - Allow optimizations to use the reciprocal
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       of an argument rather than perform division.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># fast: Fast - Allow algebraically equivalent transformations that may
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       dramatically change results in floating point (e.g.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#       reassociate). This flag implies all the others.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">module FastMath
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">export @fastmath
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">import Core.Intrinsics: sqrt_llvm_fast, neg_float_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    add_float_fast, sub_float_fast, mul_float_fast, div_float_fast, rem_float_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    eq_float_fast, ne_float_fast, lt_float_fast, le_float_fast
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const fast_op =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Dict(# basic arithmetic
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :+ =&gt; :add_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :- =&gt; :sub_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :* =&gt; :mul_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :/ =&gt; :div_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :(==) =&gt; :eq_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :!= =&gt; :ne_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :&lt; =&gt; :lt_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :&lt;= =&gt; :le_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :abs =&gt; :abs_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :abs2 =&gt; :abs2_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :cmp =&gt; :cmp_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :conj =&gt; :conj_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :inv =&gt; :inv_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :rem =&gt; :rem_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :sign =&gt; :sign_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :isfinite =&gt; :isfinite_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :isinf =&gt; :isinf_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :isnan =&gt; :isnan_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :issubnormal =&gt; :issubnormal_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         # math functions
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :^ =&gt; :pow_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :acos =&gt; :acos_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :acosh =&gt; :acosh_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :angle =&gt; :angle_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :asin =&gt; :asin_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :asinh =&gt; :asinh_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :atan =&gt; :atan_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :atanh =&gt; :atanh_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :cbrt =&gt; :cbrt_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :cis =&gt; :cis_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :cos =&gt; :cos_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :cosh =&gt; :cosh_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :exp10 =&gt; :exp10_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :exp2 =&gt; :exp2_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :exp =&gt; :exp_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :expm1 =&gt; :expm1_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :hypot =&gt; :hypot_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :log10 =&gt; :log10_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :log1p =&gt; :log1p_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :log2 =&gt; :log2_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :log =&gt; :log_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :max =&gt; :max_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :min =&gt; :min_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :minmax =&gt; :minmax_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :sin =&gt; :sin_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :sincos =&gt; :sincos_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :sinh =&gt; :sinh_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :sqrt =&gt; :sqrt_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :tan =&gt; :tan_fast,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :tanh =&gt; :tanh_fast)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const rewrite_op =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Dict(:+= =&gt; :+,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :-= =&gt; :-,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :*= =&gt; :*,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :/= =&gt; :/,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">         :^= =&gt; :^)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function make_fastmath(expr::Expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if expr.head === :quote
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return expr
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    elseif expr.head === :call &amp;&amp; expr.args[1] === :^ &amp;&amp; expr.args[3] isa Integer
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # mimic Julia&#39;s literal_pow lowering of literal integer powers
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Expr(:call, :(Base.FastMath.pow_fast), make_fastmath(expr.args[2]), Val{expr.args[3]}())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    op = get(rewrite_op, expr.head, :nothing)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if op !== :nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        var = expr.args[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        rhs = expr.args[2]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        if isa(var, Symbol)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # simple assignment
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            expr = :($var = $op($var, $rhs))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        elseif isa(var, Expr) &amp;&amp; var.head === :ref
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            # array reference
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            arr = var.args[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            inds = var.args[2:end]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            arrvar = gensym()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            indvars = Any[gensym() for i in inds]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            expr = quote
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                $(Expr(:(=), arrvar, arr))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                $(Expr(:(=), Expr(:tuple, indvars...), Expr(:tuple, inds...)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                $arrvar[$(indvars...)] = $op($arrvar[$(indvars...)], $rhs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-118"></a>118</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-119"></a>119</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-120"></a>120</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-121"></a>121</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    Expr(make_fastmath(expr.head), map(make_fastmath, expr.args)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-122"></a>122</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-123"></a>123</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function make_fastmath(symb::Symbol)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-124"></a>124</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    fast_symb = get(fast_op, symb, :nothing)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-125"></a>125</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if fast_symb === :nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-126"></a>126</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return symb
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-127"></a>127</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-128"></a>128</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    :(Base.FastMath.$fast_symb)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-129"></a>129</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-130"></a>130</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">make_fastmath(expr) = expr
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-131"></a>131</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-132"></a>132</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-133"></a>133</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @fastmath expr
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-134"></a>134</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-135"></a>135</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Execute a transformed version of the expression, which calls functions that
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-136"></a>136</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">may violate strict IEEE semantics. This allows the fastest possible operation,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-137"></a>137</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">but results are undefined -- be careful when doing this, as it may change numerical
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-138"></a>138</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">results.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-139"></a>139</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-140"></a>140</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">This sets the [LLVM Fast-Math flags](http://llvm.org/docs/LangRef.html#fast-math-flags),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-141"></a>141</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">and corresponds to the `-ffast-math` option in clang. See [the notes on performance
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-142"></a>142</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">annotations](@ref man-performance-annotations) for more details.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-143"></a>143</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-144"></a>144</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Examples
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-145"></a>145</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```jldoctest
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-146"></a>146</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; @fastmath 1+2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-147"></a>147</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">3
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-148"></a>148</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-149"></a>149</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">julia&gt; @fastmath(sin(3))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-150"></a>150</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">0.1411200080598672
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-151"></a>151</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">```
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-152"></a>152</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-153"></a>153</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">macro fastmath(expr)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-154"></a>154</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    make_fastmath(esc(expr))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-155"></a>155</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-156"></a>156</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-157"></a>157</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-158"></a>158</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Basic arithmetic
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-159"></a>159</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-160"></a>160</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const FloatTypes = Union{Float32,Float64}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-161"></a>161</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-162"></a>162</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sub_fast(x::FloatTypes) = neg_float_fast(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-163"></a>163</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-164"></a>164</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">add_fast(x::T, y::T) where {T&lt;:FloatTypes} = add_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-165"></a>165</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sub_fast(x::T, y::T) where {T&lt;:FloatTypes} = sub_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-166"></a>166</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mul_fast(x::T, y::T) where {T&lt;:FloatTypes} = mul_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-167"></a>167</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">div_fast(x::T, y::T) where {T&lt;:FloatTypes} = div_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-168"></a>168</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">rem_fast(x::T, y::T) where {T&lt;:FloatTypes} = rem_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-169"></a>169</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-170"></a>170</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">add_fast(x::T, y::T, zs::T...) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-171"></a>171</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    add_fast(add_fast(x, y), zs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-172"></a>172</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mul_fast(x::T, y::T, zs::T...) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-173"></a>173</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    mul_fast(mul_fast(x, y), zs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-174"></a>174</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-175"></a>175</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@fastmath begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-176"></a>176</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cmp_fast(x::T, y::T) where {T&lt;:FloatTypes} = ifelse(x==y, 0, ifelse(x&lt;y, -1, +1))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-177"></a>177</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    log_fast(b::T, x::T) where {T&lt;:FloatTypes} = log_fast(x)/log_fast(b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-178"></a>178</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-179"></a>179</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-180"></a>180</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">eq_fast(x::T, y::T) where {T&lt;:FloatTypes} = eq_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-181"></a>181</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ne_fast(x::T, y::T) where {T&lt;:FloatTypes} = ne_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-182"></a>182</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">lt_fast(x::T, y::T) where {T&lt;:FloatTypes} = lt_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-183"></a>183</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">le_fast(x::T, y::T) where {T&lt;:FloatTypes} = le_float_fast(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-184"></a>184</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-185"></a>185</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isinf_fast(x) = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-186"></a>186</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isfinite_fast(x) = true
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-187"></a>187</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">isnan_fast(x) = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-188"></a>188</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">issubnormal_fast(x) = false
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-189"></a>189</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-190"></a>190</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># complex numbers
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-191"></a>191</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-192"></a>192</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">ComplexTypes = Union{ComplexF32, ComplexF64}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-193"></a>193</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-194"></a>194</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@fastmath begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-195"></a>195</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    abs_fast(x::ComplexTypes) = hypot(real(x), imag(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-196"></a>196</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    abs2_fast(x::ComplexTypes) = real(x)*real(x) + imag(x)*imag(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-197"></a>197</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    conj_fast(x::T) where {T&lt;:ComplexTypes} = T(real(x), -imag(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-198"></a>198</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    inv_fast(x::ComplexTypes) = conj(x) / abs2(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-199"></a>199</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sign_fast(x::ComplexTypes) = x == 0 ? float(zero(x)) : x/abs(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-200"></a>200</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-201"></a>201</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    add_fast(x::T, y::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-202"></a>202</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        T(real(x)+real(y), imag(x)+imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-203"></a>203</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    add_fast(x::Complex{T}, b::T) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-204"></a>204</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(real(x)+b, imag(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-205"></a>205</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    add_fast(a::T, y::Complex{T}) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-206"></a>206</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(a+real(y), imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-207"></a>207</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-208"></a>208</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sub_fast(x::T, y::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-209"></a>209</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        T(real(x)-real(y), imag(x)-imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-210"></a>210</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sub_fast(x::Complex{T}, b::T) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-211"></a>211</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(real(x)-b, imag(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-212"></a>212</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sub_fast(a::T, y::Complex{T}) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-213"></a>213</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(a-real(y), -imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-214"></a>214</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-215"></a>215</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    mul_fast(x::T, y::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-216"></a>216</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        T(real(x)*real(y) - imag(x)*imag(y),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-217"></a>217</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          real(x)*imag(y) + imag(x)*real(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-218"></a>218</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    mul_fast(x::Complex{T}, b::T) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-219"></a>219</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(real(x)*b, imag(x)*b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-220"></a>220</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    mul_fast(a::T, y::Complex{T}) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-221"></a>221</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(a*real(y), a*imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-222"></a>222</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-223"></a>223</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @inline div_fast(x::T, y::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-224"></a>224</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        T(real(x)*real(y) + imag(x)*imag(y),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-225"></a>225</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          imag(x)*real(y) - real(x)*imag(y)) / abs2(y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-226"></a>226</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    div_fast(x::Complex{T}, b::T) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-227"></a>227</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(real(x)/b, imag(x)/b)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-228"></a>228</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    div_fast(a::T, y::Complex{T}) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-229"></a>229</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(a*real(y), -a*imag(y)) / abs2(y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-230"></a>230</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-231"></a>231</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    eq_fast(x::T, y::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-232"></a>232</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        (real(x)==real(y)) &amp; (imag(x)==imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-233"></a>233</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    eq_fast(x::Complex{T}, b::T) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-234"></a>234</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        (real(x)==b) &amp; (imag(x)==T(0))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-235"></a>235</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    eq_fast(a::T, y::Complex{T}) where {T&lt;:FloatTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-236"></a>236</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        (a==real(y)) &amp; (T(0)==imag(y))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-237"></a>237</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-238"></a>238</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ne_fast(x::T, y::T) where {T&lt;:ComplexTypes} = !(x==y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-239"></a>239</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-240"></a>240</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Note: we use the same comparison for min, max, and minmax, so
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-241"></a>241</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # that the compiler can convert between them
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-242"></a>242</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    max_fast(x::T, y::T) where {T&lt;:FloatTypes} = ifelse(y &gt; x, y, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-243"></a>243</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    min_fast(x::T, y::T) where {T&lt;:FloatTypes} = ifelse(y &gt; x, x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-244"></a>244</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    minmax_fast(x::T, y::T) where {T&lt;:FloatTypes} = ifelse(y &gt; x, (x,y), (y,x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-245"></a>245</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-246"></a>246</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    max_fast(x::T, y::T, z::T...) where {T&lt;:FloatTypes} = max_fast(max_fast(x, y), z...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-247"></a>247</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    min_fast(x::T, y::T, z::T...) where {T&lt;:FloatTypes} = min_fast(min_fast(x, y), z...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-248"></a>248</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-249"></a>249</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-250"></a>250</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># fall-back implementations and type promotion
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-251"></a>251</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-252"></a>252</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for op in (:abs, :abs2, :conj, :inv, :sign)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-253"></a>253</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    op_fast = fast_op[op]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-254"></a>254</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-255"></a>255</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # fall-back implementation for non-numeric types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-256"></a>256</td>
+          <td></td>
+          <td>1 (0.0047%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-fastmath-jl-abs_fast-256"></a>
+              1 (0.0047%) samples spent in abs_fast<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              ODE_DEFAULT_NORM
+              <a href="common_defaults-jl-11cfb295c4b013572976-line.html#Lcommon_defaults-jl-11cfb295c4b013572976-line.html-12">line 12</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-abs-528">abs</a><br />
+            </div>
+            <span class="code">        $op_fast(xs...) = $op(xs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-257"></a>257</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-258"></a>258</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-259"></a>259</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-260"></a>260</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for op in (:+, :-, :*, :/, :(==), :!=, :&lt;, :&lt;=, :cmp, :rem, :min, :max, :minmax)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-261"></a>261</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    op_fast = fast_op[op]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-262"></a>262</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-263"></a>263</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # fall-back implementation for non-numeric types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-264"></a>264</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $op_fast(xs...) = $op(xs...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-265"></a>265</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # type promotion
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-266"></a>266</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $op_fast(x::Number, y::Number, zs::Number...) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-267"></a>267</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            $op_fast(promote(x,y,zs...)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-268"></a>268</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # fall-back implementation that applies after promotion
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-269"></a>269</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $op_fast(x::T,ys::T...) where {T&lt;:Number} = $op(x,ys...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-270"></a>270</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-271"></a>271</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-272"></a>272</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-273"></a>273</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-274"></a>274</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Math functions
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-275"></a>275</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-276"></a>276</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># builtins
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-277"></a>277</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-278"></a>278</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">pow_fast(x::Float32, y::Integer) = ccall(&quot;llvm.powi.f32&quot;, llvmcall, Float32, (Float32, Int32), x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-279"></a>279</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">pow_fast(x::Float64, y::Integer) = ccall(&quot;llvm.powi.f64&quot;, llvmcall, Float64, (Float64, Int32), x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-280"></a>280</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">pow_fast(x::FloatTypes, ::Val{p}) where {p} = pow_fast(x, p) # inlines already via llvm.powi
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-281"></a>281</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline pow_fast(x, v::Val) = Base.literal_pow(^, x, v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-282"></a>282</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-283"></a>283</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sqrt_fast(x::FloatTypes) = sqrt_llvm_fast(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-284"></a>284</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-285"></a>285</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># libm
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-286"></a>286</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-287"></a>287</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const libm = Base.libm_name
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-288"></a>288</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-289"></a>289</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for f in (:acosh, :asinh, :atanh, :cbrt,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-290"></a>290</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          :cosh, :exp2, :expm1, :log10, :log1p, :log2,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-291"></a>291</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          :log, :sinh, :tanh)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-292"></a>292</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    f_fast = fast_op[f]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-293"></a>293</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-294"></a>294</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $f_fast(x::Float32) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-295"></a>295</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ccall(($(string(f,&quot;f&quot;)),libm), Float32, (Float32,), x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-296"></a>296</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $f_fast(x::Float64) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-297"></a>297</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">            ccall(($(string(f)),libm), Float64, (Float64,), x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-298"></a>298</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-299"></a>299</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-300"></a>300</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-301"></a>301</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">pow_fast(x::Float32, y::Float32) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-302"></a>302</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ccall((&quot;powf&quot;,libm), Float32, (Float32,Float32), x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-303"></a>303</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">pow_fast(x::Float64, y::Float64) =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-304"></a>304</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ccall((&quot;pow&quot;,libm), Float64, (Float64,Float64), x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-305"></a>305</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-306"></a>306</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sincos_fast(v::FloatTypes) = sincos(v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-307"></a>307</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-308"></a>308</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function sincos_fast(v::Float16)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-309"></a>309</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    s, c = sincos_fast(Float32(v))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-310"></a>310</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return Float16(s), Float16(c)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-311"></a>311</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-312"></a>312</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sincos_fast(v::AbstractFloat) = (sin_fast(v), cos_fast(v))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-313"></a>313</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sincos_fast(v::Real) = sincos_fast(float(v)::AbstractFloat)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-314"></a>314</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">sincos_fast(v) = (sin_fast(v), cos_fast(v))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-315"></a>315</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-316"></a>316</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@fastmath begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-317"></a>317</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    hypot_fast(x::T, y::T) where {T&lt;:FloatTypes} = sqrt(x*x + y*y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-318"></a>318</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-319"></a>319</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # complex numbers
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-320"></a>320</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-321"></a>321</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function cis_fast(x::T) where {T&lt;:FloatTypes}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-322"></a>322</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        s, c = sincos_fast(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-323"></a>323</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        Complex{T}(c, s)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-324"></a>324</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-325"></a>325</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-326"></a>326</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # See &lt;http://en.cppreference.com/w/cpp/numeric/complex&gt;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-327"></a>327</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    pow_fast(x::T, y::T) where {T&lt;:ComplexTypes} = exp(y*log(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-328"></a>328</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    pow_fast(x::T, y::Complex{T}) where {T&lt;:FloatTypes} = exp(y*log(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-329"></a>329</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    pow_fast(x::Complex{T}, y::T) where {T&lt;:FloatTypes} = exp(y*log(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-330"></a>330</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    acos_fast(x::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-331"></a>331</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        convert(T,π)/2 + im*log(im*x + sqrt(1-x*x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-332"></a>332</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    acosh_fast(x::ComplexTypes) = log(x + sqrt(x+1) * sqrt(x-1))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-333"></a>333</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    angle_fast(x::ComplexTypes) = atan(imag(x), real(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-334"></a>334</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    asin_fast(x::ComplexTypes) = -im*asinh(im*x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-335"></a>335</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    asinh_fast(x::ComplexTypes) = log(x + sqrt(1+x*x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-336"></a>336</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    atan_fast(x::ComplexTypes) = -im*atanh(im*x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-337"></a>337</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    atanh_fast(x::T) where {T&lt;:ComplexTypes} = convert(T,1)/2*(log(1+x) - log(1-x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-338"></a>338</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cis_fast(x::ComplexTypes) = exp(-imag(x)) * cis(real(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-339"></a>339</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cos_fast(x::ComplexTypes) = cosh(im*x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-340"></a>340</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    cosh_fast(x::T) where {T&lt;:ComplexTypes} = convert(T,1)/2*(exp(x) + exp(-x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-341"></a>341</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    exp10_fast(x::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-342"></a>342</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        exp10(real(x)) * cis(imag(x)*log(convert(T,10)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-343"></a>343</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    exp2_fast(x::T) where {T&lt;:ComplexTypes} =
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-344"></a>344</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        exp2(real(x)) * cis(imag(x)*log(convert(T,2)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-345"></a>345</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    exp_fast(x::ComplexTypes) = exp(real(x)) * cis(imag(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-346"></a>346</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    expm1_fast(x::ComplexTypes) = exp(x)-1
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-347"></a>347</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    log10_fast(x::T) where {T&lt;:ComplexTypes} = log(x) / log(convert(T,10))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-348"></a>348</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    log1p_fast(x::ComplexTypes) = log(1+x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-349"></a>349</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    log2_fast(x::T) where {T&lt;:ComplexTypes} = log(x) / log(convert(T,2))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-350"></a>350</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    log_fast(x::T) where {T&lt;:ComplexTypes} = T(log(abs2(x))/2, angle(x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-351"></a>351</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    log_fast(b::T, x::T) where {T&lt;:ComplexTypes} = T(log(x)/log(b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-352"></a>352</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sin_fast(x::ComplexTypes) = -im*sinh(im*x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-353"></a>353</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sinh_fast(x::T) where {T&lt;:ComplexTypes} = convert(T,1)/2*(exp(x) - exp(-x))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-354"></a>354</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sqrt_fast(x::ComplexTypes) = sqrt(abs(x)) * cis(angle(x)/2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-355"></a>355</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    tan_fast(x::ComplexTypes) = -im*tanh(im*x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-356"></a>356</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    tanh_fast(x::ComplexTypes) = (a=exp(x); b=exp(-x); (a-b)/(a+b))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-357"></a>357</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-358"></a>358</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-359"></a>359</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># fall-back implementations and type promotion
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-360"></a>360</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-361"></a>361</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for f in (:acos, :acosh, :angle, :asin, :asinh, :atan, :atanh, :cbrt,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-362"></a>362</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          :cis, :cos, :cosh, :exp10, :exp2, :exp, :expm1,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-363"></a>363</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          :log10, :log1p, :log2, :log, :sin, :sinh, :sqrt, :tan,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-364"></a>364</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">          :tanh)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-365"></a>365</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    f_fast = fast_op[f]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-366"></a>366</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-367"></a>367</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $f_fast(x) = $f(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-368"></a>368</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-369"></a>369</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-370"></a>370</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-371"></a>371</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">for f in (:^, :atan, :hypot, :log)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-372"></a>372</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    f_fast = fast_op[f]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-373"></a>373</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    @eval begin
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-374"></a>374</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # fall-back implementation for non-numeric types
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-375"></a>375</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $f_fast(x, y) = $f(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-376"></a>376</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # type promotion
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-377"></a>377</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $f_fast(x::Number, y::Number) = $f_fast(promote(x, y)...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-378"></a>378</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        # fall-back implementation that applies after promotion
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-379"></a>379</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $f_fast(x::T, y::T) where {T&lt;:Number} = $f(x, y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-380"></a>380</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-381"></a>381</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-382"></a>382</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastmath-jl-48c54ed2d305fe603398-line.html-383"></a>383</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

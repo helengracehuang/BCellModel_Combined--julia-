@@ -1,0 +1,1118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/.julia/packages/StaticArrays/AHT47/src/util.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 18:42:43 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># For convenience
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">TupleN{T,N} = NTuple{N,T}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Cast any Tuple to an TupleN{T}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline convert_ntuple(::Type{T},d::T) where {T} = T # For zero-dimensional arrays
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline convert_ntuple(::Type{T},d::NTuple{N,T}) where {N,T} = d
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@generated function convert_ntuple(::Type{T}, d::NTuple{N,Any}) where {N,T}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    exprs = ntuple(i -&gt; :(convert(T, d[$i])), Val(N))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return quote
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @_inline_meta
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $(Expr(:tuple, exprs...))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Base gives up on tuples for promote_eltype... (TODO can we improve Base?)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@generated function promote_tuple_eltype(::Union{T,Type{T}}) where T &lt;: Tuple
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    t = Union{}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    for i = 1:length(T.parameters)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        tmp = Base.unwrapva(T.parameters[i])
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        t = :(promote_type($t, $tmp))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return quote
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        @_inline_meta
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        $t
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># The ::Tuple variants exist to make sure that anything that calls with a tuple
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># instead of a Tuple gets through to the constructor, so the user gets a nice
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># error message
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure tuple_length(T::Type{&lt;:Tuple}) = length(T.parameters)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure tuple_length(T::Tuple) = length(T)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure tuple_prod(T::Type{&lt;:Tuple}) = length(T.parameters) == 0 ? 1 : *(T.parameters...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure tuple_prod(T::Tuple) = prod(T)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure tuple_minimum(T::Type{&lt;:Tuple}) = length(T.parameters) == 0 ? 0 : minimum(tuple(T.parameters...))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure tuple_minimum(T::Tuple) = minimum(T)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    size_to_tuple(::Type{S}) where S&lt;:Tuple
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Converts a size given by `Tuple{N, M, ...}` into a tuple `(N, M, ...)`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@pure function size_to_tuple(::Type{S}) where S&lt;:Tuple
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return tuple(S.parameters...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Something doesn&#39;t match up type wise
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function check_array_parameters(Size, T, N, L)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    (!isa(Size, DataType) || (Size.name !== Tuple.name)) &amp;&amp; throw(ArgumentError(&quot;Static Array parameter Size must be a Tuple type, got $Size&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    !isa(T, Type) &amp;&amp; throw(ArgumentError(&quot;Static Array parameter T must be a type, got $T&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    !isa(N.parameters[1], Int) &amp;&amp; throw(ArgumenError(&quot;Static Array parameter N must be an integer, got $(N.parameters[1])&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    !isa(L.parameters[1], Int) &amp;&amp; throw(ArgumentError(&quot;Static Array parameter L must be an integer, got $(L.parameters[1])&quot;))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # shouldn&#39;t reach here. Anything else should have made it to the function below
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    error(&quot;Internal error. Please file a bug&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@generated function check_array_parameters(::Type{Size}, ::Type{T}, ::Type{Val{N}}, ::Type{Val{L}}) where {Size,T,N,L}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if !all(x-&gt;isa(x, Int), Size.parameters)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return :(throw(ArgumentError(&quot;Static Array parameter Size must be a tuple of Ints (e.g. `SArray{Tuple{3,3}}` or `SMatrix{3,3}`).&quot;)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-62"></a>62</td>
+          <td>3 (0.11%)</td>
+          <td>3 (0.11%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-StaticArrays-AHT47-src-util-jl-s37-6-62"></a>
+              3 (0.11%) samples spent in #s37#6<br />
+              3 (100.00%) (ex.),
+              3 (100.00%) (incl.)
+              when called from
+              #s37#6
+              <a href="nothing-0feca720e2c29dafb2c9-line.html#Lnothing-0feca720e2c29dafb2c9-line.html-0">line 0</a><br />
+            </div>
+            <span class="code">    if L != tuple_prod(Size) || L &lt; 0 || tuple_minimum(Size) &lt; 0 || tuple_length(Size) != N
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return :(throw(ArgumentError(&quot;Size mismatch in Static Array parameters. Got size $Size, dimension $N and length $L.&quot;)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return nothing
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Trivial view used to drop static dimensions to override dispatch
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct TrivialView{A,T,N} &lt;: AbstractArray{T,N}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a::A
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">size(a::TrivialView) = size(a.a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">getindex(a::TrivialView, inds...) = getindex(a.a, inds...)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">setindex!(a::TrivialView, inds...) = (setindex!(a.a, inds...); a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.IndexStyle(::Type{&lt;:TrivialView{A}}) where {A} = IndexStyle(A)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">TrivialView(a::AbstractArray{T,N}) where {T,N} = TrivialView{typeof(a),T,N}(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Remove the static dimensions from an array
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This docstring is commented out, because of a bug that happens when building the docs.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># See https://github.com/JuliaLang/julia/issues/23826
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># &quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#     drop_sdims(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Return an `AbstractArray` with the same elements as `a`, but with static
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># dimensions removed (ie, not a `StaticArray`).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># This is useful if you want to override dispatch to call the `Base` version of
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># operations such as `kron` instead of the implementation in `StaticArrays`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Normally you shouldn&#39;t need to do this, but it can be more efficient for
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># certain algorithms where the number of elements of the output is a lot larger
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># than the input.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># &quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline drop_sdims(a::StaticArrayLike) = TrivialView(a)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline drop_sdims(a) = a
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.@propagate_inbounds function invperm(p::StaticVector)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # in difference to base, this does not check if p is a permutation (every value unique)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">     ip = similar(p)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">     ip[p] = 1:length(p)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">     similar_type(p)(ip)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lutil-jl-b4cd4f17ba04d412a2fa-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

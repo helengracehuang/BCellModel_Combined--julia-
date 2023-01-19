@@ -1,0 +1,1242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/.julia/packages/DiffEqBase/QiFNl/src/fastpow.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 19:47:28 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># From David Goldberg&#39;s blog post
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># https://tech.ebayinc.com/engineering/fast-approximate-logarithms-part-iii-the-formulas/
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function fastlog2(x::Float32)::Float32
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # (x-1)*(a*(x-1) + b)/((x-1) + c) (line 8 of table 2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    a =   0.338953f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    b =   2.198599f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    c =   1.523692f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Assume IEEE representation, which is sgn(1):exp(8):frac(23)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # representing (1+frac)*2^(exp-127)  Call 1+frac the significand
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    #
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # get exponent
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-14"></a>14</td>
+          <td></td>
+          <td>1 (0.0072%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2-14"></a>
+              1 (0.0072%) samples spent in fastlog2<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="essentials-jl-d0e0948b71fe63e53255-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-essentials-jl-reinterpret-414">reinterpret</a><br />
+            </div>
+            <span class="code">    ux1i = reinterpret(UInt32, x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    exp = (ux1i &amp; 0x7F800000) &gt;&gt; 23
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # actual exponent is exp-127, will subtract 127 later
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    greater = ux1i &amp; 0x00400000  # true if signif &gt; 1.5
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if greater !== 0x00000000
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ux2i = (ux1i &amp; 0x007FFFFF) | 0x3f000000
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        signif = reinterpret(Float32, ux2i)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        fexp = exp - 126f0    # 126 instead of 127 compensates for division by 2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        signif = signif - 1.0f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        ux2i = (ux1i &amp; 0x007FFFFF) | 0x3f800000
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        signif = reinterpret(Float32, ux2i)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-27"></a>27</td>
+          <td></td>
+          <td>1 (0.0072%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2-27"></a>
+              1 (0.0072%) samples spent in fastlog2<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="promotion-jl-a3546679c21b8ff08fe7-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-promotion-jl-313">-</a><br />
+            </div>
+            <span class="code">        fexp = exp - 127f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        signif = signif - 1.0f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-30"></a>30</td>
+          <td></td>
+          <td>11 (0.08%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2-30"></a>
+              11 (0.08%) samples spent in fastlog2<br />
+              0 (ex.),
+              11 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              3 (27.27%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-406">/</a><br />
+              8 (72.73%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-400">+</a><br />
+            </div>
+            <span class="code">    lg2 = fexp + signif*(a*signif + b)/(signif + c)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return lg2
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Translated from OpenLibm but less accurate because I forced the tableau to be
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Float32, whereas OpenLibm uses Float64
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># https://github.com/JuliaMath/openlibm/blob/cca41bc1abd01804afa4862bbd2c79cc9803171a/src/s_exp2f.c
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const EXP2FT = (Float32(0x1.6a09e667f3bcdp-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.7a11473eb0187p-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.8ace5422aa0dbp-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.9c49182a3f090p-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.ae89f995ad3adp-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.c199bdd85529cp-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.d5818dcfba487p-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.ea4afa2a490dap-1),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.0000000000000p+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.0b5586cf9890fp+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.172b83c7d517bp+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.2387a6e756238p+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.306fe0a31b715p+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.3dea64c123422p+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.4bfdad5362a27p+0),
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">                Float32(0x1.5ab07dd485429p+0))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function _exp2(x::Float32)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    TBLBITS = UInt32(4)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    TBLSIZE = UInt32(1 &lt;&lt; TBLBITS)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    redux = Float32(0x1.8p23f) / TBLSIZE
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    P1    = Float32(0x1.62e430p-1f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    P2    = Float32(0x1.ebfbe0p-3f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    P3    = Float32(0x1.c6b348p-5f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    P4    = Float32(0x1.3b2c9cp-7f)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Reduce x, computing z, i0, and k.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-65"></a>65</td>
+          <td></td>
+          <td>1 (0.0072%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-65"></a>
+              1 (0.0072%) samples spent in _exp2<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-400">+</a><br />
+            </div>
+            <span class="code">    t::Float32 = x + redux
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-66"></a>66</td>
+          <td></td>
+          <td>3 (0.02%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-66"></a>
+              3 (0.02%) samples spent in _exp2<br />
+              0 (ex.),
+              3 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              3 (100.00%)
+              samples spent calling
+              <a href="essentials-jl-d0e0948b71fe63e53255-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-essentials-jl-reinterpret-414">reinterpret</a><br />
+            </div>
+            <span class="code">    i0 = reinterpret(UInt32, t)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-67"></a>67</td>
+          <td></td>
+          <td>2 (0.01%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-67"></a>
+              2 (0.01%) samples spent in _exp2<br />
+              0 (ex.),
+              2 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              2 (100.00%)
+              samples spent calling
+              <a href="int-jl-f9534783e11d1579623d-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-int-jl-86">+</a><br />
+            </div>
+            <span class="code">    i0 += TBLSIZE ÷ UInt32(2)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-68"></a>68</td>
+          <td></td>
+          <td>5 (0.04%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-68"></a>
+              5 (0.04%) samples spent in _exp2<br />
+              0 (ex.),
+              5 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              5 (100.00%)
+              samples spent calling
+              <a href="int-jl-f9534783e11d1579623d-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-int-jl-455">&gt;&gt;</a><br />
+            </div>
+            <span class="code">    k::UInt32 = unsafe_trunc(UInt32, (i0 &gt;&gt; TBLBITS) &lt;&lt; 20)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    i0 &amp;= TBLSIZE - UInt32(1)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    t -= redux
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    z = x - t
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-72"></a>72</td>
+          <td></td>
+          <td>6 (0.04%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-72"></a>
+              6 (0.04%) samples spent in _exp2<br />
+              0 (ex.),
+              6 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              5 (83.33%)
+              samples spent calling
+              <a href="essentials-jl-d0e0948b71fe63e53255-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-essentials-jl-reinterpret-414">reinterpret</a><br />
+              1 (16.67%)
+              samples spent calling
+              <a href="int-jl-f9534783e11d1579623d-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-int-jl-463">&lt;&lt;</a><br />
+            </div>
+            <span class="code">    twopk = Float32(reinterpret(Float64, UInt64(0x3ff00000 + k) &lt;&lt; 32))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Compute r = exp2(y) = exp2ft[i0] * p(z).
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-75"></a>75</td>
+          <td></td>
+          <td>1 (0.0072%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-75"></a>
+              1 (0.0072%) samples spent in _exp2<br />
+              0 (ex.),
+              1 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              1 (100.00%)
+              samples spent calling
+              <a href="int-jl-f9534783e11d1579623d-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-int-jl-86">+</a><br />
+            </div>
+            <span class="code">    tv = EXP2FT[i0+UInt32(1)]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-76"></a>76</td>
+          <td></td>
+          <td>8 (0.06%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-76"></a>
+              8 (0.06%) samples spent in _exp2<br />
+              0 (ex.),
+              8 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              8 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-404">*</a><br />
+            </div>
+            <span class="code">    u = tv * z
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-77"></a>77</td>
+          <td></td>
+          <td>25 (0.18%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-77"></a>
+              25 (0.18%) samples spent in _exp2<br />
+              0 (ex.),
+              25 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              3 (12.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">*</a><br />
+              2 (8.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-400">+</a><br />
+              11 (44.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-404">*</a><br />
+              9 (36.00%)
+              samples spent calling
+              <a href="operators-jl-3310278f8b41d892ffb5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-operators-jl-538">+</a><br />
+            </div>
+            <span class="code">    tv = tv + u * (P1 + z * P2) + u * (z * z) * (P3 + z * P4)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    # Scale by 2**(k&gt;&gt;20)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-80"></a>80</td>
+          <td></td>
+          <td>8 (0.06%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-80"></a>
+              8 (0.06%) samples spent in _exp2<br />
+              0 (ex.),
+              8 (100.00%) (incl.)
+              when called from
+              fastpow
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#Lfastpow-jl-34f257804b136d1b5b7b-line.html-92">line 92</a><br />
+            </div>
+            <div class="callees">
+              8 (100.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-404">*</a><br />
+            </div>
+            <span class="code">    return tv * twopk
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-83"></a>83</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    fastpow(x::Real, y::Real) -&gt; Float32
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function fastpow(x::Real, y::Real)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    if iszero(x)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return 0f0
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-89"></a>89</td>
+          <td>4 (0.03%)</td>
+          <td>9 (0.06%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastpow-89"></a>
+              9 (0.06%) samples spent in fastpow<br />
+              1 (25.00%) (ex.),
+              3 (33.33%) (incl.)
+              when called from
+              stepsize_controller!
+              <a href="controllers-jl-b7ab242ba29552b305da-line.html#Lcontrollers-jl-b7ab242ba29552b305da-line.html-136">line 136</a><br />
+              3 (75.00%) (ex.),
+              6 (66.67%) (incl.)
+              when called from
+              stepsize_controller!
+              <a href="controllers-jl-b7ab242ba29552b305da-line.html#Lcontrollers-jl-b7ab242ba29552b305da-line.html-135">line 135</a><br />
+            </div>
+            <div class="callees">
+              5 (55.56%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-isinf-564">isinf</a><br />
+            </div>
+            <span class="code">    elseif isinf(x) &amp;&amp; isinf(y)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        return Float32(Inf)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    else
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-92"></a>92</td>
+          <td></td>
+          <td>80 (0.58%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastpow-92"></a>
+              80 (0.58%) samples spent in fastpow<br />
+              0 (ex.),
+              15 (18.75%) (incl.)
+              when called from
+              stepsize_controller!
+              <a href="controllers-jl-b7ab242ba29552b305da-line.html#Lcontrollers-jl-b7ab242ba29552b305da-line.html-136">line 136</a><br />
+              0 (ex.),
+              65 (81.25%) (incl.)
+              when called from
+              stepsize_controller!
+              <a href="controllers-jl-b7ab242ba29552b305da-line.html#Lcontrollers-jl-b7ab242ba29552b305da-line.html-135">line 135</a><br />
+            </div>
+            <div class="callees">
+              8 (10.00%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-80">_exp2</a><br />
+              3 (3.75%)
+              samples spent calling
+              <a href="number-jl-bee7ce7b5dd40a31d3ba-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-number-jl-convert-7">convert</a><br />
+              8 (10.00%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-76">_exp2</a><br />
+              2 (2.50%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-67">_exp2</a><br />
+              11 (13.75%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2-30">fastlog2</a><br />
+              1 (1.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2">fastlog2</a><br />
+              6 (7.50%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-72">_exp2</a><br />
+              1 (1.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-75">_exp2</a><br />
+              25 (31.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-77">_exp2</a><br />
+              5 (6.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-68">_exp2</a><br />
+              3 (3.75%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-66">_exp2</a><br />
+              4 (5.00%)
+              samples spent calling
+              <a href="float-jl-2bec787ea8ba61d96af5-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-float-jl-404">*</a><br />
+              1 (1.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2-27">fastlog2</a><br />
+              1 (1.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-fastlog2-14">fastlog2</a><br />
+              1 (1.25%)
+              samples spent calling
+              <a href="fastpow-jl-34f257804b136d1b5b7b-line.html#S-Users-xinhuang-julia-packages-DiffEqBase-QiFNl-src-fastpow-jl-_exp2-65">_exp2</a><br />
+            </div>
+            <span class="code">        return _exp2(convert(Float32,y) * fastlog2(convert(Float32, x)))
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lfastpow-jl-34f257804b136d1b5b7b-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline fastpow(x, y) = x^y
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="statprofiler.css">
+
+    <title>StatProfilerHTML.jl: /Users/xinhuang/.julia/packages/DataStructures/nBjdy/src/heaps/binary_heap.jl</title>
+  </head>
+  <body>
+<div class="report-header">
+  <div class="backlink"><a href="index.html">Report index</a></div>
+  <div class="report-title">StatProfilerHTML.jl report</div>
+  <div class="generated-on">Generated on Fri Sep 10 19:47:28 2021</div>
+</div>
+
+    <div id="body-content">
+      <table>
+        <caption>File source code</caption>
+        <tr>
+          <th>Line</td>
+          <th>Exclusive</th>
+          <th>Inclusive</th>
+          <th>Code</th>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-1"></a>1</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Binary heap (non-mutable)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-2"></a>2</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-3"></a>3</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">include(&quot;arrays_as_heaps.jl&quot;)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-4"></a>4</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-5"></a>5</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#################################################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-6"></a>6</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-7"></a>7</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#   heap type and constructors
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-8"></a>8</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-9"></a>9</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#################################################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-10"></a>10</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-11"></a>11</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-12"></a>12</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    FasterForward()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-13"></a>13</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-14"></a>14</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">FasterForward enables 2x faster float comparison versus Base.ForwardOrdering,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-15"></a>15</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">but ordering is undefined if the data contains NaN values.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-16"></a>16</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Enable this higher-performance option by calling the BinaryHeap
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-17"></a>17</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">constructor instead of the BinaryMinHeap helper constructor.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-18"></a>18</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-19"></a>19</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct FasterForward &lt;: Base.Ordering end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-20"></a>20</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.lt(o::FasterForward, a, b) = a &lt; b
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-21"></a>21</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-22"></a>22</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-23"></a>23</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    FasterReverse()
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-24"></a>24</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-25"></a>25</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">FasterReverse enables 2x faster float comparison versus Base.ReverseOrdering,
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-26"></a>26</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">but ordering is undefined if the data contains NaN values.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-27"></a>27</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Enable this higher-performance option by calling the BinaryHeap
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-28"></a>28</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">constructor instead of the BinaryMaxHeap helper constructor.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-29"></a>29</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-30"></a>30</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">struct FasterReverse &lt;: Base.Ordering end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-31"></a>31</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.lt(o::FasterReverse, a, b) = a &gt; b
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-32"></a>32</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-33"></a>33</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">mutable struct BinaryHeap{T, O &lt;: Base.Ordering} &lt;: AbstractHeap{T}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-34"></a>34</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    ordering::O
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-35"></a>35</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    valtree::Vector{T}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-36"></a>36</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-37"></a>37</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function BinaryHeap{T}(ordering::Base.Ordering) where T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-38"></a>38</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        new{T, typeof(ordering)}(ordering, Vector{T}())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-39"></a>39</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-40"></a>40</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-41"></a>41</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    function BinaryHeap{T}(ordering::Base.Ordering, xs::AbstractVector) where T
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-42"></a>42</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        valtree = heapify(xs, ordering)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-43"></a>43</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">        new{T, typeof(ordering)}(ordering, valtree)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-44"></a>44</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-45"></a>45</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-46"></a>46</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-47"></a>47</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryHeap(ordering::Base.Ordering, xs::AbstractVector{T}) where T = BinaryHeap{T}(ordering, xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-48"></a>48</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-49"></a>49</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Constructors using singleton order types as type parameters rather than arguments
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-50"></a>50</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryHeap{T, O}() where {T, O&lt;:Base.Ordering} = BinaryHeap{T}(O())
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-51"></a>51</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryHeap{T, O}(xs::AbstractVector) where {T, O&lt;:Base.Ordering} = BinaryHeap{T}(O(), xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-52"></a>52</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-53"></a>53</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># These constructors needed for BinaryMaxHeap, until we have https://github.com/JuliaLang/julia/pull/37822
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-54"></a>54</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryHeap{T, DefaultReverseOrdering}() where {T} = BinaryHeap{T}(Base.Reverse)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-55"></a>55</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryHeap{T, DefaultReverseOrdering}(xs::AbstractVector) where {T} = BinaryHeap{T}(Base.Reverse, xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-56"></a>56</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-57"></a>57</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code"># Forward/reverse ordering type aliases
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-58"></a>58</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const BinaryMinHeap{T} = BinaryHeap{T, Base.ForwardOrdering}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-59"></a>59</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">const BinaryMaxHeap{T} = BinaryHeap{T, DefaultReverseOrdering}
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-60"></a>60</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-61"></a>61</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryMinHeap(xs::AbstractVector{T}) where T = BinaryMinHeap{T}(xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-62"></a>62</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">BinaryMaxHeap(xs::AbstractVector{T}) where T = BinaryMaxHeap{T}(xs)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-63"></a>63</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-64"></a>64</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-65"></a>65</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#################################################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-66"></a>66</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-67"></a>67</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#   interfaces
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-68"></a>68</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-69"></a>69</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">#################################################
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-70"></a>70</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-71"></a>71</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-72"></a>72</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    length(h::BinaryHeap)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-73"></a>73</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-74"></a>74</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Returns the number of elements in heap `h`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-75"></a>75</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-76"></a>76</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.length(h::BinaryHeap) = length(h.valtree)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-77"></a>77</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-78"></a>78</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-79"></a>79</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    isempty(h::BinaryHeap)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-80"></a>80</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-81"></a>81</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Returns whether the heap `h` is empty.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-82"></a>82</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-83"></a>83</td>
+          <td></td>
+          <td>30 (0.22%)</td>
+          <td>
+            <div class="call-sites">
+              <a name="S-Users-xinhuang-julia-packages-DataStructures-nBjdy-src-heaps-binary_heap-jl-isempty-83"></a>
+              30 (0.22%) samples spent in isempty<br />
+              0 (ex.),
+              1 (3.33%) (incl.)
+              when called from
+              has_tstop
+              <a href="integrator_utils-jl-386f943c0f1c28318c85-line.html#Lintegrator_utils-jl-386f943c0f1c28318c85-line.html-402">line 402</a><br />
+              0 (ex.),
+              3 (10.00%) (incl.)
+              when called from
+              _savevalues!
+              <a href="integrator_utils-jl-386f943c0f1c28318c85-line.html#Lintegrator_utils-jl-386f943c0f1c28318c85-line.html-55">line 55</a><br />
+              0 (ex.),
+              10 (33.33%) (incl.)
+              when called from
+              solve!
+              <a href="solve-jl-76041cdafc14e6e0ba7a-line.html#Lsolve-jl-76041cdafc14e6e0ba7a-line.html-479">line 479</a><br />
+              0 (ex.),
+              16 (53.33%) (incl.)
+              when called from
+              has_discontinuity
+              <a href="integrator_utils-jl-386f943c0f1c28318c85-line.html#Lintegrator_utils-jl-386f943c0f1c28318c85-line.html-406">line 406</a><br />
+            </div>
+            <div class="callees">
+              2 (6.67%)
+              samples spent calling
+              <a href="Base-jl-3a80316d2d607e6a20b6-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-Base-jl-getproperty-33">getproperty</a><br />
+              28 (93.33%)
+              samples spent calling
+              <a href="abstractarray-jl-1b421350ce35d5bbb2bf-line.html#S-Applications-Julia-1-5-app-Contents-Resources-julia-bin-share-julia-base-abstractarray-jl-isempty-989">isempty</a><br />
+            </div>
+            <span class="code">Base.isempty(h::BinaryHeap) = isempty(h.valtree)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-84"></a>84</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-85"></a>85</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-86"></a>86</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    push!(h::BinaryHeap, value)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-87"></a>87</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-88"></a>88</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Adds the `value` element to the heap `h`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-89"></a>89</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-90"></a>90</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline function Base.push!(h::BinaryHeap, v)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-91"></a>91</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    heappush!(h.valtree, v, h.ordering)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-92"></a>92</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return h
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-93"></a>93</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-94"></a>94</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-95"></a>95</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-96"></a>96</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    first(h::BinaryHeap)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-97"></a>97</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-98"></a>98</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Returns the element at the top of the heap `h`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-99"></a>99</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-100"></a>100</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">@inline Base.first(h::BinaryHeap) = h.valtree[1]
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-101"></a>101</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-102"></a>102</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-103"></a>103</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    pop!(h::BinaryHeap)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-104"></a>104</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-105"></a>105</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Removes and returns the element at the top of the heap `h`.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-106"></a>106</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-107"></a>107</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Base.pop!(h::BinaryHeap) = heappop!(h.valtree, h.ordering)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-108"></a>108</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-109"></a>109</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-110"></a>110</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sizehint!(h::BinaryHeap, n::Integer)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-111"></a>111</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-112"></a>112</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">Suggest that heap `h` reserve capacity for at least `n` elements. This can improve performance.
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-113"></a>113</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">&quot;&quot;&quot;
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-114"></a>114</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">function Base.sizehint!(h::BinaryHeap, n::Integer)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-115"></a>115</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    sizehint!(h.valtree, n)
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-116"></a>116</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">    return h
+</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><a name="Lbinary_heap-jl-34e13ca68760bb1b2ae5-line.html-117"></a>117</td>
+          <td></td>
+          <td></td>
+          <td>
+            <span class="code">end
+</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
