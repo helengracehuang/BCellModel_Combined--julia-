@@ -30,7 +30,7 @@ end
 #-------------------------------------------------------------------------
 function initializeFounderCells!(Srates, allCells)
     @inbounds Threads.@threads for i in 1:FOUNDER_CELL_NUM
-        allCells[i] = setCell(current_idx = i, rates = distribute_params(Srates));
+        allCells[i] = setCell(current_idx = i, rates = distribute_params(Srates, i));
         # Burn-in period for distributed cells to reach steady-state before simulation
         Pre_simulate!(allCells, i);
         allCells[i].rates[ANTIGEN, INITIALCONC] = ANTIGEN_DOSE;
