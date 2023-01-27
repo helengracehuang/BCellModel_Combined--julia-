@@ -20,7 +20,7 @@ using JLD;
 include("ReactionRates2.jl");
 include("HelperFunctions.jl");
 
-include("ODE_Receptor2.jl");
+include("ODE_Receptor3.jl");
 include("ODE_NFkB3.jl");
 include("ODE_Apoptosis2.jl");
 include("ODE_Differentiation.jl");
@@ -38,18 +38,28 @@ function parse_commandline()
             help = "nonthread, thread (static schedule), or spawn (dynamic schedule) version of lineage simulation"
             arg_type = String
             default = "nonthread"
+            required = true
         "--initial", "-i"
             help = "reaction rates and steady states for each starting cell after initialization (.jld format)"
             arg_type = String
             default = "initial.jld"
+            required = true
         "--cells", "-c"
             help = "simulated outputs from each cell (.jld format)"
             arg_type = String
             default = "cells.jld"
+            required = true
         "--output", "-o"
             help = "output file name for simulated cell lineages"
             arg_type = String
             default = "output.txt"
+            required = true
+        "--reload", "-r"
+            help = "whether to reload from previous steady states, provided by the --initial command"
+            arg_type = Bool
+            action = :store_true
+            default = false
+            required = false
     end
 
     return parse_args(s)
@@ -60,6 +70,7 @@ const version = get(parsed_args, "version", "nonthread");
 const steady_fn = get(parsed_args, "initial", "initial.jld");
 const cells_fn = get(parsed_args, "cells", "cells.jld");
 const output_fn = get(parsed_args, "output", "output.txt");
+const reload = get(parsed_args, "reload", false);
 
 # Define standard reaction rates
 #--------------------------------------------
@@ -136,10 +147,13 @@ cellFate = VectorContinuousCallback(condition, affect!, nothing, 4, save_positio
 # Set up a structure to hold cells
 #-------------------------------------------------------------------------
 allCells = Vector{Cell}(undef, FOUNDER_CELL_NUM);
-initializeFounderCells!(Srates, allCells);
-
-JLD.save(steady_fn, "allCells", allCells);
-# allCells = load("/Users/helenhuang/Desktop/cells.jld", "allCells");
+if reload
+    allCells = load(steady_fn, "allCells");
+    print("Old steady states loaded!")
+else
+    initializeFounderCells!(Srates, allCells);
+    JLD.save(steady_fn, "allCells", allCells);
+end
 
 # Define default delay functions (t < tau)
 #--------------------------------------------
@@ -168,12 +182,13 @@ end
 # @time Simulate_nonthreaded!(allCells, Srates, delay);
 # @time Simulate_threaded!(allCells, Srates, delay);
 # @time Simulate_spawned!(allCells, Srates, delay);
+JLD.save(cells_fn, "allCells", allCells);
 
 # Output information about all cells (for visualization)
 #--------------------------------------------
 out = open(output_fn, "w");
-write(out, "parameter", '\t', "value", '\t', "div0_time", '\t', "death_time", '\n');
+write(out, "birthday", '\t', "current_idx", '\t', "parent_idx", '\t', "generation", '\t', "fate", '\t', "fate_t", '\t', "abs_fate_t", '\t', "daughter_1_idx", '\t', "daughter_2_idx", '\n');
 for i in 1:length(allCells)
-    write(out, string(allCells[i].birthday), '\t', string(allCells[i].current_idx), '\t', string(allCells[i].generation), '\t', string(allCells[i].fate), '\t', string(allCells[i].fate_t), '\t', string(allCells[i].abs_fate_t), '\t', string(allCells[i].daughter_1_idx), '\t', string(allCells[i].daughter_2_idx), '\n');
+    write(out, string(allCells[i].birthday), '\t', string(allCells[i].current_idx), '\t', string(allCells[i].parent_idx), '\t', string(allCells[i].generation), '\t', string(allCells[i].fate), '\t', string(allCells[i].fate_t), '\t', string(allCells[i].abs_fate_t), '\t', string(allCells[i].daughter_1_idx), '\t', string(allCells[i].daughter_2_idx), '\n');
 end
 close(out);

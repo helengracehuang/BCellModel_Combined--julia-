@@ -30,7 +30,7 @@ end
 #-------------------------------------------------------------------------
 function initializeFounderCells!(Srates, allCells)
     @inbounds Threads.@threads for i in 1:FOUNDER_CELL_NUM
-        allCells[i] = setCell(current_idx = i, rates = distribute_params(Srates, i));
+        allCells[i] = setCell(current_idx = i, rates = distribute_params(Srates));
         # Burn-in period for distributed cells to reach steady-state before simulation
         Pre_simulate!(allCells, i);
         allCells[i].rates[ANTIGEN, INITIALCONC] = ANTIGEN_DOSE;
@@ -116,9 +116,9 @@ function Simulate_lineage!(allCells, Srates, i, delay)
         end
         lock(SPLOCK);
 
-        cellsSaver = jldopen(cells_fn, "r+");
-        write(cellsSaver, string(j), allCells[j]);
-        close(cellsSaver);
+        # cellsSaver = jldopen(cells_fn, "r+");
+        # write(cellsSaver, string(j), allCells[j]);
+        # close(cellsSaver);
 
         print(allCells[j].birthday, '\t', allCells[j].current_idx, '\t', allCells[j].parent_idx, '\t', allCells[j].generation, '\t', allCells[j].fate, '\t', allCells[j].fate_t, '\t', allCells[j].abs_fate_t, '\t', allCells[j].daughter_1_idx, '\t', allCells[j].daughter_2_idx, '\n');
         unlock(SPLOCK);

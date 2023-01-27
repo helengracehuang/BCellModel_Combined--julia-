@@ -121,7 +121,7 @@ end
 
 # Define parameter distribution functions
 #--------------------------------------------
-function distribute_params(rates, index)
+function distribute_params(rates)
     # 1: initialConc ~ lognormal(log(stdConc), sqrt(log(CV^2)))
     # 2: scale (no change)
     # 3-16: rates ~ normal(stdRates, stdRates * CV) ~ stdRates * normal(1, CV)

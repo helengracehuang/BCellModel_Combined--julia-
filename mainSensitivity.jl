@@ -20,7 +20,7 @@ using JLD;
 include("ReactionRatesSensitivity.jl");
 include("HelperFunctionsSensitivity.jl");
 
-include("ODE_Receptor2.jl");
+include("ODE_Receptor3.jl");
 include("ODE_NFkB3.jl");
 include("ODE_Apoptosis2.jl");
 include("ODE_Differentiation.jl");
@@ -182,6 +182,8 @@ end
 
 # Output information about all cells (for visualization)
 #--------------------------------------------
+JLD.save(cells_fn, "allCells", allCells);
+
 out = open(output_fn, "w");
 write(out, "current_idx", '\t', "parameter", '\t', "value", '\t', "div0_time", '\t', "death_time", '\n');
 for i in 1:length(allCells)
