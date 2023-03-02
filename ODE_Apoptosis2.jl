@@ -1,4 +1,5 @@
 # 2nd edition of Apoptosis model (added utilities to solve ODE separately from NFkB model)
+# eq. 17+1 is BCR-mediated C8 processing
 # include("HelperFunctions.jl");
 # Compute reaction fluxes for apoptosis module
 #--------------------------------------------
@@ -65,7 +66,7 @@ function computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase, tim
         # 17. DISC:pC8 ----> C8 + DISC : activation
         reactionFlux[C8, ACTIVATION] = Srates[C8, ACTIVATION] * concentration[DISCPC8];
         # 17+1. pC8 + BCR ----> C8 + BCR : BCR-mediated pC8 processing
-        reactionFlux[C8, BASALSYNTHESIS] = Srates[C8, BASALSYNTHESIS] * concentration[PC8] * concentration[ABCR];
+        reactionFlux[C8, BASALSYNTHESIS] = Srates[C8, BASALSYNTHESIS] * concentration[PC8] * concentration[ACBM];
 
         # 18. 0 ----> Bar : Basal synthesis
         reactionFlux[BAR, BASALSYNTHESIS] = EPS * Srates[BAR, BASALSYNTHESIS];

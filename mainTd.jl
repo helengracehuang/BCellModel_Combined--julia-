@@ -20,13 +20,13 @@ using JLD;
 include("ReactionRates2.jl");
 include("HelperFunctions.jl");
 
-include("ODE_Receptor4.jl");
+include("ODE_Receptor3.jl");
 include("ODE_NFkB3.jl");
 include("ODE_Apoptosis2.jl");
 include("ODE_Differentiation.jl");
 include("ODE_Proliferation.jl");
 
-include("SimulateFunctions4.jl");
+include("SimulateFunctionsTd.jl");
 
 # Argument parsing w/ command line input
 #--------------------------------------------
@@ -38,22 +38,18 @@ function parse_commandline()
             help = "nonthread, thread (static schedule), or spawn (dynamic schedule) version of lineage simulation"
             arg_type = String
             default = "nonthread"
-            required = true
         "--initial", "-i"
             help = "reaction rates and steady states for each starting cell after initialization (.jld format)"
             arg_type = String
             default = "initial.jld"
-            required = true
         "--cells", "-c"
             help = "simulated outputs from each cell (.jld format)"
             arg_type = String
             default = "cells.jld"
-            required = true
         "--output", "-o"
             help = "output file name for simulated cell lineages"
             arg_type = String
             default = "output.txt"
-            required = true
         "--reload", "-r"
             help = "whether to reload from previous steady states, provided by the --initial command"
             arg_type = Bool
@@ -96,7 +92,7 @@ end
 
 # time-dependent ODE (simulation, w/ delay: phase = 2)
 function computeNetworkNettFluxes!(nettFlux, concentration, delay, (birthday, Srates, reactionFlux, historicFlux), time)
-    computeReceptorNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2, delay, historicFlux, time); #*** changed to add delay to receptor module ***
+    computeReceptorNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2, time);
     computeNFkBNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2, delay, historicFlux, time);
     # computeApoptosisNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2);
     computeDiffNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2);
@@ -114,42 +110,51 @@ end
 # Callback function to detect cell death, mitotic and differentiation events
 #----------------------------------------------------------------------
 function condition(out, u, t, integrator)
-    out[1] = u[CPARP] - 2500;
-    out[2] = u[CDH1] - 0.2;
-    out[3] = u[IRF4] - 0.65*u[BCL6] - 1.2;
-    out[4] = t - CD40L_DELAY;
+    out[1] = u[C8] - 2500;
+    # out[2] = u[CDH1] - 0.2;
+    # out[3] = u[IRF4] - 0.65*u[BCL6] - 1.2;
+    # out[4] = t - CD40L_DELAY;
 end
 
 function affect!(integrator, index)
     if (index == 1)
-        integrator.u[TOTAL_SPECIES] = 1;
+        integrator.u[TOTAL_SPECIES] == 1;
+        # integrator.u[DEATH_TIME] = integrator.t;
         terminate!(integrator);
-    elseif (index == 2)
-        if (integrator.u[CYCB] > 2.0)
-            integrator.u[MASS] /= 2.0;
-            integrator.u[GEN] += 1.0;
-            integrator.u[TOTAL_SPECIES] = 2;
-            terminate!(integrator);
-        end
-    elseif (index == 3)
-        integrator.u[TOTAL_SPECIES] = 3;
-        terminate!(integrator);
-    elseif (index == 4)
-        integrator.u[CD40L] = CD40L_DOSE;
-        integrator.u[ANTIGEN] = 0;
+        # if (integrator.u[TOTAL_SPECIES] >= 3)
+        #     terminate!(integrator);
+        # end
+    # elseif (index == 2)
+    #     if (integrator.u[CYCB] > 2.0)
+    #         integrator.u[MASS] /= 2.0;
+    #         integrator.u[GEN] += 1.0;
+    #         if (integrator.u[DIV0_TIME] == 0)
+    #             integrator.u[DIV0_TIME] = integrator.t;
+    #             integrator.u[TOTAL_SPECIES] += 2;
+    #         end
+    #         if (integrator.u[TOTAL_SPECIES] >= 3)
+    #             terminate!(integrator);
+    #         end
+    #     end
+    # elseif (index == 3)
+    #     integrator.u[TOTAL_SPECIES] = 3;
+    #     terminate!(integrator);
+    # elseif (index == 4)
+    #     integrator.u[CD40L] = CD40L_DOSE;
+    #     integrator.u[ANTIGEN] = 0;
         # integrator.u[ABCR] = 0;
     end
     nothing
 end
 
-cellFate = VectorContinuousCallback(condition, affect!, nothing, 4, save_positions=(true, true));
+cellFate = VectorContinuousCallback(condition, affect!, nothing, 1, save_positions=(true, true));
 
 # Set up a structure to hold cells
 #-------------------------------------------------------------------------
 allCells = Vector{Cell}(undef, FOUNDER_CELL_NUM);
 if reload
     allCells = load(steady_fn, "allCells");
-    print("Old steady states loaded!")
+    # print("Old steady states loaded!")
 else
     initializeFounderCells!(Srates, allCells);
     JLD.save(steady_fn, "allCells", allCells);
@@ -165,7 +170,7 @@ const delay(p, t; idxs=nothing) = typeof(idxs) <: Number ? 0.0 : zeros(TOTAL_SPE
 # const NEMOCurve = specifyNEMOCurve(NEMO_shape = NEMO_TYPE);
 # const NIKCurve = specifyNEMOCurve(NIK_shape = NIK_TYPE);
 
-print("birthday", '\t', "current_idx", '\t', "parent_idx", '\t', "generation", '\t', "fate", '\t', "fate_t", '\t', "abs_fate_t", '\t', "daughter_1_idx", '\t', "daughter_2_idx", '\n');
+print("current_idx", '\t', "Td", '\n');
 
 # Simulate cell lineages
 #--------------------------------------------
@@ -179,16 +184,15 @@ else
     print("Please input the correct version -v: nonthread, thread, or spawn.");
 end
 
-# @time Simulate_nonthreaded!(allCells, Srates, delay);
-# @time Simulate_threaded!(allCells, Srates, delay);
-# @time Simulate_spawned!(allCells, Srates, delay);
-JLD.save(cells_fn, "allCells", allCells);
-
 # Output information about all cells (for visualization)
 #--------------------------------------------
+JLD.save(cells_fn, "allCells", allCells);
+
 out = open(output_fn, "w");
-write(out, "birthday", '\t', "current_idx", '\t', "parent_idx", '\t', "generation", '\t', "fate", '\t', "fate_t", '\t', "abs_fate_t", '\t', "daughter_1_idx", '\t', "daughter_2_idx", '\n');
+write(out, "current_idx", '\t', "Td", '\n');
 for i in 1:length(allCells)
-    write(out, string(allCells[i].birthday), '\t', string(allCells[i].current_idx), '\t', string(allCells[i].parent_idx), '\t', string(allCells[i].generation), '\t', string(allCells[i].fate), '\t', string(allCells[i].fate_t), '\t', string(allCells[i].abs_fate_t), '\t', string(allCells[i].daughter_1_idx), '\t', string(allCells[i].daughter_2_idx), '\n');
+    # parameter = RATE_name[(i-1) ÷ ST_num + 1];
+    # value = (i-1) % ST_num + 1;
+    write(out, string(allCells[i].current_idx), '\t', string(allCells[i].death_time), '\n');
 end
 close(out);
