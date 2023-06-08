@@ -74,7 +74,7 @@ function computeKinaseFluxes!(concentration, reactionFlux, Srates, phase, time)
     @inbounds begin
         # MODULE 1 : TAK1 dynamics
         # 1 : TAK1 activation (induced by ABCR-complex)
-        reactionFlux[ATAK1, ACTIVATION] = Srates[ATAK1, ACTIVATION] * concentration[ABCR] * michaelisMenten(K = 5.52, X = concentration[TAK1]);
+        reactionFlux[ATAK1, ACTIVATION] = Srates[ATAK1, ACTIVATION] * concentration[ACBM] * michaelisMenten(K = 5.52, X = concentration[TAK1]);
         # 2 : TAK1 activation (induced by IKK2)
         reactionFlux[ATAK1, SYNTHESIS] = Srates[ATAK1, SYNTHESIS] * concentration[IKK2] * michaelisMenten(K = 0.102, X = concentration[TAK1]);
         # 3 : TAK1 activation (induced by IKK3) The naming is strange because there are so many TAK1 activation equations!

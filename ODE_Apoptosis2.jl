@@ -10,7 +10,7 @@ function computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase, tim
         # MODULE 1: Bcl2 mRNA transcript
         #--------------------------------------------
         if phase == 2
-            concentration[ABCR] = inputCurves(time + birthday, idxs=ABCR);
+            concentration[ACBM] = inputCurves(time + birthday, idxs=ACBM);
             concentration[NA50] = inputCurves(time + birthday, idxs=NA50);
             concentration[NC50] = inputCurves(time + birthday, idxs=NC50);
             concentration[IKK] = inputCurves(time + birthday, idxs=IKK);

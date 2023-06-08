@@ -160,12 +160,18 @@ end
 # const delay(historicFlux, p, t) = (historicFlux .= 0.0);
 const delay(p, t; idxs=nothing) = typeof(idxs) <: Number ? 0.0 : zeros(TOTAL_SPECIES);
 
-# Define input NEMO curve (according to stimulus type)
+# Output parameters
 #--------------------------------------------
-# const NEMOCurve = specifyNEMOCurve(NEMO_shape = NEMO_TYPE);
-# const NIKCurve = specifyNEMOCurve(NIK_shape = NIK_TYPE);
-
-print("birthday", '\t', "current_idx", '\t', "parent_idx", '\t', "generation", '\t', "fate", '\t', "fate_t", '\t', "abs_fate_t", '\t', "daughter_1_idx", '\t', "daughter_2_idx", '\n');
+print("ANTIGEN_DOSE:", '\t', ANTIGEN_DOSE, '\n');
+print("CD40L_DOSE:", '\t', CD40L_DOSE, '\n');
+print("CD40L_DELAY:", '\t', CD40L_DELAY, '\n');
+print("BCR_DEATH:", '\t', BCR_DEATH, '\n');
+print("IKK_MOD:", '\t', IKK_MOD, '\n');
+print("MYCTHR:", '\t', MYCTHR, '\n');
+print("BCL2THR:", '\t', BCL2THR, '\n');
+print("CYCDTHR:", '\t', CYCDTHR, '\n');
+print("GROWTHR:", '\t', GROWTHR, '\n');
+print("MAX_GEN:", '\t', MAX_GEN, '\n');
 
 # Simulate cell lineages
 #--------------------------------------------

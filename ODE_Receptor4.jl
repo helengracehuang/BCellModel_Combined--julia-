@@ -7,8 +7,15 @@ function computeBCRFluxes!(concentration, reactionFlux, Srates, phase, delay, hi
         # get historic values for nuclear NFkB concentrations (for delayed transcription)
         if phase == 2
             p = (Srates, reactionFlux, historicFlux);
-            hist_ABCR = delay(p, time-12.0/CONVERSION; idxs=ABCR);
+            if time > 6
+                concentration[ACBM] = delay(p, time-6.0/CONVERSION; idxs=ABCR);
+            else
+                concentration[ACBM] = 0;
+            end
+        else
+            concentration[ACBM] = 0;
         end
+
         # MODULE 1 : BCR antigen-receptor interaction
         # 1 : Antigen basal decay
         reactionFlux[ANTIGEN, BASALDECAY] = Srates[ANTIGEN, BASALDECAY] * concentration[ANTIGEN];
@@ -91,19 +98,19 @@ function computeKinaseFluxes!(concentration, reactionFlux, Srates, phase, time)
 
         # MODULE 2 : Canonical pathway activation (IKK dynamics)
         # 6 : IKK2 activation (induced by ATAK1)
-        reactionFlux[IKK2, ACTIVATION] = Srates[IKK2, ACTIVATION] * concentration[ATAK1] * michaelisMenten(K = 0.986*140-10, X = concentration[IKK_OFF]);
+        reactionFlux[IKK2, ACTIVATION] = Srates[IKK2, ACTIVATION] * concentration[ATAK1] * michaelisMenten(K = 0.986*140, X = concentration[IKK_OFF]);
         # 7 : IKK2 deactivation
         reactionFlux[IKK2, DEACTIVATION] = Srates[IKK2, DEACTIVATION] * michaelisMenten(K = 0.202*140, X = concentration[IKK2]);
         # 8 : IKK3 basal activation
-        reactionFlux[IKK3, BASALSYNTHESIS] = Srates[IKK3, BASALSYNTHESIS] * michaelisMenten(K = 3.56*140-10, X = concentration[IKK2]);
+        reactionFlux[IKK3, BASALSYNTHESIS] = Srates[IKK3, BASALSYNTHESIS] * michaelisMenten(K = 3.56*140, X = concentration[IKK2]);
         # 9 : IKK3 activation (self induction)
-        reactionFlux[IKK3, ACTIVATION] = Srates[IKK3, ACTIVATION] * concentration[IKK3] * michaelisMenten(K = 1.56*140-10, X = concentration[IKK2]);
+        reactionFlux[IKK3, ACTIVATION] = Srates[IKK3, ACTIVATION] * concentration[IKK3] * michaelisMenten(K = 1.56*140, X = concentration[IKK2]);
         # 10 : IKK3 deactivation
         reactionFlux[IKK3, DEACTIVATION] = Srates[IKK3, DEACTIVATION] * michaelisMenten(K = 1.76*140, X = concentration[IKK3]);
         # 11 : IKK inhibition
         reactionFlux[IIKK, BASALSYNTHESIS] = Srates[IIKK, BASALSYNTHESIS] * michaelisMenten(K = 0.45*140, X = concentration[IKK3]);
         # 12 : IKK renewal
-        reactionFlux[IKK_OFF, BASALSYNTHESIS] = Srates[IKK_OFF, BASALSYNTHESIS] * michaelisMenten(K = 2.6*140-10, X = concentration[IIKK]);
+        reactionFlux[IKK_OFF, BASALSYNTHESIS] = Srates[IKK_OFF, BASALSYNTHESIS] * michaelisMenten(K = 2.6*140, X = concentration[IIKK]);
         # 13 : total IKK activity (IKK2 + IKK3) * IKK_modifier
         concentration[IKK] = IKK_MOD * (concentration[IKK2] + concentration[IKK3]);
 
@@ -122,20 +129,15 @@ end
 function ReceptorNettFluxes!(nettFlux, reactionFlux)
     @inbounds begin
         # 1 : ANTIGEN
-        # nettFlux[ANTIGEN] = - reactionFlux[ANTIGEN, BASALDECAY] - reactionFlux[ABCR, ASSOCIATION] * SCALE_CELLULAR2MEDIA + reactionFlux[ABCR, DISSOCIATION] * SCALE_CELLULAR2MEDIA;
+        nettFlux[ANTIGEN] = - reactionFlux[ANTIGEN, BASALDECAY] - reactionFlux[ABCR, ASSOCIATION] * SCALE_CELLULAR2MEDIA + reactionFlux[ABCR, DISSOCIATION] * SCALE_CELLULAR2MEDIA;
         # 2 : BCR
-        # nettFlux[BCR] = reactionFlux[BCR, BASALSYNTHESIS] - reactionFlux[BCR, BASALDECAY] - reactionFlux[ABCR, ASSOCIATION] + reactionFlux[ABCR, DISSOCIATION];
+        nettFlux[BCR] = reactionFlux[BCR, BASALSYNTHESIS] - reactionFlux[BCR, BASALDECAY] - reactionFlux[ABCR, ASSOCIATION] + reactionFlux[ABCR, DISSOCIATION];
         # 3 : Antigen-BCR
-        # nettFlux[ABCR] = reactionFlux[ABCR, ASSOCIATION] - reactionFlux[ABCR, DISSOCIATION] - reactionFlux[ABCR, BASALDECAY];
+        nettFlux[ABCR] = reactionFlux[ABCR, ASSOCIATION] - reactionFlux[ABCR, DISSOCIATION] - reactionFlux[ABCR, BASALDECAY];
         # 4 : inactivated CBM
         # nettFlux[CBM] = - reactionFlux[CBM, ACTIVATION] - reactionFlux[ACBM, SYNTHESIS] + reactionFlux[ACBM, DEACTIVATION] + reactionFlux[CBM, BASALSYNTHESIS];
         # 5 : activated CBM
         # nettFlux[ACBM] = reactionFlux[CBM, ACTIVATION] + reactionFlux[ACBM, SYNTHESIS] - reactionFlux[ACBM, DEACTIVATION] - reactionFlux[ICBM, SYNTHESIS];
-        if time > 12
-            nettFlux[ACBM] = hist_ABCR;
-        else
-            nettFlux[ACBM] = 0;
-        end
         # 6 : inhibited CBM
         # nettFlux[ICBM] = reactionFlux[ICBM, SYNTHESIS] - reactionFlux[CBM, BASALSYNTHESIS];
 

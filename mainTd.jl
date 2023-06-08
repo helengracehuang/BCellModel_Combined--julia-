@@ -113,7 +113,7 @@ function condition(out, u, t, integrator)
     out[1] = u[C8] - 2500;
     # out[2] = u[CDH1] - 0.2;
     # out[3] = u[IRF4] - 0.65*u[BCL6] - 1.2;
-    # out[4] = t - CD40L_DELAY;
+    out[2] = t - CD40L_DELAY;
 end
 
 function affect!(integrator, index)
@@ -139,15 +139,15 @@ function affect!(integrator, index)
     # elseif (index == 3)
     #     integrator.u[TOTAL_SPECIES] = 3;
     #     terminate!(integrator);
-    # elseif (index == 4)
-    #     integrator.u[CD40L] = CD40L_DOSE;
-    #     integrator.u[ANTIGEN] = 0;
+    elseif (index == 2)
+        integrator.u[CD40L] = CD40L_DOSE;
+        integrator.u[ANTIGEN] = 0;
         # integrator.u[ABCR] = 0;
     end
     nothing
 end
 
-cellFate = VectorContinuousCallback(condition, affect!, nothing, 1, save_positions=(true, true));
+cellFate = VectorContinuousCallback(condition, affect!, nothing, 2, save_positions=(true, true));
 
 # Set up a structure to hold cells
 #-------------------------------------------------------------------------

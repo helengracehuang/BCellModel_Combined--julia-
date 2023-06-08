@@ -1,4 +1,4 @@
-# 2nd edition of reaction rate parameters (added params for NFkB noncanonical pathway)
+# 3rd edition of reaction rate parameters (tuned params for BCR-CBM pathway so BCR can activate NFkB) -- Works with ODE_Receptor3.jl
 include("ConstantParams2.jl");
 # Input values of rate constants for all species
 # Rate constants are in hr-1 (converted from min-1 in Shokhirev model)
@@ -38,11 +38,11 @@ function setAllRates!(rates)
     # 3 : Antigen-BCR (half-life = 2hrs)
     setParams!((@view rates[ABCR, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.35, decay=0, association=66.0, dissociation=1.26, activation=0, deactivation=0, transport_in=0, transport_out=0);
     # 4 : inactivated CBM-complex
-    setParams!((@view rates[CBM, 1:end]), initialConc=100, scale=CONVERSION, basalsynthesis=6.84/100, synthesis=0, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=66.0/10, deactivation=0, transport_in=0, transport_out=0);
+    setParams!((@view rates[CBM, 1:end]), initialConc=100, scale=CONVERSION, basalsynthesis=6.84/100, synthesis=0, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=66.0/100, deactivation=0, transport_in=0, transport_out=0);
     # 5 : activated CBM-complex
-    setParams!((@view rates[ACBM, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=0, deactivation=1.26/10, transport_in=0, transport_out=0);
+    setParams!((@view rates[ACBM, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=0, deactivation=1.26, transport_in=0, transport_out=0);
     # 6 : inhibited CBM-complex
-    setParams!((@view rates[ICBM, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=18.06/100, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
+    setParams!((@view rates[ICBM, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=18.06/1000, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
     #--------------------------------------------
     # MODULE 2: CD40 Receptor species
     # 7 : CD40L (basaldecay: 0.115 for sCD154, 0.05 for a-CD40)
