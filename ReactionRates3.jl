@@ -45,7 +45,7 @@ function setAllRates!(rates)
     setParams!((@view rates[ICBM, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=18.06/1000, translation=0, basaldecay=0, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
     #--------------------------------------------
     # MODULE 2: CD40 Receptor species
-    # 7 : CD40L (basaldecay: 0.115 for sCD154, 0.05 for a-CD40)
+    # 7 : CD40L (basaldecay: 0.115 for sCD154, 0.05 for a-CD40) Tune this to 0.075?
     setParams!((@view rates[CD40L, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.05, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
     # 8 : CD40R
     setParams!((@view rates[CD40R, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=7.672, synthesis=0, translation=0, basaldecay=0.05, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
@@ -104,7 +104,7 @@ function setAllRates!(rates)
     # 13 : IkBen
     setParams!((@view rates[NIKBE, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.72, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0.72);
     # 14 : tRelA (basalsynthesis changed from 0.0069 to 0.00432)
-    setParams!((@view rates[TRELA, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0.00432, synthesis=0, translation=0, basaldecay=0.174, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
+    setParams!((@view rates[TRELA, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0.0069, synthesis=0, translation=0, basaldecay=0.174, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
     # 15 : tp50
     setParams!((@view rates[TP50, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0.002, synthesis=0, translation=0, basaldecay=0.174, decay=0, association=0, dissociation=0, activation=0, deactivation=0, transport_in=0, transport_out=0);
     # 16 : tRelB
@@ -142,7 +142,7 @@ function setAllRates!(rates)
     # 32 : RelA:p50
     setParams!((@view rates[A50, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.0144, decay=0, association=0.114, dissociation=1.14, activation=0, deactivation=0, transport_in=324.0, transport_out=0);
     # 33 : RelA:p52
-    setParams!((@view rates[A52, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.0144, decay=0, association=0.0576, dissociation=57.0, activation=0, deactivation=0, transport_in=324.0, transport_out=0);
+    setParams!((@view rates[A52, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.0144, decay=0, association=0.0576, dissociation=0.114, activation=0, deactivation=0, transport_in=324.0, transport_out=0);
     # 34 : RelB:p50
     setParams!((@view rates[B50, 1:end]), initialConc=0, scale=CONVERSION, basalsynthesis=0, synthesis=0, translation=0, basaldecay=0.0144, decay=0, association=0.0576, dissociation=0.276, activation=0, deactivation=0, transport_in=324.0, transport_out=0);
     # 35 : RelB:p52
@@ -297,8 +297,8 @@ function setAllRates!(rates)
     ###### Apoptosis Model #######
     ##############################
     # MODULE 1: NFkB regulatory species :
-    # 1 : tBcl2 ("activation" is the basal fractional activity Kb)
-    setParams!((@view rates[TBCL2, 1:end]), initialConc=2000, scale=CONVERSION, basalsynthesis=0, synthesis=780, translation=0, basaldecay=0.42, decay=0, association=0, dissociation=0, activation=0.01, deactivation=0, transport_in=0, transport_out=0);
+    # 1 : tBcl2 ("activation" is the basal fractional activity Kb) synthesis = 780
+    setParams!((@view rates[TBCL2, 1:end]), initialConc=2000 / 200, scale=CONVERSION, basalsynthesis=0, synthesis=480, translation=0, basaldecay=0.42, decay=0, association=0, dissociation=0, activation=0.01, deactivation=0, transport_in=0, transport_out=0);
     #------------------------------------------------
     # MODULE 2: Receptor & DISC system species :
     # 2 : L (10000 in Shokhirev, 1 in Mitchell 2018??)
@@ -484,7 +484,7 @@ function setAllRates!(rates)
     # 11 : CycA
     setParams!((@view rates[CYCA, 1:end]), initialConc=0.0, scale=CONVERSION, basalsynthesis=0.0, synthesis=0.5, translation=0.0, basaldecay=0.0, decay=20.0, association=0.0, dissociation=0.0, phosphorylation=0.0, dephosphorylation=0.0);
     # 12 : CycB
-    setParams!((@view rates[CYCB, 1:end]), initialConc=0.00508, scale=CONVERSION, basalsynthesis=0.1, synthesis=0.6, translation=0.0, basaldecay=0.05, decay=1.0, association=0.0, dissociation=0.0, phosphorylation=20.0, dephosphorylation=0.0);
+    setParams!((@view rates[CYCB, 1:end]), initialConc=0.00508, scale=CONVERSION, basalsynthesis=0.1, synthesis=0.6 * 2.0, translation=0.0, basaldecay=0.05, decay=1.0, association=0.0, dissociation=0.0, phosphorylation=20.0, dephosphorylation=0.0);
     # 13 : p27
     setParams!((@view rates[P27, 1:end]), initialConc=1.9033, scale=CONVERSION, basalsynthesis=0.0, synthesis=20.0, translation=0.0, basaldecay=10.0, decay=0.0, association=0.0, dissociation=0.0, phosphorylation=100.0, dephosphorylation=0.0);
     # 14 : CycD:p27

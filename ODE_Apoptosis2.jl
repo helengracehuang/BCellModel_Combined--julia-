@@ -1,27 +1,21 @@
 # 2nd edition of Apoptosis model (added utilities to solve ODE separately from NFkB model)
-# eq. 17+1 is BCR-mediated C8 processing
+# eq. 17+1 is BCR-mediated C8 processing, also change the inputCurves assignment
 # include("HelperFunctions.jl");
 # Compute reaction fluxes for apoptosis module
 #--------------------------------------------
 
-function computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase, time, birthday, inputCurves)
+function computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase)
     @inbounds begin
         #--------------------------------------------
         # MODULE 1: Bcl2 mRNA transcript
         #--------------------------------------------
-        if phase == 2
-            concentration[ACBM] = inputCurves(time + birthday, idxs=ACBM);
-            concentration[NA50] = inputCurves(time + birthday, idxs=NA50);
-            concentration[NC50] = inputCurves(time + birthday, idxs=NC50);
-            concentration[IKK] = inputCurves(time + birthday, idxs=IKK);
-        end
         # A01. 0 --nNFkB--> tBcl2 activity : Activation (((kA50*[A50n]+kC50*[C50n]+kIKK*[IKK])/Kd)^expn/(k1+((kA50*[A50n]+kC50*[C50n]+kIKK*[IKK])/Kd)^expn)*(1-k2)+k2 ----> IKK activity represents other transcription factor
         # reactionFlux[TBCL2, ACTIVATION] = hillActivation(Ka = 1.0, na = 2.0, X = (0.3*concentration[NA50] + 0.6*concentration[NC50] + 0.1*concentration[IKK])/BCL2THR) * (1-Srates[TBCL2, ACTIVATION]) + Srates[TBCL2, ACTIVATION];
         reactionFlux[TBCL2, ACTIVATION] = hillActivation(Ka = 1.0, na = 2.0, X = (0.3*(concentration[NA50]+concentration[NA52]) + 0.6*(concentration[NC50]+concentration[NC52]) + 0.1*concentration[IKK])/BCL2THR) * (1-Srates[TBCL2, ACTIVATION]) + Srates[TBCL2, ACTIVATION];
         # A02. tBcl2 Act ----> tBcl2 : Synthesis
-        reactionFlux[TBCL2, SYNTHESIS] = Srates[TBCL2, SYNTHESIS] * max(reactionFlux[TBCL2, ACTIVATION], 0.01);
+        reactionFlux[TBCL2, SYNTHESIS] = Srates[TBCL2, SYNTHESIS] * reactionFlux[TBCL2, ACTIVATION];
         # A03. tBcl2 ----> 0 : Basal decay
-        reactionFlux[TBCL2, BASALDECAY] = Srates[TBCL2, BASALDECAY] * concentration[TBCL2];
+        reactionFlux[TBCL2, BASALDECAY] = Srates[TBCL2, BASALDECAY] * concentration[TBCL2] / 11;
 
         #--------------------------------------------
         # MODULE 2: Receptor & DISC system
@@ -504,7 +498,7 @@ end
 function computeApoptosisNettFluxes!(nettFlux, concentration, reactionFlux, Srates, phase)
     #------------------------------------------------
     # Compute Apoptosis reaction fluxes
-    computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase, nothing, nothing, nothing);
+    computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase);
     # Compute Apoptosis net fluxes
     ApoptosisNettFluxes!(nettFlux, reactionFlux);
     nothing
@@ -513,9 +507,17 @@ end
 # time-dependent ODE (simulation, phase = 2)
 function computeApoptosisNettFluxes!(nettFlux, concentration, reactionFlux, Srates, phase, time, birthday, inputCurves)
     #------------------------------------------------
+    if phase == 2
+        concentration[ABCR] = inputCurves(time + birthday, idxs=ABCR);
+        concentration[NA50] = inputCurves(time + birthday, idxs=NA50);
+        concentration[NA52] = inputCurves(time + birthday, idxs=NA52);
+        concentration[NC50] = inputCurves(time + birthday, idxs=NC50);
+        concentration[NC52] = inputCurves(time + birthday, idxs=NC52);
+        concentration[IKK] = inputCurves(time + birthday, idxs=IKK);
+    end
     # Compute Apoptosis reaction fluxes
-    computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase, time, birthday, inputCurves);
+    # computeApoptosisFluxes!(concentration, reactionFlux, Srates, phase);
     # Compute Apoptosis net fluxes
-    ApoptosisNettFluxes!(nettFlux, reactionFlux);
+    # ApoptosisNettFluxes!(nettFlux, reactionFlux);
     nothing
 end

@@ -1,4 +1,5 @@
 # 3rd edition of NFkB model (added non-canonical pathway according to Mitchell 2022 review paper)
+# changed CREL transcription induction to /100000 (from /10000 that I tuned earlier)
 # include("HelperFunctions.jl");
 # Compute reaction fluxes for NFkB module
 #--------------------------------------------
@@ -63,7 +64,7 @@ function computeNFkBFluxes!(concentration, reactionFlux, Srates, phase, delay, h
         # 0 --nNFkB--> tIkB : nuclear NFkB dimer-induced synthesis
         # const rate * ( 1 + sum( w*([d]/Kd)^hill)) / ( 1 + sum( ([d]/Kd)^hill))
         # tIkBa induction weights changed from (200, 200) to (100, 100)
-        reactionFlux[TIKBA, BASALSYNTHESIS] = Srates[TIKBA, BASALSYNTHESIS] * hillInduction(100, 100, concentration[NA50], concentration[NA52]; Kd = 150.0, hill = 1.1);
+        reactionFlux[TIKBA, BASALSYNTHESIS] = Srates[TIKBA, BASALSYNTHESIS] * hillInduction(200, 200, concentration[NA50], concentration[NA52]; Kd = 150.0, hill = 1.1);
         reactionFlux[TIKBB, BASALSYNTHESIS] = Srates[TIKBB, BASALSYNTHESIS];
         reactionFlux[TIKBE, BASALSYNTHESIS] = Srates[TIKBE, BASALSYNTHESIS] * hillInduction(5, 5, 25, 25, concentration[NA50], concentration[NA52], concentration[NC50], concentration[NC52]; Kd = 150.0, hill = 1.1);
         if phase == 1  # pre-simulation phase (no delay)
@@ -131,7 +132,7 @@ function computeNFkBFluxes!(concentration, reactionFlux, Srates, phase, delay, h
         reactionFlux[TP50, BASALSYNTHESIS] = Srates[TP50, BASALSYNTHESIS] + hillInduction_NFkB(20, 20, 20, 20, concentration[NA50], concentration[NA52], concentration[NC50], concentration[NC52]; Kd = 150.0, hill = 1.0) / 100000;
         reactionFlux[TRELB, BASALSYNTHESIS] = Srates[TRELB, BASALSYNTHESIS] + hillInduction_NFkB(5, 5, 100, 100, concentration[NA50], concentration[NA52], concentration[NC50], concentration[NC52]; Kd = 150.0, hill = 1.0) / 100000;
         reactionFlux[TP100, BASALSYNTHESIS] = Srates[TP100, BASALSYNTHESIS] + hillInduction_p100(1000*P100_MOD, 1000*P100_MOD, 1500*P100_MOD, 1500*P100_MOD, concentration[NA50], concentration[NA52], concentration[NC50], concentration[NC52]; Kd = 150.0, hill = 1.0);
-        reactionFlux[TCREL, BASALSYNTHESIS] = Srates[TCREL, BASALSYNTHESIS] + hillInduction_NFkB(200, 200, 200, 200, concentration[NA50], concentration[NA52], concentration[NC50], concentration[NC52]; Kd = 150.0, hill = 1.0) / 10000;
+        reactionFlux[TCREL, BASALSYNTHESIS] = Srates[TCREL, BASALSYNTHESIS] + hillInduction_NFkB(20, 20, 20, 20, concentration[NA50], concentration[NA52], concentration[NC50], concentration[NC52]; Kd = 150.0, hill = 1.0) / 100000;
         if phase == 1  # pre-simulation phase (no delay)
             for i in TRELA:TCREL
                 reactionFlux[i, SYNTHESIS] = reactionFlux[i, BASALSYNTHESIS];
@@ -151,7 +152,7 @@ function computeNFkBFluxes!(concentration, reactionFlux, Srates, phase, delay, h
                 reactionFlux[TP100, SYNTHESIS] = Srates[TP100, BASALSYNTHESIS];
             end
             if time > 12
-                reactionFlux[TCREL, SYNTHESIS] = Srates[TCREL, BASALSYNTHESIS] + hillInduction_NFkB(200, 200, 200, 200, hist_NA50_120, hist_NA52_120, hist_NC50_120, hist_NC52_120; Kd = 150.0, hill = 1.0) / 10000;
+                reactionFlux[TCREL, SYNTHESIS] = Srates[TCREL, BASALSYNTHESIS] + hillInduction_NFkB(20, 20, 20, 20, hist_NA50_120, hist_NA52_120, hist_NC50_120, hist_NC52_120; Kd = 150.0, hill = 1.0) / 100000;
             else # transcription is at basal level (with basal induction)
                 reactionFlux[TCREL, SYNTHESIS] = Srates[TCREL, BASALSYNTHESIS];
             end

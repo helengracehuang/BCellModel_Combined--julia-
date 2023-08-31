@@ -11,7 +11,7 @@ const CONVERSION = 1;   # unit conversion (default in hr-1). Set to 1/60 or 1/36
 const APOP_CONVERSION = 0.0078;   # apoptosis #molecule to nM conversion: 10e9 * molecule / [(6.02 * 10e23) * (212 * 10e-18 * 1000)] = 0.78 * 10e-2 = 0.0078
 
 const EPS = 1;    # translation modifier
-const IKK_MOD = 1.5;    # IKK modifer (scale IKK from 0-100 AU to 0-170 nM)
+const IKK_MOD = 2.4;    # IKK modifer (scale IKK from 0-100 AU to 0-170 nM)
 # const BASAL_IKK = 0.01;
 # const TOTAL_IKK = 170;    # unit: nM (170 in RoyMitchell 2019, 288.48 in Mitchell 2018, 140 in Mitchell 2022 review)
 # const BASAL_NIK = 0.1;    # ~ 5nM at baseline in Mitchell 2022 review)
@@ -27,7 +27,7 @@ const P100_MOD = 9e-4;    # default: 9e-4
 const MYCTHR = 40;     # unit: nM (40 in Mitchell 2018)
 const BCL2THR = 40;
 const CYCDTHR = 40;
-const GROWTHR = 40;
+const GROWTHR = 220;
 
 const SCALE_CELLULAR2MEDIA = 0.001;   # scale for external ligands like CD40L, a-IgM, LPS, etc.
 const SCALE_MITO2CELLULAR = 1/0.07;   # scale for mitochondrial species
@@ -42,7 +42,7 @@ const DAUGHTER_RATE_CV = 0.00;
 const DAUGHTER_CONC_CV = 0.00;
 const DAUGHTER_PARTITION_CV = 0.072; # how asymmetric each division needs to be
 
-const FOUNDER_CELL_NUM = 8; # 125 in Mitchell et al. 2018
+const FOUNDER_CELL_NUM = 1; # 125 in Mitchell et al. 2018
 const MAX_GEN = 7; # maximum generation
 const BURN_IN_PERIOD = 240; # hrs, pre-simulation phase
 const GLOBAL_END_TIME = 120; # hrs

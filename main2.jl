@@ -5,7 +5,7 @@ using DifferentialEquations;
 using ArgParse; # Argument parsing
 
 # Benchmarking & profiling packages
-using BenchmarkTools;
+using BenchmarkTools; # in Boomer server, mktempdir() generates permission denied error, comment it out
 using StatProfilerHTML;
 
 # Visualization packages
@@ -17,16 +17,16 @@ using JLD;
 
 # Include source files
 #--------------------------------------------
-include("ReactionRates2.jl");
+include("ReactionRates3.jl");
 include("HelperFunctions.jl");
 
-include("ODE_Receptor4.jl");
+include("ODE_Receptor3.jl");
 include("ODE_NFkB3.jl");
 include("ODE_Apoptosis2.jl");
 include("ODE_Differentiation.jl");
 include("ODE_Proliferation.jl");
 
-include("SimulateFunctions4.jl");
+include("SimulateFunctions4+.jl");
 
 # Argument parsing w/ command line input
 #--------------------------------------------
@@ -96,7 +96,7 @@ end
 
 # time-dependent ODE (simulation, w/ delay: phase = 2)
 function computeNetworkNettFluxes!(nettFlux, concentration, delay, (birthday, Srates, reactionFlux, historicFlux), time)
-    computeReceptorNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2, delay, historicFlux, time); #*** changed to add delay to receptor module ***
+    computeReceptorNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2, time); #*** changed to add delay to receptor module ***
     computeNFkBNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2, delay, historicFlux, time);
     # computeApoptosisNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2);
     computeDiffNettFluxes!(nettFlux, concentration, reactionFlux, Srates, 2);
@@ -133,7 +133,7 @@ function affect!(integrator, index)
         end
     elseif (index == 3)
         integrator.u[TOTAL_SPECIES] = 3;
-        terminate!(integrator);
+        # terminate!(integrator);
     elseif (index == 4)
         integrator.u[CD40L] = CD40L_DOSE;
         integrator.u[ANTIGEN] = 0;
@@ -194,7 +194,7 @@ JLD.save(cells_fn, "allCells", allCells);
 #--------------------------------------------
 out = open(output_fn, "w");
 write(out, "birthday", '\t', "current_idx", '\t', "parent_idx", '\t', "generation", '\t', "fate", '\t', "fate_t", '\t', "abs_fate_t", '\t', "daughter_1_idx", '\t', "daughter_2_idx", '\n');
-for i in 1:length(allCells)
+for i in 1:lastindex(allCells)
     write(out, string(allCells[i].birthday), '\t', string(allCells[i].current_idx), '\t', string(allCells[i].parent_idx), '\t', string(allCells[i].generation), '\t', string(allCells[i].fate), '\t', string(allCells[i].fate_t), '\t', string(allCells[i].abs_fate_t), '\t', string(allCells[i].daughter_1_idx), '\t', string(allCells[i].daughter_2_idx), '\n');
 end
 close(out);
